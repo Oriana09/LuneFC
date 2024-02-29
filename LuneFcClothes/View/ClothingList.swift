@@ -63,32 +63,37 @@ class ClothingList: UIViewController {
 }
     // MARK: - UITableViewDataSource Methods UITableViewDelegate Methods
     
-    extension ClothingList: UITableViewDataSource, UITableViewDelegate {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-              return viewModel.clothingItems.count // Número de filas que deseas mostrar
-          }
-      
-          func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-              
-              let cell = tableView.dequeueReusableCell(withIdentifier: ClothingListCell.identifier, for: indexPath) as! ClothingListCell
-             
-              let clothingItem = viewModel.clothingItems[indexPath.row]
-              cell.configure(model: clothingItem )
-//
-//              cell.textLabel?.text = labelText
-//              cell.imageView?.image = UIImage(named: imageName)
-      
-              return cell
-          }
-
-//         
-//          func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//              print("Seleccionaste la fila \(indexPath.row)")
-//          }
-          
+extension ClothingList: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.clothingItems.count // Número de filas que deseas mostrar
     }
-//
-//
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClothingListCell.identifier, for: indexPath) as! ClothingListCell
+        
+        let clothingItem = viewModel.clothingItems[indexPath.row]
+        cell.configure(model: clothingItem )
+        //
+        //              cell.textLabel?.text = labelText
+        //              cell.imageView?.image = UIImage(named: imageName)
+        
+        return cell
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let productDetailVC = ProductDetailViewController()
+        
+        // Force the animation to start
+        productDetailVC.topPartDetailView.startAnimation()
+        
+        let navController = UINavigationController(rootViewController: productDetailVC)
+        navController.modalPresentationStyle = .pageSheet
+        present(navController, animated: true, completion: nil)
+    }
+    }
     
 
 
