@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ColorSizeView: UIView {
+class SizeView: UIView {
     // MARK: - Properties
     let sizes: [String] = ["XS", "S", "L", "M", "XL"]
     

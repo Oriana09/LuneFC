@@ -86,11 +86,8 @@ extension ClothingList: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let productDetailVC = ProductDetailViewController()
         
-        // Force the animation to start
-        productDetailVC.topPartDetailView.startAnimation()
-        
         let navController = UINavigationController(rootViewController: productDetailVC)
-        navController.modalPresentationStyle = .pageSheet
+       
         present(navController, animated: true, completion: nil)
     }
     }
