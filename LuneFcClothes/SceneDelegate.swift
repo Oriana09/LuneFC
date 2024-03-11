@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let clothingVC = ClothingVC()
+        let clothingVC = CategoriesViewController()
         let navigationController = UINavigationController(rootViewController: clothingVC) // Aquí se incrusta en el UINavigationController
         window?.rootViewController = navigationController
         

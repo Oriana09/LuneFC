@@ -38,6 +38,8 @@ class ClothingListCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+   
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -79,7 +81,7 @@ class ClothingListCell: UITableViewCell {
     }
    
     func configure(model: ClothingItem) {
-        self.productImage.image =  model.image
+        self.productImage.image =  UIImage(named: model.image)
         self.priceLabel.text = "$\(model.price)"
         self.nameLabel.text = model.title
     }

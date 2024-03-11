@@ -12,6 +12,8 @@ class ClothesCell: UICollectionViewCell {
     
     static let identifier = "ClothesCell"
     
+    
+    
     private lazy var blurBox: BlurContainer = {
         let container = BlurContainer(cornerRadius: 20)
         container.layer.masksToBounds = true
@@ -77,9 +79,9 @@ class ClothesCell: UICollectionViewCell {
     }
     
     
-    func configure(model: ClothingItem) {
-        self.imageView.image = model.image
-        self.label.text = model.title
+    func configure(model: Category) {
+        self.imageView.image = UIImage(named: model.image)
+        self.label.text = model.name
     }
 }
 

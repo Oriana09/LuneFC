@@ -10,7 +10,6 @@ import UIKit
 
 class TopPartDetailView: UIView {
     
-    var viewModel = ClothingItemViewModel()
     
     // MARK: - Subviews
     

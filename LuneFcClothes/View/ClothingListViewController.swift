@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 
-class ClothingList: UIViewController {
+class ClothingListViewController: UIViewController {
  
-    var viewModel = ClothingItemViewModel()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -23,13 +22,22 @@ class ClothingList: UIViewController {
         return tableView
     }()
     
+    let viewModel: ClothingListViewModel
+    
+    init(viewModel: ClothingListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: .main)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Colecciones"
         self.setupConstrains()
-        viewModel = ClothingItemViewModel()
         self.configuteButtom()
       
     }
@@ -63,17 +71,17 @@ class ClothingList: UIViewController {
 }
     // MARK: - UITableViewDataSource Methods UITableViewDelegate Methods
     
-extension ClothingList: UITableViewDataSource, UITableViewDelegate {
+extension ClothingListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.clothingItems.count // Número de filas que deseas mostrar
+        return self.viewModel.items.count // Número de filas que deseas mostrar
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ClothingListCell.identifier, for: indexPath) as! ClothingListCell
         
-        let clothingItem = viewModel.clothingItems[indexPath.row]
-        cell.configure(model: clothingItem )
+        let clothingItem = self.viewModel.items[indexPath.row]
+        cell.configure(model: clothingItem)
         //
         //              cell.textLabel?.text = labelText
         //              cell.imageView?.image = UIImage(named: imageName)
@@ -84,13 +92,14 @@ extension ClothingList: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let productDetailVC = ProductDetailViewController()
+        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
         
+
         let navController = UINavigationController(rootViewController: productDetailVC)
-       
+        
         present(navController, animated: true, completion: nil)
     }
-    }
+}
     
 
 
