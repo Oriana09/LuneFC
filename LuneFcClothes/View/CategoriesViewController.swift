@@ -30,7 +30,11 @@ class CategoriesViewController: UIViewController {
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-      
+        
+            let agregarElementoVC = AddElementViewController()
+            navigationController?.pushViewController(agregarElementoVC, animated: true)
+        
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
