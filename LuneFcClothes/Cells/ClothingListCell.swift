@@ -81,7 +81,7 @@ class ClothingListCell: UITableViewCell {
     }
    
     func configure(model: ClothingItem) {
-        self.productImage.image =  UIImage(named: model.image)
+        self.productImage.image =  UIImage(named: model.description)
         self.priceLabel.text = "$\(model.price)"
         self.nameLabel.text = model.title
     }

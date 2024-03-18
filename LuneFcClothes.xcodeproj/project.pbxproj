@@ -20,7 +20,7 @@
 		694168622B9F91A900B64661 /* AddElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168612B9F91A900B64661 /* AddElementViewController.swift */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
-		69F80E4B2B755D780060A9B1 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoriesViewController.swift */; };
+		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
 		69F80E502B755D790060A9B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69F80E4F2B755D790060A9B1 /* Assets.xcassets */; };
 		69F80E532B755D790060A9B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69F80E512B755D790060A9B1 /* LaunchScreen.storyboard */; };
 		69F80E5C2B7567E30060A9B1 /* ClothesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E5B2B7567E30060A9B1 /* ClothesCell.swift */; };
@@ -46,7 +46,7 @@
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69F80E482B755D780060A9B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		69F80E4A2B755D780060A9B1 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		69F80E4F2B755D790060A9B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69F80E522B755D790060A9B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69F80E542B755D790060A9B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		69F80E632B757DFE0060A9B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				69F80E4A2B755D780060A9B1 /* CategoriesViewController.swift */,
+				69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */,
 				69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */,
 				694168612B9F91A900B64661 /* AddElementViewController.swift */,
 			);
@@ -283,7 +283,7 @@
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */,
 				69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */,
-				69F80E4B2B755D780060A9B1 /* CategoriesViewController.swift in Sources */,
+				69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */,
 				69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */,
 				693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */,
 				69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */,

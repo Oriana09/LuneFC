@@ -80,7 +80,7 @@ class ClothesCell: UICollectionViewCell {
     
     
     func configure(model: Category) {
-        self.imageView.image = UIImage(named: model.image)
+        self.imageView.image = UIImage(named: model.description)
         self.label.text = model.name
     }
 }

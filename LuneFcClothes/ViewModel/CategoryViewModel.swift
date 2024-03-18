@@ -5,14 +5,28 @@
 //  Created by Oriana Costancio on 07/03/2024.
 //
 
-import Foundation
-import UIKit
+import RealmSwift
 
 class CategoryViewModel {
     
-    let category: Category
+    private let realm = try! Realm()
     
-    init(category: Category) {
-        self.category = category
+    var categories: Results<Category>?
+    
+//    init(category: Category) {
+//        self.category = category
+//    }
+   
+    func save(_ category: Category) {
+        try! self.realm.write {
+            realm.add(category)
+        }
     }
+
+    func loadCategories()  {
+        categories = realm.objects(Category.self)
+        
+    }
+  
 }
+

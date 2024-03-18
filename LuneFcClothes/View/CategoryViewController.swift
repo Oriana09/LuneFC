@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
-class CategoriesViewController: UIViewController {
+class CategoryViewController: UIViewController {
     
+    
+    private let viewModel = CategoryViewModel()
     
     private let collection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createTwoColumnFlowLayout())
@@ -16,6 +19,7 @@ class CategoriesViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints =  false
         return collectionView
     }()
+    
     
     private func configuteButtom(){
         
@@ -31,10 +35,13 @@ class CategoriesViewController: UIViewController {
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
         
-            let agregarElementoVC = AddElementViewController()
-            navigationController?.pushViewController(agregarElementoVC, animated: true)
         
-
+        
+//            let agregarElementoVC = AddElementViewController()
+//            //agregarElementoVC.delegate = self
+//            navigationController?.pushViewController(agregarElementoVC, animated: true)
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,15 +72,21 @@ class CategoriesViewController: UIViewController {
 }
 // MARK: - UITableViewDataSource  UITableViewDelegate 
  
-extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return viewModel.categories?.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClothesCell.identifier, for: indexPath) as! ClothesCell
         
+        guard let categories = self.viewModel.categories else {
+            return UICollectionViewCell()
+        }
+     
         let category = categories[indexPath.row]
         cell.configure(model: category)
         
@@ -81,20 +94,24 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+        guard let selectedCategory = viewModel.categories?[indexPath.row] else {
+            // Si no hay una categoría seleccionada, no podemos proceder
+            return
+        }
         
-        
-        let categoriaSeleccionada = categories[indexPath.row]
-        
-        let prendesFiltradas = clothingItems.filter { $0.category == categoriaSeleccionada.name }
-        
-        let listaPrendasViewController = ClothingListViewController(
-            viewModel: ClothingListViewModel(
-                items: prendesFiltradas
-            )
+        let clothingListVM = ClothingListViewModel(category: selectedCategory)
+        let clothingListVC = ClothingListViewController(
+            viewModel: clothingListVM
         )
+ 
+        self.navigationController?.pushViewController(clothingListVC, animated: true)
+        }
+    }
+ 
        
         
        
-        navigationController?.pushViewController(listaPrendasViewController, animated: true)
-    }
-}
+       
+
+

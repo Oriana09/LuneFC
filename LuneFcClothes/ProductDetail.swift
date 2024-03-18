@@ -162,7 +162,7 @@ class ProductDetailViewController: UIViewController {
     }
     
     func configure(model: ClothingItem) {
-        self.imageView.image = UIImage(named: model.image)
+        self.imageView.image = UIImage(named: model.description)
         self.nameProductLabel.text = model.title
         self.priceValueLabel.text = "$\(model.price)"
         self.stockLabel.text = "Cantidad de stock:\(model.stockQuantity)"

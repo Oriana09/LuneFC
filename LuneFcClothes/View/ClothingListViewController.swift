@@ -10,6 +10,7 @@ import UIKit
 
 class ClothingListViewController: UIViewController {
  
+    var viewModel: ClothingListViewModel
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -21,8 +22,6 @@ class ClothingListViewController: UIViewController {
         
         return tableView
     }()
-    
-    let viewModel: ClothingListViewModel
     
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
@@ -39,6 +38,7 @@ class ClothingListViewController: UIViewController {
         self.navigationItem.title = "Colecciones"
         self.setupConstrains()
         self.configuteButtom()
+        self.viewModel.loadItems()
       
     }
     
@@ -64,41 +64,51 @@ class ClothingListViewController: UIViewController {
         addButton.tintColor = ColorManager.light_neutral_1000_dark_neutral_1000
         navigationItem.rightBarButtonItem = addButton
     }
-    
+    #warning("modificar el boton una vez que se hizo prueba")
+#warning("estoy en mi ViewModel y tengo que crear una funcion en donde tengo que guardar nuevo elemneto y en el view controller tengo el boton donde se genera esa action. como configuro?")
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-      
+        var texfield = UITextField()
+        
+        let  alert =  UIAlertController(title: "Addd new item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            
+        
+        }
     }
 }
     // MARK: - UITableViewDataSource Methods UITableViewDelegate Methods
     
 extension ClothingListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.items.count // Número de filas que deseas mostrar
+        return self.viewModel.items?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ClothingListCell.identifier, for: indexPath) as! ClothingListCell
         
-        let clothingItem = self.viewModel.items[indexPath.row]
-        cell.configure(model: clothingItem)
-        //
-        //              cell.textLabel?.text = labelText
-        //              cell.imageView?.image = UIImage(named: imageName)
+        guard let items = self.viewModel.items else {
+            return UITableViewCell()
+        }
+        
+        let item = items[indexPath.row]
+        cell.configure(model: item)
         
         return cell
     }
     
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
-        
 
-        let navController = UINavigationController(rootViewController: productDetailVC)
-        
-        present(navController, animated: true, completion: nil)
-    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
+//        
+//
+//        let navController = UINavigationController(rootViewController: productDetailVC)
+//        
+//        present(navController, animated: true, completion: nil)
+//    }
 }
     
 
