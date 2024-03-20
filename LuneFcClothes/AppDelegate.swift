@@ -15,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
          
+        // Configurar la versión de la base de datos de Realm
+             let config = Realm.Configuration(
+                 // Incrementa el número de versión si cambias la estructura de tu modelo de datos
+                 schemaVersion: 1,
+                 migrationBlock: { migration, oldSchemaVersion in
+                     // No necesitas implementar un bloque de migración en este caso
+                 }
+             )
+             Realm.Configuration.defaultConfiguration = config
+        
         do {
             let realm = try Realm()
         } catch {

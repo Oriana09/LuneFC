@@ -15,7 +15,9 @@ class CategoryViewController: UIViewController {
     
     private let collection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createTwoColumnFlowLayout())
-        collectionView.register(ClothesCell.self, forCellWithReuseIdentifier: ClothesCell.identifier)
+        
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
+
         collectionView.translatesAutoresizingMaskIntoConstraints =  false
         return collectionView
     }()
@@ -33,19 +35,19 @@ class CategoryViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
     }
     
+    #warning("Configurar el boton para guardar categorias")
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
         
-        
-        
-//            let agregarElementoVC = AddElementViewController()
-//            //agregarElementoVC.delegate = self
-//            navigationController?.pushViewController(agregarElementoVC, animated: true)
+            let agregarElementoVC = AddElementViewController()
+            //agregarElementoVC.delegate = self
+            navigationController?.pushViewController(agregarElementoVC, animated: true)
         
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        self.viewModel.loadCategories()
         self.navigationItem.title = "FC~LUNE"
         self.collection.delegate = self
         self.collection.dataSource = self
@@ -75,13 +77,13 @@ class CategoryViewController: UIViewController {
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.categories?.count ?? 1
+        return viewModel.categories?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ClothesCell.identifier, for: indexPath) as! ClothesCell
+      
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+
         
         guard let categories = self.viewModel.categories else {
             return UICollectionViewCell()

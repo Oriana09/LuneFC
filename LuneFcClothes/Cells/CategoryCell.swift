@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class ClothesCell: UICollectionViewCell {
+class CategoryCell: UICollectionViewCell {
     
-    static let identifier = "ClothesCell"
+    static let identifier = "CategoryCell"
     
     
     
@@ -80,7 +80,7 @@ class ClothesCell: UICollectionViewCell {
     
     
     func configure(model: Category) {
-        self.imageView.image = UIImage(named: model.description)
+        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
         self.label.text = model.name
     }
 }

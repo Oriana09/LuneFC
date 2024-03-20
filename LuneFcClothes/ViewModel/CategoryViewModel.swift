@@ -13,9 +13,7 @@ class CategoryViewModel {
     
     var categories: Results<Category>?
     
-//    init(category: Category) {
-//        self.category = category
-//    }
+
    
     func save(_ category: Category) {
         try! self.realm.write {
@@ -24,7 +22,7 @@ class CategoryViewModel {
     }
 
     func loadCategories()  {
-        categories = realm.objects(Category.self)
+        self.categories = self.realm.objects(Category.self)
         
     }
   
