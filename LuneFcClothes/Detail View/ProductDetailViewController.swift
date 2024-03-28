@@ -1,5 +1,5 @@
 //
-//  ProductDetail.swift
+//  ProductDetailViewController.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 28/02/2024.
@@ -10,9 +10,7 @@ import UIKit
 
 class ProductDetailViewController: UIViewController {
     
-    
     let sizes: [String] = ["XS", "S", "L", "M", "XL"]
-    
     private let viewModel: ProductDatailViewModel
     private var buttons: [UIButton] = []
     
@@ -69,7 +67,6 @@ class ProductDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,8 +75,6 @@ class ProductDetailViewController: UIViewController {
         self.setButtons()
         self.configure(model: self.viewModel.products)
     }
-    
-    
     
     private func setupUI() {
         
@@ -92,30 +87,23 @@ class ProductDetailViewController: UIViewController {
         )
         
         NSLayoutConstraint.activate([
-            
-            
-            
             self.imageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 110),
             self.imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             self.imageView.widthAnchor.constraint(equalToConstant: 200),
             self.imageView.heightAnchor.constraint(equalToConstant: 250),
             
-            
             self.nameProductLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor,constant: 60),
             self.nameProductLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
             self.nameProductLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
-            
             
             self.priceLabel.topAnchor.constraint(equalTo: self.nameProductLabel.bottomAnchor, constant: 10),
             self.priceLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
             self.priceLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
             
-            
             self.priceValueLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 5),
             self.priceValueLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.priceValueLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            // self.priceValueLabel.bottomAnchor.constraint(greaterThanOrEqualTo: self.view.bottomAnchor),
             
             self.stockLabel.topAnchor.constraint(equalTo: priceValueLabel.bottomAnchor, constant: 10),
             self.stockLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
@@ -125,7 +113,7 @@ class ProductDetailViewController: UIViewController {
     }
     
     
-    @objc func editarButtonTapped(_ sender: UIButton) {
+    @objc func editButtonTapped(_ sender: UIButton) {
         // Acción que se ejecutará cuando se toque el botón
         print("Botón Editar presionado")
     }

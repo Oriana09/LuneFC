@@ -10,14 +10,14 @@
 		693C949A2B8D179600B60C8D /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693C94992B8D179600B60C8D /* BlurContainer.swift */; };
 		693FE4FA2B8FB9BB00528A9D /* SizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4F92B8FB9BB00528A9D /* SizeView.swift */; };
 		693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */; };
-		693FE4FE2B8FC42800528A9D /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FD2B8FC42800528A9D /* Title.swift */; };
-		693FE5002B8FC59900528A9D /* ProductDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FF2B8FC59900528A9D /* ProductDetail.swift */; };
+		693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FF2B8FC59900528A9D /* ProductDetailViewController.swift */; };
 		694168552B97CF3700B64661 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168542B97CF3700B64661 /* Category.swift */; };
 		694168572B9A3C6500B64661 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168562B9A3C6500B64661 /* CategoryViewModel.swift */; };
 		6941685B2B9A439D00B64661 /* ProductDatailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6941685A2B9A439D00B64661 /* ProductDatailViewModel.swift */; };
 		6941685E2B9F7B6700B64661 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6941685D2B9F7B6700B64661 /* Realm */; };
 		694168602B9F7B6700B64661 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6941685F2B9F7B6700B64661 /* RealmSwift */; };
-		694168622B9F91A900B64661 /* AddElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168612B9F91A900B64661 /* AddElementViewController.swift */; };
+		694168622B9F91A900B64661 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168612B9F91A900B64661 /* AddCategoryViewController.swift */; };
+		694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168632BAB725000B64661 /* AddCategoryViewModel.swift */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
 		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
@@ -37,12 +37,12 @@
 		693C94992B8D179600B60C8D /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
 		693FE4F92B8FB9BB00528A9D /* SizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeView.swift; sourceTree = "<group>"; };
 		693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPartDetailView.swift; sourceTree = "<group>"; };
-		693FE4FD2B8FC42800528A9D /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
-		693FE4FF2B8FC59900528A9D /* ProductDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetail.swift; sourceTree = "<group>"; };
+		693FE4FF2B8FC59900528A9D /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		694168542B97CF3700B64661 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		694168562B9A3C6500B64661 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		6941685A2B9A439D00B64661 /* ProductDatailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDatailViewModel.swift; sourceTree = "<group>"; };
-		694168612B9F91A900B64661 /* AddElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddElementViewController.swift; sourceTree = "<group>"; };
+		694168612B9F91A900B64661 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
+		694168632BAB725000B64661 /* AddCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewModel.swift; sourceTree = "<group>"; };
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69F80E482B755D780060A9B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,14 +89,79 @@
 			path = "Generic Views";
 			sourceTree = "<group>";
 		};
-		693FE4F62B8FB5E300528A9D /* Detail */ = {
+		693FE4F62B8FB5E300528A9D /* Detail View */ = {
 			isa = PBXGroup;
 			children = (
+				693FE4FF2B8FC59900528A9D /* ProductDetailViewController.swift */,
+				6941685A2B9A439D00B64661 /* ProductDatailViewModel.swift */,
 				693FE4F92B8FB9BB00528A9D /* SizeView.swift */,
 				693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */,
-				693FE4FD2B8FC42800528A9D /* Title.swift */,
 			);
-			path = Detail;
+			path = "Detail View";
+			sourceTree = "<group>";
+		};
+		694168652BB5D50F00B64661 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */,
+				694168562B9A3C6500B64661 /* CategoryViewModel.swift */,
+				694168692BB5D75500B64661 /* Cells */,
+				694168662BB5D54C00B64661 /* Models */,
+				6941686B2BB5D81400B64661 /* Add Category */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		694168662BB5D54C00B64661 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				694168542B97CF3700B64661 /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		694168672BB5D68D00B64661 /* Clouthing List */ = {
+			isa = PBXGroup;
+			children = (
+				69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */,
+				69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */,
+				694168682BB5D6DC00B64661 /* Cells */,
+				6941686A2BB5D7CB00B64661 /* Models */,
+			);
+			path = "Clouthing List";
+			sourceTree = "<group>";
+		};
+		694168682BB5D6DC00B64661 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				69F80E692B7FEAFC0060A9B1 /* ClothingListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		694168692BB5D75500B64661 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				69F80E5B2B7567E30060A9B1 /* CategoryCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6941686A2BB5D7CB00B64661 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				69F80E5D2B757D380060A9B1 /* ClothingItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6941686B2BB5D81400B64661 /* Add Category */ = {
+			isa = PBXGroup;
+			children = (
+				694168612B9F91A900B64661 /* AddCategoryViewController.swift */,
+				694168632BAB725000B64661 /* AddCategoryViewModel.swift */,
+			);
+			path = "Add Category";
 			sourceTree = "<group>";
 		};
 		69F80E3A2B755D770060A9B1 = {
@@ -118,15 +183,13 @@
 		69F80E452B755D780060A9B1 /* LuneFcClothes */ = {
 			isa = PBXGroup;
 			children = (
-				693FE4F62B8FB5E300528A9D /* Detail */,
+				694168652BB5D50F00B64661 /* Home */,
+				694168672BB5D68D00B64661 /* Clouthing List */,
+				693FE4F62B8FB5E300528A9D /* Detail View */,
 				693C94952B8D174600B60C8D /* UI */,
 				69F80E6E2B8673510060A9B1 /* Manager */,
 				69F80E6B2B7FF7590060A9B1 /* Extensions */,
 				69F80E642B7673D40060A9B1 /* Utilities */,
-				69F80E5F2B757D3D0060A9B1 /* Model */,
-				69F80E602B757D6F0060A9B1 /* ViewModel */,
-				69F80E632B757DFE0060A9B1 /* View */,
-				69F80E5A2B7567AA0060A9B1 /* Cells */,
 				69F80E462B755D780060A9B1 /* AppDelegate.swift */,
 				69F80E482B755D780060A9B1 /* SceneDelegate.swift */,
 				69F80E4F2B755D790060A9B1 /* Assets.xcassets */,
@@ -134,45 +197,6 @@
 				69F80E542B755D790060A9B1 /* Info.plist */,
 			);
 			path = LuneFcClothes;
-			sourceTree = "<group>";
-		};
-		69F80E5A2B7567AA0060A9B1 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				69F80E5B2B7567E30060A9B1 /* CategoryCell.swift */,
-				69F80E692B7FEAFC0060A9B1 /* ClothingListCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		69F80E5F2B757D3D0060A9B1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				694168542B97CF3700B64661 /* Category.swift */,
-				69F80E5D2B757D380060A9B1 /* ClothingItem.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		69F80E602B757D6F0060A9B1 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				694168562B9A3C6500B64661 /* CategoryViewModel.swift */,
-				69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */,
-				6941685A2B9A439D00B64661 /* ProductDatailViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		69F80E632B757DFE0060A9B1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */,
-				69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */,
-				694168612B9F91A900B64661 /* AddElementViewController.swift */,
-				693FE4FF2B8FC59900528A9D /* ProductDetail.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		69F80E642B7673D40060A9B1 /* Utilities */ = {
@@ -278,7 +302,7 @@
 			files = (
 				693FE4FA2B8FB9BB00528A9D /* SizeView.swift in Sources */,
 				69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */,
-				693FE5002B8FC59900528A9D /* ProductDetail.swift in Sources */,
+				693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */,
 				69F80E682B7EA6730060A9B1 /* ClothingListViewController.swift in Sources */,
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */,
@@ -288,14 +312,14 @@
 				693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */,
 				69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */,
 				694168552B97CF3700B64661 /* Category.swift in Sources */,
-				693FE4FE2B8FC42800528A9D /* Title.swift in Sources */,
 				69F80E5C2B7567E30060A9B1 /* CategoryCell.swift in Sources */,
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,
+				694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */,
 				693C949A2B8D179600B60C8D /* BlurContainer.swift in Sources */,
 				694168572B9A3C6500B64661 /* CategoryViewModel.swift in Sources */,
 				69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */,
 				6941685B2B9A439D00B64661 /* ProductDatailViewModel.swift in Sources */,
-				694168622B9F91A900B64661 /* AddElementViewController.swift in Sources */,
+				694168622B9F91A900B64661 /* AddCategoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

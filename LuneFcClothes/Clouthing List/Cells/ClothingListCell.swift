@@ -1,5 +1,5 @@
 //
-//  ClothingListCell.swift
+//  ClothingTableViewCell.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 16/02/2024.
@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class ClothingListCell: UITableViewCell {
+class ClothingTableViewCell: UITableViewCell {
     
-    static let identifier = "ClothingListCell"
+    static let identifier = "ClothingTableViewCell"
     
     private lazy var productImage: UIImageView = {
         let imageView = UIImageView()

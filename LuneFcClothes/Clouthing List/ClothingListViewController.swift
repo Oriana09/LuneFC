@@ -7,14 +7,14 @@
 
 import Foundation
 import UIKit
-
+import RealmSwift
 class ClothingListViewController: UIViewController {
  
     var viewModel: ClothingListViewModel
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ClothingListCell.self, forCellReuseIdentifier: ClothingListCell.identifier)
+        tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
         tableView.delegate =  self
         tableView.dataSource = self
         
@@ -86,7 +86,7 @@ extension ClothingListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ClothingListCell.identifier, for: indexPath) as! ClothingListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ClothingTableViewCell.identifier, for: indexPath) as! ClothingTableViewCell
         
         guard let items = self.viewModel.items else {
             return UITableViewCell()

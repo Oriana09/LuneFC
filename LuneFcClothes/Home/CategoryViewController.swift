@@ -10,14 +10,13 @@ import RealmSwift
 
 class CategoryViewController: UIViewController {
     
-    
     private let viewModel = CategoryViewModel()
     
     private let collection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createTwoColumnFlowLayout())
         
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-
+        
         collectionView.translatesAutoresizingMaskIntoConstraints =  false
         return collectionView
     }()
@@ -35,18 +34,16 @@ class CategoryViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
     }
     
-    #warning("Configurar el boton para guardar categorias")
+#warning("Configurar el boton para guardar categorias")
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
+        let agregarElementoVC = AddCategoryViewController(viewModel: AddCategoryViewModel())
         
-            let agregarElementoVC = AddElementViewController()
-            //agregarElementoVC.delegate = self
-            navigationController?.pushViewController(agregarElementoVC, animated: true)
-        
-        
+        navigationController?.pushViewController(agregarElementoVC, animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         self.viewModel.loadCategories()
         self.navigationItem.title = "FC~LUNE"
         self.collection.delegate = self
@@ -55,8 +52,8 @@ class CategoryViewController: UIViewController {
         self.setContrains()
         
         let backButton = UIBarButtonItem()
-               backButton.title = ""
-               self.navigationItem.backBarButtonItem = backButton
+        backButton.title = ""
+        self.navigationItem.backBarButtonItem = backButton
         
     }
     
@@ -64,16 +61,16 @@ class CategoryViewController: UIViewController {
         self.view.addSubview(self.collection)
         
         NSLayoutConstraint.activate([
-           self.collection.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.collection.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.collection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-           self.collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-           self.collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            self.collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            self.collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
 }
-// MARK: - UITableViewDataSource  UITableViewDelegate 
- 
+// MARK: - UITableViewDataSource  UITableViewDelegate
+
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -81,14 +78,14 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
-
+        
         
         guard let categories = self.viewModel.categories else {
             return UICollectionViewCell()
         }
-     
+        
         let category = categories[indexPath.row]
         cell.configure(model: category)
         
@@ -96,7 +93,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         guard let selectedCategory = viewModel.categories?[indexPath.row] else {
             // Si no hay una categoría seleccionada, no podemos proceder
             return
@@ -106,14 +103,14 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         let clothingListVC = ClothingListViewController(
             viewModel: clothingListVM
         )
- 
-        self.navigationController?.pushViewController(clothingListVC, animated: true)
-        }
-    }
- 
-       
         
-       
-       
+        self.navigationController?.pushViewController(clothingListVC, animated: true)
+    }
+}
+
+
+
+
+
 
 
