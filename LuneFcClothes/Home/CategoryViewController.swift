@@ -14,9 +14,7 @@ class CategoryViewController: UIViewController {
     
     private let collection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createTwoColumnFlowLayout())
-        
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-        
         collectionView.translatesAutoresizingMaskIntoConstraints =  false
         return collectionView
     }()
@@ -34,11 +32,13 @@ class CategoryViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
     }
     
-#warning("Configurar el boton para guardar categorias")
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
         let agregarElementoVC = AddCategoryViewController(viewModel: AddCategoryViewModel())
-        
-        navigationController?.pushViewController(agregarElementoVC, animated: true)
+        present(agregarElementoVC, animated: true)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collection.reloadData()
     }
     
     override func viewDidLoad() {

@@ -13,5 +13,5 @@ class Category: Object {
     @objc dynamic var imageData: Data? = nil
     @objc dynamic var name: String = ""
     
-    let placeholderData: Data = (UIImage(named: "campera")?.jpegData(compressionQuality: 1.0))!
+  //  let placeholderData: Data = (UIImage(named: "campera")?.jpegData(compressionQuality: 1.0))!
 }

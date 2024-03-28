@@ -80,7 +80,8 @@ class CategoryCell: UICollectionViewCell {
     
     
     func configure(model: Category) {
-        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
+        self.imageView.image = UIImage(data: model.imageData!)
+                                       //?? model.placeholderData)
         self.label.text = model.name
     }
 }

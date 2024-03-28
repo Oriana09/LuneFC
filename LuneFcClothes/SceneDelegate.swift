@@ -16,13 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.setNavigationBarAppearance()
+        let clothingVC = CategoryViewController()
+        let navigationController = UINavigationController(rootViewController: clothingVC)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        
-        let clothingVC = CategoryViewController()
-        let navigationController = UINavigationController(rootViewController: clothingVC) // Aquí se incrusta en el UINavigationController
         window?.rootViewController = navigationController
-        
         window?.makeKeyAndVisible()
         
     }
@@ -30,8 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setNavigationBarAppearance() {
         if #available(iOS 15, *) {
             let navBarAppearance: UINavigationBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-            navBarAppearance.shadowColor = .blue
+
 
             UINavigationBar.appearance().tintColor = .systemGreen
             UINavigationBar.appearance().standardAppearance = navBarAppearance

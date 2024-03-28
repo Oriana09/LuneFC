@@ -115,8 +115,6 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         
 
         navigationController?.popViewController(animated: true)
-        
-        
     }
 }
     extension AddCategoryViewController: UIImagePickerControllerDelegate {
