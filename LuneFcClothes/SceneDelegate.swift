@@ -16,20 +16,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.setNavigationBarAppearance()
-        let clothingVC = CategoryViewController()
-        let navigationController = UINavigationController(rootViewController: clothingVC)
+        let categoryVM = CategoryViewModel()
+        let categoryVC = CategoryViewController(
+            viewModel: categoryVM
+        )
+        let navigationController = UINavigationController(
+            rootViewController: categoryVC
+        )
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
     }
 
     func setNavigationBarAppearance() {
         if #available(iOS 15, *) {
+            
             let navBarAppearance: UINavigationBarAppearance = UINavigationBarAppearance()
-
-
+                
+        
             UINavigationBar.appearance().tintColor = .systemGreen
             UINavigationBar.appearance().standardAppearance = navBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance

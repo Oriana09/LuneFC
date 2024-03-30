@@ -6,22 +6,53 @@
 //
 
 import UIKit
-import RealmSwift
 
+#warning("contextualmeniu sobre una UICollection")
 class CategoryViewController: UIViewController {
     
-    private let viewModel = CategoryViewModel()
-    
-    private let collection: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UIHelper.createTwoColumnFlowLayout())
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-        collectionView.translatesAutoresizingMaskIntoConstraints =  false
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UIHelper.createTwoColumnFlowLayout()
+        )
+        collectionView.register(
+            CategoryCell.self,
+            forCellWithReuseIdentifier: CategoryCell.identifier
+        )
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
         return collectionView
     }()
     
+    private let viewModel: CategoryViewModel
     
-    private func configuteButtom(){
+    init(
+        viewModel: CategoryViewModel
+    ) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: .main)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        self.updateCategories()
+        self.navigationItem.title = "FC~LUNE"
+        self.configuteButtom()
+        self.setCollectionContraints()
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        self.navigationItem.backBarButtonItem = backButton
+        
+    }
+    
+    private func configuteButtom() {
         let addButton =  UIBarButtonItem(
             image: UIImage(systemName: "plus"),
             style: .plain,
@@ -33,48 +64,49 @@ class CategoryViewController: UIViewController {
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-        let agregarElementoVC = AddCategoryViewController(viewModel: AddCategoryViewModel())
-        present(agregarElementoVC, animated: true)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.collection.reloadData()
+        let viewModel = AddCategoryViewModel()
+        let addCategoryVC = AddCategoryViewController(
+            viewModel: viewModel
+        )
+        addCategoryVC.delegate = self
+        let navigationVC = UINavigationController(
+            rootViewController: addCategoryVC
+        )
+        
+        self.present(navigationVC, animated: true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    private func updateCategories() {
         self.viewModel.loadCategories()
-        self.navigationItem.title = "FC~LUNE"
-        self.collection.delegate = self
-        self.collection.dataSource = self
-        self.configuteButtom()
-        self.setContrains()
-        
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        self.navigationItem.backBarButtonItem = backButton
-        
+        self.collectionView.reloadData()
     }
     
-    private func setContrains() {
-        self.view.addSubview(self.collection)
+    private func setCollectionContraints() {
+        self.view.addSubview(self.collectionView)
         
         NSLayoutConstraint.activate([
-            self.collection.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.collection.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            self.collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            self.collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            self.collectionView.topAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.topAnchor
+            ),
+            self.collectionView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor
+            ),
+            self.collectionView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor
+            ),
+            self.collectionView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor
+            )
         ])
     }
-    
 }
-// MARK: - UITableViewDataSource  UITableViewDelegate
 
-extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - UICollectionViewDataSource
+
+extension CategoryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.categories?.count ?? 0
+        return self.viewModel.categories?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,16 +121,24 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         let category = categories[indexPath.row]
         cell.configure(model: category)
         
+        
         return cell
     }
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension CategoryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let selectedCategory = viewModel.categories?[indexPath.row] else {
-            // Si no hay una categoría seleccionada, no podemos proceder
+            // Si no hay una categoría existente retornamos
             return
         }
         
+//        self.viewModel.deleteCategory(selectedCategory)
+//        self.collectionView.reloadData()
         let clothingListVM = ClothingListViewModel(category: selectedCategory)
         let clothingListVC = ClothingListViewController(
             viewModel: clothingListVM
@@ -108,9 +148,13 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
+//MARK: - AddCategoryPresenterDelegate
 
-
-
-
+extension CategoryViewController: AddCategoryPresenterDelegate {
+    
+    func onDismiss() {
+        self.updateCategories()
+    }
+}
 
 

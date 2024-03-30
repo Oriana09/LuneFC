@@ -78,11 +78,15 @@ class CategoryCell: UICollectionViewCell {
         ])
     }
     
-    
     func configure(model: Category) {
-        self.imageView.image = UIImage(data: model.imageData!)
-                                       //?? model.placeholderData)
         self.label.text = model.name
+        
+        if let data = model.imageData {
+            self.imageView.image = UIImage(data: data)
+        }
+        
+        #warning("Setear placeholder")
+//        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
     }
 }
 

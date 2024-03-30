@@ -57,11 +57,30 @@ public final class ColorManager {
     let dark_neutral_999 = UIColor(red: 254/255, green: 254/255, blue: 254/255, alpha: 1.0)
     let dark_neutral_1000 = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     
+    //Button Color
+    let button_primary_blue_light = UIColor(red: 40.0 / 255.0, green: 127.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+    let button_prmary_blue_dark =  UIColor(red: 12.0 / 255.0, green: 90.0 / 255.0, blue: 204.0 / 255.0, alpha: 1)
+    
+    //Backround Color
+    let light_background = UIColor(red: 236.0 / 255.0, green: 236.0 / 255.0, blue: 236.0 / 255.0, alpha: 1)
+    let dark_background = UIColor(red: 15.0 / 255.0, green: 15.0 / 255.0, blue: 26.0 / 255.0, alpha: 1)
     
     @Theme(light: ColorManager.sharedInstance.light_neutral_1000,
            dark: ColorManager.sharedInstance.dark_neutral_1000)
     static var light_neutral_1000_dark_neutral_1000: UIColor
     
+    @Theme(light: ColorManager.sharedInstance.light_neutral_50,
+           dark: ColorManager.sharedInstance.dark_neutral_100)
+    static var light_neutral_50_dark_neutral_100: UIColor
+    
+    @Theme(light: ColorManager.sharedInstance.button_primary_blue_light,
+           dark: ColorManager.sharedInstance.button_prmary_blue_dark)
+    static var button_primary_blue_light_button_prmary_blue_dark: UIColor
+    
+    
+    @Theme(light: ColorManager.sharedInstance.light_background,
+           dark: ColorManager.sharedInstance.dark_background)
+    static var light_background_dark_background
     
     static let sharedInstance = ColorManager()
 }
