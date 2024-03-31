@@ -5,17 +5,14 @@
 //  Created by Oriana Costancio on 08/02/2024.
 //
 
-import Foundation
 import UIKit
 
-class CategoryCell: UICollectionViewCell {
+class CategoryCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "CategoryCell"
-    
-    
-    
-    private lazy var blurBox: BlurContainer = {
-        let container = BlurContainer(cornerRadius: 20)
+    static let identifier = "CategoryCollectionViewCell"
+  
+    private lazy var containerView: BlurContainerView = {
+        let container = BlurContainerView(cornerRadius: 10)
         container.layer.masksToBounds = true
         container.translatesAutoresizingMaskIntoConstraints = false
         
@@ -25,7 +22,7 @@ class CategoryCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -33,20 +30,19 @@ class CategoryCell: UICollectionViewCell {
     
     private lazy var label: UILabel = {
         let label =  UILabel()
-        label.font          = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
         label.translatesAutoresizingMaskIntoConstraints =  false
         return label
     }()
     
-    
+    let padding: CGFloat = 5.0
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         self.setContrains()
-        
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -55,26 +51,25 @@ class CategoryCell: UICollectionViewCell {
     private func setContrains() {
         self.contentView.addSubviews(
         imageView,
-        blurBox
+        containerView
         )
-        self.blurBox.addSubview(self.label)
+        self.containerView.addSubview(self.label)
         
         NSLayoutConstraint.activate([
             
-            self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
-            self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
-            self.imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
-            self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5),
+            self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
 
-            self.blurBox.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor),
-            self.blurBox.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor),
-            self.blurBox.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor),
-            self.blurBox.heightAnchor.constraint(equalToConstant: 40),
+            self.containerView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor),
+            self.containerView.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor),
+            self.containerView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor),
+            self.containerView.heightAnchor.constraint(equalToConstant: 40),
             
-            
-            self.label.topAnchor.constraint(equalTo: self.blurBox.topAnchor, constant: 5),
-            self.label.leadingAnchor.constraint(equalTo: self.blurBox.leadingAnchor, constant: 5),
-            self.label.trailingAnchor.constraint(equalTo: self.blurBox.trailingAnchor, constant: -5)
+            self.label.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: padding),
+            self.label.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            self.label.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding)
         ])
     }
     
@@ -84,7 +79,6 @@ class CategoryCell: UICollectionViewCell {
         if let data = model.imageData {
             self.imageView.image = UIImage(data: data)
         }
-        
         #warning("Setear placeholder")
 //        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
     }

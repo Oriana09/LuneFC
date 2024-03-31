@@ -12,22 +12,21 @@ class CategoryViewModel {
     private let realm = try! Realm()
     
     var categories: Results<Category>?
-       
+    
     func save(_ category: Category) {
         try! self.realm.write {
             self.realm.add(category)
         }
     }
-
+    
     func loadCategories()  {
         self.categories = self.realm.objects(Category.self)
     }
-
+    
     func deleteCategory(_ category: Category) {
         try! self.realm.write {
             self.realm.delete(category)
         }
     }
-
 }
 

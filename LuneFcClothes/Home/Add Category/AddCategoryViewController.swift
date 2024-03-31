@@ -103,7 +103,7 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
             action: #selector(addCategory)
         )
         
-        addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
+       addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.rightBarButtonItem = addCategoryButton
     }
     
@@ -116,7 +116,7 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         
         self.viewModel.saveCategory(
             name: nombre,
-            image: productImage.image?.pngData()
+            image: self.productImage.image?.pngData()
         )
         
         self.dismiss()
@@ -165,7 +165,6 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
             ),
             self.nameTextField.heightAnchor.constraint(
                 equalToConstant: 50.0
-                
             ),
             
             self.deleteButton.topAnchor.constraint(

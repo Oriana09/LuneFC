@@ -16,18 +16,18 @@ class AddCategoryViewModel {
         name: String,
         image: Data?
     ) {
-        let nuevaCategoria = Category()
-        nuevaCategoria.name = name
-        nuevaCategoria.imageData = image
+        let newCategory = Category()
+        newCategory.name = name
+        newCategory.imageData = image
         
         do {
             let realm = try Realm()
             try realm.write {
-                realm.add(nuevaCategoria)
+                realm.add(newCategory)
             }
         } catch {
             
-            print("Error al guardar la categoría: \(error)")
+            print("Error saving category: \(error)")
         }
     }
 }

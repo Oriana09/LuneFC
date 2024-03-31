@@ -7,7 +7,6 @@
 
 import UIKit
 
-#warning("contextualmeniu sobre una UICollection")
 class CategoryViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
@@ -16,8 +15,8 @@ class CategoryViewController: UIViewController {
             collectionViewLayout: UIHelper.createTwoColumnFlowLayout()
         )
         collectionView.register(
-            CategoryCell.self,
-            forCellWithReuseIdentifier: CategoryCell.identifier
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
@@ -41,6 +40,7 @@ class CategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = ColorManager.light_neutral_50_dark_neutral_100
         self.updateCategories()
         self.navigationItem.title = "FC~LUNE"
         self.configuteButtom()
@@ -111,7 +111,7 @@ extension CategoryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
         
         
         guard let categories = self.viewModel.categories else {
@@ -120,7 +120,6 @@ extension CategoryViewController: UICollectionViewDataSource {
         
         let category = categories[indexPath.row]
         cell.configure(model: category)
-        
         
         return cell
     }
@@ -133,17 +132,13 @@ extension CategoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let selectedCategory = viewModel.categories?[indexPath.row] else {
-            // Si no hay una categoría existente retornamos
+            
             return
         }
-        
-//        self.viewModel.deleteCategory(selectedCategory)
-//        self.collectionView.reloadData()
         let clothingListVM = ClothingListViewModel(category: selectedCategory)
         let clothingListVC = ClothingListViewController(
             viewModel: clothingListVM
         )
-        
         self.navigationController?.pushViewController(clothingListVC, animated: true)
     }
 }
@@ -154,6 +149,32 @@ extension CategoryViewController: AddCategoryPresenterDelegate {
     
     func onDismiss() {
         self.updateCategories()
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension CategoryViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        guard let selectedCategory = viewModel.categories?[indexPath.row] else {
+            return nil
+        }
+        
+        let deleteAction = UIAction(
+            title: "Eliminar",
+            image: UIImage(systemName: "trash"),
+            attributes: .destructive) { [weak self] _ in
+                self?.viewModel.deleteCategory(selectedCategory)
+                self?.updateCategories()
+            }
+        
+        return UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil) { _ in
+                UIMenu(title: "", children: [deleteAction])
+            }
     }
 }
 

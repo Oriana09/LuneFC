@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		693C949A2B8D179600B60C8D /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693C94992B8D179600B60C8D /* BlurContainer.swift */; };
+		693C949A2B8D179600B60C8D /* BlurContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693C94992B8D179600B60C8D /* BlurContainerView.swift */; };
 		693FE4FA2B8FB9BB00528A9D /* SizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4F92B8FB9BB00528A9D /* SizeView.swift */; };
 		693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */; };
 		693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FF2B8FC59900528A9D /* ProductDetailViewController.swift */; };
@@ -23,7 +23,7 @@
 		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
 		69F80E502B755D790060A9B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69F80E4F2B755D790060A9B1 /* Assets.xcassets */; };
 		69F80E532B755D790060A9B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69F80E512B755D790060A9B1 /* LaunchScreen.storyboard */; };
-		69F80E5C2B7567E30060A9B1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E5B2B7567E30060A9B1 /* CategoryCell.swift */; };
+		69F80E5C2B7567E30060A9B1 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E5B2B7567E30060A9B1 /* CategoryCollectionViewCell.swift */; };
 		69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E5D2B757D380060A9B1 /* ClothingItem.swift */; };
 		69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */; };
 		69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E652B7673FA0060A9B1 /* UIIHelper.swift */; };
@@ -34,7 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		693C94992B8D179600B60C8D /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
+		693C94992B8D179600B60C8D /* BlurContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainerView.swift; sourceTree = "<group>"; };
 		693FE4F92B8FB9BB00528A9D /* SizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeView.swift; sourceTree = "<group>"; };
 		693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPartDetailView.swift; sourceTree = "<group>"; };
 		693FE4FF2B8FC59900528A9D /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		69F80E4F2B755D790060A9B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69F80E522B755D790060A9B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69F80E542B755D790060A9B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		69F80E5B2B7567E30060A9B1 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		69F80E5B2B7567E30060A9B1 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		69F80E5D2B757D380060A9B1 /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListViewModel.swift; sourceTree = "<group>"; };
 		69F80E652B7673FA0060A9B1 /* UIIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIHelper.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		693C94982B8D177E00B60C8D /* Generic Views */ = {
 			isa = PBXGroup;
 			children = (
-				693C94992B8D179600B60C8D /* BlurContainer.swift */,
+				693C94992B8D179600B60C8D /* BlurContainerView.swift */,
 			);
 			path = "Generic Views";
 			sourceTree = "<group>";
@@ -142,7 +142,7 @@
 		694168692BB5D75500B64661 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				69F80E5B2B7567E30060A9B1 /* CategoryCell.swift */,
+				69F80E5B2B7567E30060A9B1 /* CategoryCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -312,10 +312,10 @@
 				693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */,
 				69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */,
 				694168552B97CF3700B64661 /* Category.swift in Sources */,
-				69F80E5C2B7567E30060A9B1 /* CategoryCell.swift in Sources */,
+				69F80E5C2B7567E30060A9B1 /* CategoryCollectionViewCell.swift in Sources */,
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,
 				694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */,
-				693C949A2B8D179600B60C8D /* BlurContainer.swift in Sources */,
+				693C949A2B8D179600B60C8D /* BlurContainerView.swift in Sources */,
 				694168572B9A3C6500B64661 /* CategoryViewModel.swift in Sources */,
 				69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */,
 				6941685B2B9A439D00B64661 /* ProductDatailViewModel.swift in Sources */,

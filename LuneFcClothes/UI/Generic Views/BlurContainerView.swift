@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class BlurContainer: UIView {
+class BlurContainerView: UIView {
     
     
     let cornerRadius: CGFloat
