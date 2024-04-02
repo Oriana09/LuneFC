@@ -61,6 +61,22 @@ public final class ColorManager {
     let button_primary_blue_light = UIColor(red: 40.0 / 255.0, green: 127.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
     let button_prmary_blue_dark =  UIColor(red: 12.0 / 255.0, green: 90.0 / 255.0, blue: 204.0 / 255.0, alpha: 1)
     
+    //Houses Color
+    let light_blue_house = UIColor(red: 28.0 / 255.0, green: 112.0 / 255.0, blue: 188.0 / 255.0, alpha: 1)
+    let dark_blue_house = UIColor(red: 40.0 / 255.0, green: 227.0 / 255.0, blue: 253.0 / 255.0, alpha: 1)
+    let light_snow_house = UIColor(red: 108.0 / 255.0, green: 131.0 / 255.0, blue: 140.0 / 255.0, alpha: 1)
+    let dark_snow_house = UIColor(red: 149.0 / 255.0, green: 177.0 / 255.0, blue: 160.0 / 255.0, alpha: 1)
+    let light_hotel_house = UIColor(red: 119.0 / 255.0, green: 76.0 / 255.0, blue: 131.0 / 255.0, alpha: 1)
+    let dark_hotel_house = UIColor(red: 177.0 / 255.0, green: 119.0 / 255.0, blue: 218.0 / 255.0, alpha: 1)
+    
+    //Texfield Border brackground
+    let light_textfield_border = UIColor(red: 227.0 / 255.0, green: 230.0 / 255.0, blue: 245.0 / 255.0, alpha: 1)
+    let dark_textfield_border = UIColor(red: 20.0 / 255.0, green: 56.0 / 255.0, blue: 109.0 / 255.0, alpha: 1)
+    
+    //Container Gradiente
+    let violet_gradient = UIColor(red: 0.0 / 255.0, green: 147.0 / 255.0, blue: 255.0 / 255.0, alpha: 0.4)
+    let blue_gradient =  UIColor(red: 26.0 / 255.0, green: 0.0 / 255.0, blue: 200.0 / 255.0, alpha: 0.4)
+    
     @Theme(light: ColorManager.sharedInstance.light_neutral_1000,
            dark: ColorManager.sharedInstance.dark_neutral_1000)
     static var light_neutral_1000_dark_neutral_1000: UIColor
@@ -73,7 +89,41 @@ public final class ColorManager {
            dark: ColorManager.sharedInstance.button_prmary_blue_dark)
     static var button_primary_blue_light_button_prmary_blue_dark: UIColor
     
-  
+    @Theme(light: ColorManager.sharedInstance.light_blue_house,
+           dark: ColorManager.sharedInstance.dark_blue_house)
+    static var light_blue_house_dark_blue_house: UIColor
+    
+    @Theme(light: ColorManager.sharedInstance.light_snow_house,
+           dark: ColorManager.sharedInstance.dark_snow_house)
+    static var light_snow_house_dark_snow_house: UIColor
+    
+    @Theme(light: ColorManager.sharedInstance.light_hotel_house,
+           dark: ColorManager.sharedInstance.dark_hotel_house)
+    static var light_hotel_house_dark_hotel_house: UIColor
+    
+//    @Theme(light: ColorManager.sharedInstance.light_background,
+//           dark: ColorManager.sharedInstance.dark_background)
+//    static var light_background_dark_background: UIColor
+//    
+    @Theme(light: ColorManager.sharedInstance.light_textfield_border,
+           dark: ColorManager.sharedInstance.dark_textfield_border)
+    static var light_textfield_border_dark_textfield_borde
+    
+    @Theme(light: ColorManager.sharedInstance.light_neutral_500,
+           dark: ColorManager.sharedInstance.dark_neutral_600)
+    static var light_neutral_500_dark_neutral_600
+    
+    @Theme(light: ColorManager.sharedInstance.light_neutral_0,
+           dark: ColorManager.sharedInstance.dark_neutral_1000)
+    static var light_neutral_0_dark_neutral_1000
+    
+    @Theme(light: ColorManager.sharedInstance.violet_gradient,
+           dark: ColorManager.sharedInstance.violet_gradient)
+    static var dark_violet_gradient_light_violet_gradient
+    
+    @Theme(light: ColorManager.sharedInstance.blue_gradient,
+           dark: ColorManager.sharedInstance.blue_gradient)
+    static var dark_blue_gradient_light_blue_gradient
     
     static let sharedInstance = ColorManager()
 }

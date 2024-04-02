@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.configureRealm()
         self.setDefaultsCategories()
-    
+        FirebaseApp.configure()
         return true
     }
     

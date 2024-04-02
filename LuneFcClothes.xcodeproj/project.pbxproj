@@ -18,6 +18,14 @@
 		694168602B9F7B6700B64661 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6941685F2B9F7B6700B64661 /* RealmSwift */; };
 		694168622B9F91A900B64661 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168612B9F91A900B64661 /* AddCategoryViewController.swift */; };
 		694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168632BAB725000B64661 /* AddCategoryViewModel.swift */; };
+		69C732192BBA3299001A9639 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69C732182BBA3299001A9639 /* GoogleService-Info.plist */; };
+		69C7321C2BBA354F001A9639 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 69C7321B2BBA354F001A9639 /* FirebaseAuth */; };
+		69C7321E2BBAE8F9001A9639 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7321D2BBAE8F9001A9639 /* LoginUserModel.swift */; };
+		69C732212BBAEBA4001A9639 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732202BBAEBA4001A9639 /* LoginRepository.swift */; };
+		69C732232BBAECB4001A9639 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732222BBAECB4001A9639 /* LoginViewModel.swift */; };
+		69C732252BBAEE46001A9639 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732242BBAEE46001A9639 /* LoginViewController.swift */; };
+		69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732272BBAF262001A9639 /* MyRentTextField.swift */; };
+		69C7322A2BBAFC3E001A9639 /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732292BBAFC3E001A9639 /* BlurContainer.swift */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
 		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
@@ -43,6 +51,13 @@
 		6941685A2B9A439D00B64661 /* ProductDatailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDatailViewModel.swift; sourceTree = "<group>"; };
 		694168612B9F91A900B64661 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		694168632BAB725000B64661 /* AddCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewModel.swift; sourceTree = "<group>"; };
+		69C732182BBA3299001A9639 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		69C7321D2BBAE8F9001A9639 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
+		69C732202BBAEBA4001A9639 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
+		69C732222BBAECB4001A9639 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		69C732242BBAEE46001A9639 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		69C732272BBAF262001A9639 /* MyRentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRentTextField.swift; sourceTree = "<group>"; };
+		69C732292BBAFC3E001A9639 /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69F80E482B755D780060A9B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				694168602B9F7B6700B64661 /* RealmSwift in Frameworks */,
+				69C7321C2BBA354F001A9639 /* FirebaseAuth in Frameworks */,
 				6941685E2B9F7B6700B64661 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +180,43 @@
 			path = "Add Category";
 			sourceTree = "<group>";
 		};
+		69C732172BBA3128001A9639 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				69C732242BBAEE46001A9639 /* LoginViewController.swift */,
+				69C732222BBAECB4001A9639 /* LoginViewModel.swift */,
+				69C7322B2BBCA846001A9639 /* Models */,
+				69C732262BBAF246001A9639 /* CustumViews */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		69C7321F2BBAEB8C001A9639 /* LoginRepository */ = {
+			isa = PBXGroup;
+			children = (
+				69C732202BBAEBA4001A9639 /* LoginRepository.swift */,
+			);
+			path = LoginRepository;
+			sourceTree = "<group>";
+		};
+		69C732262BBAF246001A9639 /* CustumViews */ = {
+			isa = PBXGroup;
+			children = (
+				69C732272BBAF262001A9639 /* MyRentTextField.swift */,
+				69C732292BBAFC3E001A9639 /* BlurContainer.swift */,
+			);
+			path = CustumViews;
+			sourceTree = "<group>";
+		};
+		69C7322B2BBCA846001A9639 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				69C7321D2BBAE8F9001A9639 /* LoginUserModel.swift */,
+				69C7321F2BBAEB8C001A9639 /* LoginRepository */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		69F80E3A2B755D770060A9B1 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +236,7 @@
 		69F80E452B755D780060A9B1 /* LuneFcClothes */ = {
 			isa = PBXGroup;
 			children = (
+				69C732172BBA3128001A9639 /* Login */,
 				694168652BB5D50F00B64661 /* Home */,
 				694168672BB5D68D00B64661 /* Clouthing List */,
 				693FE4F62B8FB5E300528A9D /* Detail View */,
@@ -195,6 +249,7 @@
 				69F80E4F2B755D790060A9B1 /* Assets.xcassets */,
 				69F80E512B755D790060A9B1 /* LaunchScreen.storyboard */,
 				69F80E542B755D790060A9B1 /* Info.plist */,
+				69C732182BBA3299001A9639 /* GoogleService-Info.plist */,
 			);
 			path = LuneFcClothes;
 			sourceTree = "<group>";
@@ -242,6 +297,7 @@
 			packageProductDependencies = (
 				6941685D2B9F7B6700B64661 /* Realm */,
 				6941685F2B9F7B6700B64661 /* RealmSwift */,
+				69C7321B2BBA354F001A9639 /* FirebaseAuth */,
 			);
 			productName = LuneFcClothes;
 			productReference = 69F80E432B755D780060A9B1 /* LuneFcClothes.app */;
@@ -273,6 +329,7 @@
 			mainGroup = 69F80E3A2B755D770060A9B1;
 			packageReferences = (
 				6941685C2B9F7B6600B64661 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				69C7321A2BBA354F001A9639 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 69F80E442B755D780060A9B1 /* Products */;
 			projectDirPath = "";
@@ -289,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F80E532B755D790060A9B1 /* LaunchScreen.storyboard in Resources */,
+				69C732192BBA3299001A9639 /* GoogleService-Info.plist in Resources */,
 				69F80E502B755D790060A9B1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C732232BBAECB4001A9639 /* LoginViewModel.swift in Sources */,
 				693FE4FA2B8FB9BB00528A9D /* SizeView.swift in Sources */,
 				69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */,
 				693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */,
@@ -307,11 +366,16 @@
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */,
 				69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */,
+				69C732212BBAEBA4001A9639 /* LoginRepository.swift in Sources */,
 				69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */,
+				69C7322A2BBAFC3E001A9639 /* BlurContainer.swift in Sources */,
 				69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */,
 				693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */,
+				69C732252BBAEE46001A9639 /* LoginViewController.swift in Sources */,
 				69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */,
 				694168552B97CF3700B64661 /* Category.swift in Sources */,
+				69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */,
+				69C7321E2BBAE8F9001A9639 /* LoginUserModel.swift in Sources */,
 				69F80E5C2B7567E30060A9B1 /* CategoryCollectionViewCell.swift in Sources */,
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,
 				694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */,
@@ -544,6 +608,14 @@
 				version = 10.48.0;
 			};
 		};
+		69C7321A2BBA354F001A9639 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.23.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -556,6 +628,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6941685C2B9F7B6600B64661 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		69C7321B2BBA354F001A9639 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C7321A2BBA354F001A9639 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

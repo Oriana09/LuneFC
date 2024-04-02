@@ -16,13 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.setNavigationBarAppearance()
-        let categoryVM = CategoryViewModel()
-        let categoryVC = CategoryViewController(
-            viewModel: categoryVM
-        )
-        let navigationController = UINavigationController(
-            rootViewController: categoryVC
-        )
+//        let categoryVM = CategoryViewModel()
+//        let categoryVC = CategoryViewController(
+//            viewModel: categoryVM
+//        )
+//        let navigationController = UINavigationController(
+//            rootViewController: categoryVC
+//        )
+        
+        let loginViewController = LoginViewController()
+        let navigationController = UINavigationController(rootViewController: loginViewController)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = navigationController
