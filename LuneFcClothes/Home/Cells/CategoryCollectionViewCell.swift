@@ -32,6 +32,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let label =  UILabel()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
         label.translatesAutoresizingMaskIntoConstraints =  false
         return label
@@ -62,14 +63,39 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             self.imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
 
-            self.containerView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor),
-            self.containerView.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor),
-            self.containerView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor),
-            self.containerView.heightAnchor.constraint(equalToConstant: 40),
+            self.containerView.leadingAnchor.constraint(
+                equalTo: self.imageView.leadingAnchor
+            ),
+            self.containerView.trailingAnchor.constraint(
+                equalTo: self.imageView.trailingAnchor
+            ),
+            self.containerView.bottomAnchor.constraint(
+                equalTo: self.imageView.bottomAnchor
+            ),
+            self.containerView.topAnchor.constraint(
+                equalTo: self.label.topAnchor,
+                constant: -self.padding
+            ),
+//            self.containerView.heightAnchor.constraint(
+//                equalToConstant: 40
+//            ),
             
-            self.label.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: padding),
-            self.label.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
-            self.label.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding)
+//            self.label.topAnchor.constraint(
+//                equalTo: self.containerView.topAnchor,
+//                constant: padding
+//            ),
+            self.label.leadingAnchor.constraint(
+                equalTo: self.containerView.leadingAnchor,
+                constant: padding
+            ),
+            self.label.trailingAnchor.constraint(
+                equalTo: self.containerView.trailingAnchor,
+                constant: -padding
+            ),
+            self.label.bottomAnchor.constraint(
+                equalTo: self.imageView.bottomAnchor,
+                constant: -padding
+            )
         ])
     }
     

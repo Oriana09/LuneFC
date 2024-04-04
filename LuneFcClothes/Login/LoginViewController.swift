@@ -5,26 +5,10 @@
 //  Created by Oriana Costancio on 01/04/2024.
 //
 
-
 import UIKit
 import FirebaseAuth
 
-
 class LoginViewController: UIViewController {
-   
-    private let houseImages: [UIImage] = [
-        UIImage(named: "Image")!,
-        UIImage(named: "imagen1")!,
-        UIImage(named: "Remera")!
-    ]
-    
-    private let myRentLabels: [UIColor] = [
-        ColorManager.light_blue_house_dark_blue_house,
-        ColorManager.light_snow_house_dark_snow_house,
-        ColorManager.light_hotel_house_dark_hotel_house
-    ]
-    private var blurBoxOriginYPosition: Double = 0
-    private var currentIndex = 0
     
     private lazy var viewContainer: UIView = {
         let container = UIView()
@@ -54,34 +38,30 @@ class LoginViewController: UIViewController {
         label.contentMode   = .left
         label.textColor     = ColorManager.light_neutral_1000_dark_neutral_1000
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
     private lazy var myRentLabel: UILabel = {
         let label = UILabel()
-        label.text         = "Mi Renta"
+        label.text         = "Lune y Fc-Clothes"
         label.font         = .systemFont(ofSize: 34, weight: .bold)
         label.contentMode  = .left
-        label.textColor    = ColorManager.light_blue_house_dark_blue_house
+        label.textColor    =  ColorManager.light_neutral_1000_dark_neutral_1000
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
     private lazy var houseImage: UIImageView = {
         let image = UIImageView()
         image.contentMode    = .scaleAspectFit
-        image.image          = UIImage(named: "imagen1")
+        image.image          = UIImage(named: "StoreLight")
         image.translatesAutoresizingMaskIntoConstraints = false
-        
         return image
     }()
     
     private lazy var blurBox: BlurContainer = {
         let container = BlurContainer(cornerRadius: 15.0)
         container.translatesAutoresizingMaskIntoConstraints = false
-        
         return container
     }()
     
@@ -91,11 +71,8 @@ class LoginViewController: UIViewController {
         label.font          = .systemFont(ofSize: 28, weight: .bold)
         label.textColor     = ColorManager.light_neutral_1000_dark_neutral_1000
         label.textAlignment = .center
-        
         return label
     }()
-    
-    private var keyboardHeight: CGFloat = 0
     
     private lazy var mailTextField: MyRentTextField = {
         let mailTextField = MyRentTextField(
@@ -109,7 +86,6 @@ class LoginViewController: UIViewController {
         mailTextField.delegate      = self
         mailTextField.autocapitalizationType = .none
         mailTextField.translatesAutoresizingMaskIntoConstraints = false
-        
         return mailTextField
     }()
     
@@ -124,7 +100,6 @@ class LoginViewController: UIViewController {
         passwordTextField.placeholder   = "Contraseña"
         passwordTextField.delegate      = self
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        
         return passwordTextField
     }()
     
@@ -138,9 +113,7 @@ class LoginViewController: UIViewController {
         button.titleLabel?.font   = .systemFont(ofSize: 20, weight: .bold)
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(continueAction), for: .touchUpInside)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }()
     
@@ -149,10 +122,14 @@ class LoginViewController: UIViewController {
         view.color = ColorManager.sharedInstance.dark_neutral_1000
         view.startAnimating()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
- 
+    
+    private var blurBoxOriginYPosition: Double = 0
+    private var currentIndex = 0
+    private var keyboardHeight: CGFloat = 0
+    private var blurBoxHasPosition: Bool = false
+    
     var viewModel: LoginViewModel?
     
     init(
@@ -168,33 +145,37 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = ColorManager.light_neutral_50_dark_neutral_100
+        
+        self.setupView()
+        self.setupKeyboardNotifications()
+        self.configurePresentationController()
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func setupView() {
+        self.view.backgroundColor = ColorManager.light_neutral_50_dark_neutral_100
         self.setConstrains()
         self.updateButtonState(isEnable: false)
         self.activityIndicatorView.isHidden = true
-        self.animationLabel()
         self.viewModel?.delegate = self
-        
-        
+    }
+    
+    private func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-   
+    }
+    
+    private func configurePresentationController() {
+        
         if #available(iOS 15.0, *) {
-            // Utiliza UISheetPresentationController para iOS 15 y posteriores
             let presentationController = presentationController as? UISheetPresentationController
             presentationController?.detents = [.medium(), .large()]
             presentationController?.selectedDetentIdentifier = .large
             presentationController?.prefersGrabberVisible = true
             presentationController?.preferredCornerRadius = 20
-           // dismiss(animated: true, completion: nil)
-        } else {
-            // Utiliza UIPopoverPresentationController para versiones anteriores
-            let popoverController = popoverPresentationController
-            // Configura las propiedades de presentación para la versión anterior de iOS
         }
     }
     
-
     private func updateButtonState(isEnable: Bool) {
         self.continueButton.isEnabled = isEnable
         self.continueButton.alpha     = isEnable ? 1.0 : 0.5
@@ -204,19 +185,14 @@ class LoginViewController: UIViewController {
         self.view.endEditing(true)
         self.updateButtonState(isEnable: false)
         self.activityIndicatorView.isHidden = false
-         
-        //Este bloque se va a ejecutar si el mail y password son correctas
+        
         guard let email = self.mailTextField.text, let password = self.passwordTextField.text else {
             return
         }
         
         self.viewModel!.login(mail: email, pasaword: password)
-        
     }
     
-    private var blurBoxHasPosition: Bool = false
-    
-    //se calcula si el campo de texto está oculto por el teclado.
     @objc func keyboardWillShow(notification: NSNotification) {
         
         if !blurBoxHasPosition {
@@ -228,30 +204,25 @@ class LoginViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
             
-            // Calcula la posición del campo de texto con respecto al teclado
             let fieldFrame = blurBox.frame
             let fieldOriginY = fieldFrame.origin.y
             let fieldHeight = fieldFrame.size.height
             let visibleRectHeight = viewContainer.frame.size.height - keyboardHeight
             
-            // Comprueba si el campo de texto está oculto por el teclado
             if fieldOriginY + fieldHeight > visibleRectHeight {
                 let offsetY = fieldOriginY + fieldHeight - visibleRectHeight
                 
-                // Ajusta la posición de la vista o el campo de texto hacia arriba
                 self.blurBox.frame.origin.y -= offsetY + 16
-                // o
-                // tuTextField.frame.origin.y -= offsetY
             }
         }
     }
-    //  se restaura la posición original de la vista
+    
     @objc func keyboardWillHide() {
         self.hideKeyboard()
     }
     
     private func setConstrains() {
-        self.view.addSubview(viewContainer)
+        self.view.addSubview(self.viewContainer)
         self.viewContainer.addSubviews(
             self.welcomeLabel,
             self.myRentLabel,
@@ -263,37 +234,66 @@ class LoginViewController: UIViewController {
         )
         self.continueButton.addSubview(self.activityIndicatorView)
         
-        
-        let leadingConstraint = self.viewContainer.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
+        let leadingConstraint = self.viewContainer.leadingAnchor.constraint(
+            equalTo: self.view.leadingAnchor,
+            constant: 16
+        )
         leadingConstraint.priority = .init(999)
         
         let trailingConstraint = self.viewContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
         trailingConstraint.priority = .init(999)
         
         NSLayoutConstraint.activate([
-            self.viewContainer.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 16),
-            self.viewContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.viewContainer.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.viewContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 500),
+            self.viewContainer.topAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.topAnchor,
+                constant: 16
+            ),
+            self.viewContainer.bottomAnchor.constraint(
+                equalTo: self.view.bottomAnchor
+            ),
+            self.viewContainer.centerXAnchor.constraint(
+                equalTo: self.view.centerXAnchor
+            ),
+            self.viewContainer.widthAnchor.constraint(
+                lessThanOrEqualToConstant: 500
+            ),
             leadingConstraint,
             trailingConstraint,
             
-            self.welcomeLabel.topAnchor.constraint(equalTo: self.viewContainer.topAnchor),
-            self.welcomeLabel.leadingAnchor.constraint(equalTo: self.viewContainer.leadingAnchor),
+            self.welcomeLabel.topAnchor.constraint(
+                equalTo: self.viewContainer.topAnchor
+            ),
+            self.welcomeLabel.leadingAnchor.constraint(
+                equalTo: self.viewContainer.leadingAnchor
+            ),
             
-            self.myRentLabel.topAnchor.constraint(equalTo: self.welcomeLabel.bottomAnchor),
-            self.myRentLabel.leadingAnchor.constraint(equalTo: self.viewContainer.leadingAnchor),
+            self.myRentLabel.topAnchor.constraint(
+                equalTo: self.welcomeLabel.bottomAnchor
+            ),
+            self.myRentLabel.leadingAnchor.constraint(
+                equalTo: self.viewContainer.leadingAnchor
+            ),
             
-            self.houseImage.topAnchor.constraint(equalTo: self.myRentLabel.bottomAnchor),
-            self.houseImage.widthAnchor.constraint(equalTo: self.viewContainer.widthAnchor),
-            self.houseImage.heightAnchor.constraint(equalToConstant: 250),
-//            self.houseImage.centerXAnchor.constraint(equalTo: self.viewContainer.centerXAnchor),
+            self.houseImage.topAnchor.constraint(
+                equalTo: self.myRentLabel.bottomAnchor
+            ),
+            self.houseImage.widthAnchor.constraint(
+                equalTo: self.viewContainer.widthAnchor
+            ),
+            self.houseImage.heightAnchor.constraint(
+                equalToConstant: 250
+            ),
             
             self.blurBox.topAnchor.constraint(
                 equalTo: self.houseImage.bottomAnchor,
-                constant: -93),
-            self.blurBox.leadingAnchor.constraint(equalTo: self.viewContainer.leadingAnchor),
-            self.blurBox.trailingAnchor.constraint(equalTo: self.viewContainer.trailingAnchor),
+                constant: -32
+            ),
+            self.blurBox.leadingAnchor.constraint(
+                equalTo: self.viewContainer.leadingAnchor
+            ),
+            self.blurBox.trailingAnchor.constraint(
+                equalTo: self.viewContainer.trailingAnchor
+            ),
             
             self.mailTextField.heightAnchor.constraint(equalToConstant: 44),
             
@@ -318,76 +318,23 @@ class LoginViewController: UIViewController {
                 constant: -16
             ),
             
-            self.activityIndicatorView.centerYAnchor.constraint(equalTo: self.continueButton.centerYAnchor),
-            self.activityIndicatorView.widthAnchor.constraint(equalToConstant: 22),
-            self.activityIndicatorView.heightAnchor.constraint(equalToConstant: 22),
-            self.activityIndicatorView.trailingAnchor.constraint(equalTo: self.continueButton.trailingAnchor, constant: -16),
-            
+            self.activityIndicatorView.centerYAnchor.constraint(
+                equalTo: self.continueButton.centerYAnchor
+            ),
+            self.activityIndicatorView.widthAnchor.constraint(
+                equalToConstant: 22
+            ),
+            self.activityIndicatorView.heightAnchor.constraint(
+                equalToConstant: 22
+            ),
+            self.activityIndicatorView.trailingAnchor.constraint(
+                equalTo: self.continueButton.trailingAnchor,
+                constant: -16
+            ),
         ])
     }
     
-    private func animationLabel() {
-        self.welcomeLabel.alpha  = 0
-        self.myRentLabel.alpha   = 0
-        self.houseImage.alpha    = 0
-        self.blurBox.alpha       = 0
-        
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 0.0,
-            options: .curveEaseOut
-        ) {
-            self.welcomeLabel.frame.origin.y += -50
-            self.welcomeLabel.alpha = 1
-        }
-        
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 0.6,
-            options: .curveEaseOut
-        ) {
-            self.myRentLabel.frame.origin.y += -50
-            self.myRentLabel.alpha = 1
-            self.houseImage.frame.origin.y += -50
-            self.houseImage.alpha = 1
-        }
-        
-        
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 1.2,
-            options: .curveEaseOut
-        ) {
-            self.blurBox.frame.origin.y += -50
-            self.blurBox.alpha = 1
-            
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.animateImages()
-        }
-    }
     
-    private func animateImages() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-            self.houseImage.alpha = 0.0
-            self.myRentLabel.alpha = 0.0
-        }) { _ in
-            self.currentIndex = (self.currentIndex + 1) % self.houseImages.count
-            self.houseImage.image = self.houseImages[self.currentIndex]
-            self.myRentLabel.textColor = self.myRentLabels[self.currentIndex]
-            
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-                self.houseImage.alpha = 1.0
-                self.myRentLabel.alpha = 1.0
-            }) { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                    self.animateImages()
-                }
-            }
-        }
-    }
-    
-     
 }
 
 extension LoginViewController: LoginViewModelDelegate {
@@ -398,7 +345,13 @@ extension LoginViewController: LoginViewModelDelegate {
 
         let viewModel = CategoryViewModel()
         let categoryVC = CategoryViewController(viewModel: viewModel)
-        self.navigationController?.pushViewController(categoryVC, animated: true)
+//        self.navigationController?.pushViewController(categoryVC, animated: true)
+        if let navigationController = self.navigationController {
+                navigationController.setViewControllers([categoryVC], animated: true)
+            } else {
+                print("No hay navigation controller configurado")
+            }
+
     }
     
     func onLoginError(_ error: LoginViewModel.Error) {
@@ -417,14 +370,9 @@ extension LoginViewController: LoginViewModelDelegate {
             style: .default,
             handler: nil
         )
-        
         alertController.addAction(okAction)
-        
         present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -440,33 +388,25 @@ extension LoginViewController: UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
-    
     func hideKeyboard() {
-        // Oculta el teclado
         UIView.animate(withDuration: 0.3) {
             self.blurBox.frame.origin.y = self.blurBoxOriginYPosition
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Oculta el teclado
         self.view.endEditing(true)
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        
         let mailIsEmpty = self.mailTextField.text?.isEmpty ?? false
         let passwordIsEmpty = self.passwordTextField.text?.isEmpty ?? false
         
-        // Actualizamos el estado del botón de continuar
         self.updateButtonState(isEnable: !mailIsEmpty && !passwordIsEmpty)
-        
     }
-    
 }

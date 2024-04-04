@@ -23,8 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let navigationController = UINavigationController(
 //            rootViewController: categoryVC
 //        )
-        
+//        
         let loginViewController = LoginViewController()
+        
         let navigationController = UINavigationController(rootViewController: loginViewController)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

@@ -45,6 +45,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let defaultsCategories: [Category] = [
             Category(
+                imageData: UIImage(named: "AllCategory")?.jpegData(compressionQuality: 1),
+                name: "Todas las categorías"
+            ),
+            Category(
                 imageData: UIImage(named: "Pantalon")?.jpegData(compressionQuality: 1),
                 name: "Pantalones"
             ),
@@ -54,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ),
             Category(
                 imageData: UIImage(named: "Short")?.jpegData(compressionQuality: 1),
-                name: "shorts"
+                name: "Shorts"
             ),
             Category(
                 imageData: UIImage(named: "Buzos")?.jpegData(compressionQuality: 1),

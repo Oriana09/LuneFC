@@ -5,9 +5,7 @@
 //  Created by Oriana Costancio on 01/04/2024.
 //
 
-
 import UIKit
-
 
 class BlurContainer: UIView {
     
@@ -31,7 +29,6 @@ class BlurContainer: UIView {
         self.clipsToBounds = true
         self.layer.borderWidth = 2
         self.layer.borderColor = ColorManager.light_textfield_border_dark_textfield_borde.withAlphaComponent(0.6).cgColor
-        //ColorManager.light_neutral_600_dark_neutral_800.cgColor
     }
     
     private func setupBlurView() {
@@ -54,12 +51,11 @@ class BlurContainer: UIView {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         
-        
         gradientLayer.colors = [
             ColorManager.dark_blue_gradient_light_blue_gradient.cgColor,
             ColorManager.dark_violet_gradient_light_violet_gradient.cgColor
-            
         ]
+        
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)

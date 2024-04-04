@@ -39,17 +39,23 @@ class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.configureNavigationBar()
         self.view.backgroundColor = ColorManager.light_neutral_50_dark_neutral_100
         self.updateCategories()
-        self.navigationItem.title = "FC~LUNE"
-        self.configuteButtom()
         self.setCollectionContraints()
-        
+    }
+   
+    private func configureNavigationBar() {
+        self.navigationItem.title = "FC~LUNE"
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationButtom()
+        self.configuteButtom()
+    }
+    
+    private func navigationButtom() {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         self.navigationItem.backBarButtonItem = backButton
-        
     }
     
     private func configuteButtom() {
@@ -59,7 +65,7 @@ class CategoryViewController: UIViewController {
             target: self,
             action: #selector(addButtonAction(_:))
         )
-        addButton.tintColor = ColorManager.light_neutral_1000_dark_neutral_1000
+        addButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.rightBarButtonItem = addButton
     }
     
