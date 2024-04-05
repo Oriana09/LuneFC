@@ -11,7 +11,7 @@ import RealmSwift
 class ClothingListViewController: UIViewController {
  
     var viewModel: ClothingListViewModel
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
@@ -39,9 +39,10 @@ class ClothingListViewController: UIViewController {
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
+       
       
     }
-    
+ 
     private func setupConstrains() {
         self.view.addSubview(self.tableView)
         NSLayoutConstraint.activate([
@@ -77,9 +78,9 @@ class ClothingListViewController: UIViewController {
         }
     }
 }
-    // MARK: - UITableViewDataSource Methods UITableViewDelegate Methods
+    // MARK: - UITableViewDataSource Methods
     
-extension ClothingListViewController: UITableViewDataSource, UITableViewDelegate {
+extension ClothingListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.items?.count ?? 1
     }
@@ -111,8 +112,25 @@ extension ClothingListViewController: UITableViewDataSource, UITableViewDelegate
 //    }
 }
     
+// MARK: -  UITableViewDelegate Methods
 
-
-
+extension ClothingListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+         
+        let deleteAction = UIContextualAction(style: .destructive, title: "Eliminar") { [weak self] (action, view, completionHandler) in
+               guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
+                   completionHandler(false)
+                   return
+               }
+            self?.viewModel.deleteClothinList(itemToRemove)
+               completionHandler(true)
+           
+            tableView.reloadData()
+           }
+           deleteAction.image = UIImage(systemName: "trash")
+           
+           return UISwipeActionsConfiguration(actions: [deleteAction])
+       }
+}
 
 

@@ -153,6 +153,6 @@ class ProductDetailViewController: UIViewController {
         self.imageView.image = UIImage(named: model.description)
         self.nameProductLabel.text = model.title
         self.priceValueLabel.text = "$\(model.price)"
-        self.stockLabel.text = "Cantidad de stock:\(model.stockQuantity)"
+//        self.stockLabel.text = "Cantidad de stock:\(model.stockQuantity)"
     }
 }

@@ -26,6 +26,7 @@
 		69C732252BBAEE46001A9639 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732242BBAEE46001A9639 /* LoginViewController.swift */; };
 		69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732272BBAF262001A9639 /* MyRentTextField.swift */; };
 		69C7322A2BBAFC3E001A9639 /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732292BBAFC3E001A9639 /* BlurContainer.swift */; };
+		69F3217F2BBEC2A2001E9FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69F3217E2BBEC2A2001E9FCC /* Assets.xcassets */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
 		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
@@ -57,6 +58,7 @@
 		69C732242BBAEE46001A9639 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69C732272BBAF262001A9639 /* MyRentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRentTextField.swift; sourceTree = "<group>"; };
 		69C732292BBAFC3E001A9639 /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
+		69F3217E2BBEC2A2001E9FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69F80E482B755D780060A9B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				69F80E482B755D780060A9B1 /* SceneDelegate.swift */,
 				69F80E512B755D790060A9B1 /* LaunchScreen.storyboard */,
 				69F80E542B755D790060A9B1 /* Info.plist */,
+				69F3217E2BBEC2A2001E9FCC /* Assets.xcassets */,
 				69C732182BBA3299001A9639 /* GoogleService-Info.plist */,
 			);
 			path = LuneFcClothes;
@@ -343,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F80E532B755D790060A9B1 /* LaunchScreen.storyboard in Resources */,
+				69F3217F2BBEC2A2001E9FCC /* Assets.xcassets in Resources */,
 				69C732192BBA3299001A9639 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
