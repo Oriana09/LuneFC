@@ -44,7 +44,7 @@ class CategoryViewController: UIViewController {
         self.updateCategories()
         self.setCollectionContraints()
     }
-   
+    
     private func configureNavigationBar() {
         self.navigationItem.title = "FC~LUNE"
         self.navigationController?.navigationBar.isHidden = false

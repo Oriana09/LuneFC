@@ -11,19 +11,17 @@ import RealmSwift
 
 #warning("setear el placheholder")
 class Category: Object {
+  
     @objc dynamic var imageData: Data? = nil
     @objc dynamic var name: String = ""
     
     required override init() {
-           super.init()
-       }
+        super.init()
+    }
     init(imageData: Data?, name: String) {
         
         self.imageData = imageData
         self.name = name
         super.init()
     }
-  //  let placeholderData: Data = (UIImage(named: "campera")?.jpegData(compressionQuality: 1.0))!
-    
-    
 }

@@ -37,8 +37,4 @@ class ClothingItem: Object {
         self.category = category
         super.init()
     }
-//
-//    enum Size: Int {
-//        case s: 
-//    }
 }

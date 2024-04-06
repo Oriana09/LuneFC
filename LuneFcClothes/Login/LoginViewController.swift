@@ -342,16 +342,15 @@ extension LoginViewController: LoginViewModelDelegate {
     func onLoginSuccess() {
         self.updateButtonState(isEnable: true)
         self.activityIndicatorView.isHidden = true
-
+        
         let viewModel = CategoryViewModel()
         let categoryVC = CategoryViewController(viewModel: viewModel)
-//        self.navigationController?.pushViewController(categoryVC, animated: true)
+        
         if let navigationController = self.navigationController {
             navigationController.setViewControllers([categoryVC], animated: true)
         } else {
             print("No hay navigation controller configurado")
         }
-
     }
     
     func onLoginError(_ error: LoginViewModel.Error) {

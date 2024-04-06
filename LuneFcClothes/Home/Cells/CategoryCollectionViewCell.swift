@@ -10,7 +10,7 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CategoryCollectionViewCell"
-  
+    
     private lazy var containerView: BlurContainerView = {
         let container = BlurContainerView(cornerRadius: 10)
         container.layer.masksToBounds = true
@@ -39,7 +39,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }()
     
     let padding: CGFloat = 5.0
-
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         self.setContrains()
@@ -51,8 +51,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func setContrains() {
         self.contentView.addSubviews(
-        imageView,
-        containerView
+            imageView,
+            containerView
         )
         self.containerView.addSubview(self.label)
         
@@ -62,7 +62,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             self.imageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-
+            
             self.containerView.leadingAnchor.constraint(
                 equalTo: self.imageView.leadingAnchor
             ),
@@ -76,14 +76,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
                 equalTo: self.label.topAnchor,
                 constant: -self.padding
             ),
-//            self.containerView.heightAnchor.constraint(
-//                equalToConstant: 40
-//            ),
             
-//            self.label.topAnchor.constraint(
-//                equalTo: self.containerView.topAnchor,
-//                constant: padding
-//            ),
             self.label.leadingAnchor.constraint(
                 equalTo: self.containerView.leadingAnchor,
                 constant: padding
@@ -105,8 +98,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         if let data = model.imageData {
             self.imageView.image = UIImage(data: data)
         }
-        #warning("Setear placeholder")
-//        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
+#warning("Setear placeholder")
+        //        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
     }
 }
 

@@ -60,7 +60,6 @@ class BlurContainer: UIView {
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
         
-        // Agrega el gradiente a la capa de la vista
         self.gradientLayer.removeFromSuperlayer()
         self.layer.insertSublayer(gradientLayer, at: 0)
         self.gradientLayer = gradientLayer

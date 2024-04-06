@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 import RealmSwift
-class ClothingListViewController: UIViewController {
- 
-    var viewModel: ClothingListViewModel
 
+class ClothingListViewController: UIViewController {
+    
+    var viewModel: ClothingListViewModel
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
@@ -39,10 +40,8 @@ class ClothingListViewController: UIViewController {
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
-       
-      
     }
- 
+    
     private func setupConstrains() {
         self.view.addSubview(self.tableView)
         NSLayoutConstraint.activate([
@@ -51,7 +50,6 @@ class ClothingListViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        
     }
     
     private func configuteButtom(){
@@ -65,22 +63,20 @@ class ClothingListViewController: UIViewController {
         addButton.tintColor = ColorManager.light_neutral_1000_dark_neutral_1000
         navigationItem.rightBarButtonItem = addButton
     }
-    #warning("modificar el boton una vez que se hizo prueba")
-#warning("estoy en mi ViewModel y tengo que crear una funcion en donde tengo que guardar nuevo elemneto y en el view controller tengo el boton donde se genera esa action. como configuro?")
+    
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
         var texfield = UITextField()
         
         let  alert =  UIAlertController(title: "Addd new item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
-            
-        
         }
     }
 }
-    // MARK: - UITableViewDataSource Methods
-    
+// MARK: - UITableViewDataSource Methods
+
 extension ClothingListViewController: UITableViewDataSource {
+  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.items?.count ?? 1
     }
@@ -99,38 +95,39 @@ extension ClothingListViewController: UITableViewDataSource {
         return cell
     }
     
-
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
-//        
-//
-//        let navController = UINavigationController(rootViewController: productDetailVC)
-//        
-//        present(navController, animated: true, completion: nil)
-//    }
+    
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
+    //
+    //
+    //        let navController = UINavigationController(rootViewController: productDetailVC)
+    //
+    //        present(navController, animated: true, completion: nil)
+    //    }
 }
-    
+
 // MARK: -  UITableViewDelegate Methods
 
 extension ClothingListViewController: UITableViewDelegate {
+ 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-         
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Eliminar") { [weak self] (action, view, completionHandler) in
-               guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
-                   completionHandler(false)
-                   return
-               }
+            guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
+                completionHandler(false)
+                return
+            }
             self?.viewModel.deleteClothinList(itemToRemove)
-               completionHandler(true)
-           
+            completionHandler(true)
+            
             tableView.reloadData()
-           }
-           deleteAction.image = UIImage(systemName: "trash")
-           
-           return UISwipeActionsConfiguration(actions: [deleteAction])
-       }
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 

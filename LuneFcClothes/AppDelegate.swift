@@ -17,10 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.configureRealm()
         self.setDefaultsCategories()
-        //   self.createRooyVC()
         FirebaseApp.configure()
-      
-        
         
         return true
     }
@@ -71,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         ]
         
-        
         do {
             let realm = try! Realm()
             try realm.write {
@@ -82,7 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error saving default category: \(error.localizedDescription)")
         }
     }
-    
 }
-    
+
 

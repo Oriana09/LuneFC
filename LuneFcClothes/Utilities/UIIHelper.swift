@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-#warning("configurar la celdas para que tengan mas especios y refactorizar este codigo")
-
-
 enum UIHelper {
     
     static func createTwoColumnFlowLayout() -> UICollectionViewLayout {
@@ -60,33 +57,3 @@ enum UIHelper {
         layout.scrollDirection = .vertical
     }
 }
-
-
-
-//enum UIHelper {
-//    
-//    static func createTwoColumnFlowLayout() -> UICollectionViewLayout {
-//       
-//        let padding = 16.0
-//
-//        let layout = UICollectionViewFlowLayout()
-//        let availableWidth = (UIScreen.main.bounds.width - padding * 2)
-//        let screenIsBig = availableWidth > 500
-//        let numberOfColumns: CGFloat = screenIsBig ? 3 : 2
-//        let itemWidth = (availableWidth - (numberOfColumns - 1)) / numberOfColumns
-//        layout.itemSize = CGSize(
-//            width: itemWidth,
-//            height: itemWidth
-//        )
-//        layout.minimumInteritemSpacing = 1
-//        layout.minimumLineSpacing = 1
-//        layout.sectionInset = UIEdgeInsets(
-//            top: padding,
-//            left: padding,
-//            bottom: 0,
-//            right: padding
-//        )
-//        layout.scrollDirection = .vertical
-//        return layout
-//    }
-//}

@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 
 class ClothingListViewModel {
-        
+    
     private let realm = try! Realm()
     
     var items: Results<ClothingItem>?
-    
     var category: Category
     
     init(
@@ -28,8 +27,8 @@ class ClothingListViewModel {
     }
     
     private func saveDefaultItems() {
-        // Verifica si ya hay elementos guardados
-//        guard realm.objects(ClothingItem.self).isEmpty else { return }
+        
+        //        guard realm.objects(ClothingItem.self).isEmpty else { return }
         
         let defaultItems: [ClothingItem] = [
             ClothingItem(
@@ -74,7 +73,6 @@ class ClothingListViewModel {
             ),
         ]
         
-        // Guarda los elementos predefinidos
         try! realm.write {
             realm.add(defaultItems)
         }
@@ -88,7 +86,6 @@ class ClothingListViewModel {
     
     func loadItems() {
         
-        // Filtrar los objetos ClothingItem por el nombre de la categoría seleccionada
         self.items = realm.objects(ClothingItem.self).filter("category == %@", self.category.name)
     }
     
@@ -96,9 +93,7 @@ class ClothingListViewModel {
         try! self.realm.write {
             self.realm.delete(clothingItem)
         }
-        
     }
-    
 }
 
 

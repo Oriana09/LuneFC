@@ -10,9 +10,9 @@ import RealmSwift
 import FirebaseCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -32,12 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if #available(iOS 15, *) {
             
             let navBarAppearance: UINavigationBarAppearance = UINavigationBarAppearance()
-                
-        
+            
+            
             UINavigationBar.appearance().tintColor = .systemGreen
             UINavigationBar.appearance().standardAppearance = navBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-           
+            
         } else {
             UINavigationBar.appearance().tintColor = .systemGreen
         }
@@ -59,11 +59,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let categoryVC = CategoryViewController(
                 viewModel: categoryVM
             )
-
+            
             return categoryVC
         } else {
             let loginViewController = LoginViewController()
-
+            
             return loginViewController
         }
     }
