@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol LoginViewModelDelegate: AnyObject {
     func onLoginSuccess()
@@ -14,12 +15,14 @@ protocol LoginViewModelDelegate: AnyObject {
 
 class LoginViewModel {
     
-        enum Error: Int {
+    private let realm = try! Realm()
+    
+    enum Error: Int {
         case invalidFormated    = 17008
         case invalidPassword    = 17009
         case unregisteredUser   = 17011
         case connectionError    = 17020
-     
+        
         case unowned
         
         var description: String {
@@ -54,12 +57,24 @@ class LoginViewModel {
         self.loginRepository.login(email: mail, password: pasaword) { result in
             switch result {
             case .success(let user):
+                self.saveUserData(user: user)
                 self.delegate?.onLoginSuccess()
             case .failure(let error):
                 self.delegate?.onLoginError(
                     LoginViewModel.Error(rawValue: error.code) ?? .unowned
                 )
             }
+        }
+    }
+    
+    private func saveUserData(user: UserLoginModel) {
+        let userData = User(
+            email: user.email ?? "",
+            isLoggued: true
+            
+        )
+        try! self.realm.write {
+            self.realm.add(userData)
         }
     }
 }

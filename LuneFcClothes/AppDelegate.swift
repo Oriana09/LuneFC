@@ -12,11 +12,16 @@ import FirebaseCore
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         self.configureRealm()
         self.setDefaultsCategories()
+        //   self.createRooyVC()
         FirebaseApp.configure()
+      
+        
+        
         return true
     }
     
@@ -30,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 13,
+            schemaVersion: 16,
             migrationBlock: { migration, oldSchemaVersion in }
         )
         
@@ -77,5 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error saving default category: \(error.localizedDescription)")
         }
     }
+    
 }
+    
 

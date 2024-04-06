@@ -347,10 +347,10 @@ extension LoginViewController: LoginViewModelDelegate {
         let categoryVC = CategoryViewController(viewModel: viewModel)
 //        self.navigationController?.pushViewController(categoryVC, animated: true)
         if let navigationController = self.navigationController {
-                navigationController.setViewControllers([categoryVC], animated: true)
-            } else {
-                print("No hay navigation controller configurado")
-            }
+            navigationController.setViewControllers([categoryVC], animated: true)
+        } else {
+            print("No hay navigation controller configurado")
+        }
 
     }
     

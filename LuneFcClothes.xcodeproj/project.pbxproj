@@ -27,6 +27,7 @@
 		69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732272BBAF262001A9639 /* MyRentTextField.swift */; };
 		69C7322A2BBAFC3E001A9639 /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732292BBAFC3E001A9639 /* BlurContainer.swift */; };
 		69F3217F2BBEC2A2001E9FCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69F3217E2BBEC2A2001E9FCC /* Assets.xcassets */; };
+		69F321822BC0CF33001E9FCC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F321812BC0CF33001E9FCC /* User.swift */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
 		69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E4A2B755D780060A9B1 /* CategoryViewController.swift */; };
@@ -59,6 +60,7 @@
 		69C732272BBAF262001A9639 /* MyRentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRentTextField.swift; sourceTree = "<group>"; };
 		69C732292BBAFC3E001A9639 /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
 		69F3217E2BBEC2A2001E9FCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
+		69F321812BC0CF33001E9FCC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69F80E482B755D780060A9B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +219,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		69F321802BC0CEFA001E9FCC /* User */ = {
+			isa = PBXGroup;
+			children = (
+				69F321812BC0CF33001E9FCC /* User.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		69F80E3A2B755D770060A9B1 = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +246,7 @@
 		69F80E452B755D780060A9B1 /* LuneFcClothes */ = {
 			isa = PBXGroup;
 			children = (
+				69F321802BC0CEFA001E9FCC /* User */,
 				69C732172BBA3128001A9639 /* Login */,
 				694168652BB5D50F00B64661 /* Home */,
 				694168672BB5D68D00B64661 /*  ClothingList */,
@@ -363,6 +374,7 @@
 				69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */,
 				693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */,
 				69F80E682B7EA6730060A9B1 /* ClothingListViewController.swift in Sources */,
+				69F321822BC0CF33001E9FCC /* User.swift in Sources */,
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */,
 				69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */,

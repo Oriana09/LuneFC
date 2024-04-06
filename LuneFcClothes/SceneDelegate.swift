@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RealmSwift
+import FirebaseCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,23 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.setNavigationBarAppearance()
-//        let categoryVM = CategoryViewModel()
-//        let categoryVC = CategoryViewController(
-//            viewModel: categoryVM
-//        )
-//        let navigationController = UINavigationController(
-//            rootViewController: categoryVC
-//        )
-//        
-        let loginViewController = LoginViewController()
         
-        let navigationController = UINavigationController(rootViewController: loginViewController)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        let navigationController = UINavigationController(
+            rootViewController: self.createRootVC()
+        )
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
-
+    
     func setNavigationBarAppearance() {
         if #available(iOS 15, *) {
             
@@ -57,5 +52,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) { }
     
     func sceneDidEnterBackground(_ scene: UIScene) { }
+    
+    private func createRootVC() -> UIViewController {
+        if User.isLoggued() {
+            let categoryVM = CategoryViewModel()
+            let categoryVC = CategoryViewController(
+                viewModel: categoryVM
+            )
+
+            return categoryVC
+        } else {
+            let loginViewController = LoginViewController()
+
+            return loginViewController
+        }
+    }
 }
 
