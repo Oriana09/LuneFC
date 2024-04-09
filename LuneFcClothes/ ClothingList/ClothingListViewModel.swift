@@ -85,7 +85,6 @@ class ClothingListViewModel {
     }
     
     func loadItems() {
-        
         self.items = realm.objects(ClothingItem.self).filter("category == %@", self.category.name)
     }
     

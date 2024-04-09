@@ -28,5 +28,7 @@ class CategoryViewModel {
             self.realm.delete(category)
         }
     }
+    
+    
 }
 

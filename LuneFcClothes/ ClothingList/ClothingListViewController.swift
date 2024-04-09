@@ -10,9 +10,7 @@ import UIKit
 import RealmSwift
 
 class ClothingListViewController: UIViewController {
-    
-    var viewModel: ClothingListViewModel
-    
+        
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
@@ -23,6 +21,8 @@ class ClothingListViewController: UIViewController {
         
         return tableView
     }()
+    
+    var viewModel: ClothingListViewModel
     
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
@@ -65,12 +65,8 @@ class ClothingListViewController: UIViewController {
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-        var texfield = UITextField()
-        
-        let  alert =  UIAlertController(title: "Addd new item", message: "", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
-        }
+    let addClothingListVM = AddClothingListViewModel()
+    let addClothingListVC = AddClothingListViewController(ViewModel: addClothingListVM)
     }
 }
 // MARK: - UITableViewDataSource Methods

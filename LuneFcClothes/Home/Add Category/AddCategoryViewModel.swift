@@ -14,12 +14,13 @@ class AddCategoryViewModel {
     
     func saveCategory(
         name: String,
-        image: Data?
+        image: Data?,
+        sizes: [String]?
     ) {
         let newCategory = Category()
         newCategory.name = name
         newCategory.imageData = image
-        
+        newCategory.sizes = sizes
         do {
             let realm = try Realm()
             try realm.write {
@@ -30,4 +31,5 @@ class AddCategoryViewModel {
             print("Error saving category: \(error)")
         }
     }
+    
 }

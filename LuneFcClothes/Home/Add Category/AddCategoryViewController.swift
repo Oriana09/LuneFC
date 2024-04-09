@@ -52,6 +52,8 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         return button
     }()
     
+    
+    
     let padding: CGFloat = 16.0
     let nameTextPadding: CGFloat = 20.0
     
@@ -116,7 +118,8 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         
         self.viewModel.saveCategory(
             name: nombre,
-            image: self.productImage.image?.pngData()
+            image: self.productImage.image?.pngData(), 
+            sizes:
         )
         
         self.dismiss()

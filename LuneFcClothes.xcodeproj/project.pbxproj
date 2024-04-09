@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		691D08612BC41032002E9658 /* AddClothingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08602BC41032002E9658 /* AddClothingListViewController.swift */; };
+		691D08632BC41366002E9658 /* AddClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08622BC41366002E9658 /* AddClothingListViewModel.swift */; };
 		693C949A2B8D179600B60C8D /* BlurContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693C94992B8D179600B60C8D /* BlurContainerView.swift */; };
 		693FE4FA2B8FB9BB00528A9D /* SizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4F92B8FB9BB00528A9D /* SizeView.swift */; };
 		693FE4FC2B8FC0C300528A9D /* TopPartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */; };
@@ -37,12 +39,14 @@
 		69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */; };
 		69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E652B7673FA0060A9B1 /* UIIHelper.swift */; };
 		69F80E682B7EA6730060A9B1 /* ClothingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */; };
-		69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E692B7FEAFC0060A9B1 /* ClothingListCell.swift */; };
+		69F80E6A2B7FEAFC0060A9B1 /* ClothingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E692B7FEAFC0060A9B1 /* ClothingTableViewCell.swift */; };
 		69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E6C2B7FF7BC0060A9B1 /* UIView+extensions.swift */; };
 		69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E6F2B86735D0060A9B1 /* ColorManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		691D08602BC41032002E9658 /* AddClothingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewController.swift; sourceTree = "<group>"; };
+		691D08622BC41366002E9658 /* AddClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewModel.swift; sourceTree = "<group>"; };
 		693C94992B8D179600B60C8D /* BlurContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainerView.swift; sourceTree = "<group>"; };
 		693FE4F92B8FB9BB00528A9D /* SizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeView.swift; sourceTree = "<group>"; };
 		693FE4FB2B8FC0C300528A9D /* TopPartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPartDetailView.swift; sourceTree = "<group>"; };
@@ -72,7 +76,7 @@
 		69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListViewModel.swift; sourceTree = "<group>"; };
 		69F80E652B7673FA0060A9B1 /* UIIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIHelper.swift; sourceTree = "<group>"; };
 		69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListViewController.swift; sourceTree = "<group>"; };
-		69F80E692B7FEAFC0060A9B1 /* ClothingListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListCell.swift; sourceTree = "<group>"; };
+		69F80E692B7FEAFC0060A9B1 /* ClothingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingTableViewCell.swift; sourceTree = "<group>"; };
 		69F80E6C2B7FF7BC0060A9B1 /* UIView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extensions.swift"; sourceTree = "<group>"; };
 		69F80E6F2B86735D0060A9B1 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		691D085F2BC40F56002E9658 /* AddClothingList */ = {
+			isa = PBXGroup;
+			children = (
+				691D08602BC41032002E9658 /* AddClothingListViewController.swift */,
+				691D08622BC41366002E9658 /* AddClothingListViewModel.swift */,
+			);
+			path = AddClothingList;
+			sourceTree = "<group>";
+		};
 		693C94952B8D174600B60C8D /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +158,7 @@
 				69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */,
 				694168682BB5D6DC00B64661 /* Cells */,
 				6941686A2BB5D7CB00B64661 /* Models */,
+				691D085F2BC40F56002E9658 /* AddClothingList */,
 			);
 			path = " ClothingList";
 			sourceTree = "<group>";
@@ -152,7 +166,7 @@
 		694168682BB5D6DC00B64661 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				69F80E692B7FEAFC0060A9B1 /* ClothingListCell.swift */,
+				69F80E692B7FEAFC0060A9B1 /* ClothingTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -374,9 +388,10 @@
 				69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */,
 				693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */,
 				69F80E682B7EA6730060A9B1 /* ClothingListViewController.swift in Sources */,
+				691D08632BC41366002E9658 /* AddClothingListViewModel.swift in Sources */,
 				69F321822BC0CF33001E9FCC /* User.swift in Sources */,
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
-				69F80E6A2B7FEAFC0060A9B1 /* ClothingListCell.swift in Sources */,
+				69F80E6A2B7FEAFC0060A9B1 /* ClothingTableViewCell.swift in Sources */,
 				69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */,
 				69C732212BBAEBA4001A9639 /* LoginRepository.swift in Sources */,
 				69F80E4B2B755D780060A9B1 /* CategoryViewController.swift in Sources */,
@@ -387,6 +402,7 @@
 				69F80E6D2B7FF7BC0060A9B1 /* UIView+extensions.swift in Sources */,
 				694168552B97CF3700B64661 /* Category.swift in Sources */,
 				69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */,
+				691D08612BC41032002E9658 /* AddClothingListViewController.swift in Sources */,
 				69C7321E2BBAE8F9001A9639 /* LoginUserModel.swift in Sources */,
 				69F80E5C2B7567E30060A9B1 /* CategoryCollectionViewCell.swift in Sources */,
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,

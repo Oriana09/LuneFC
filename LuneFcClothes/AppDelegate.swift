@@ -48,23 +48,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultsCategories: [Category] = [
             Category(
                 imageData: UIImage(named: "AllCategory")?.jpegData(compressionQuality: 1),
-                name: "Todas las categorías"
+                name: "Todas las categorías",
+                sizes: nil
             ),
             Category(
                 imageData: UIImage(named: "Pantalon")?.jpegData(compressionQuality: 1),
-                name: "Pantalones"
+                name: "Pantalones",
+                sizes: ["38", "40", "42", "44", "46", "48"]
             ),
             Category(
                 imageData: UIImage(named: "Remera")?.jpegData(compressionQuality: 1),
-                name: "Remeras"
+                name: "Remeras",
+                sizes: ["XS", "S", "M", "L", "XL"]
             ),
             Category(
                 imageData: UIImage(named: "Short")?.jpegData(compressionQuality: 1),
-                name: "Shorts"
+                name: "Shorts",
+                sizes: ["38", "40", "42", "44", "46", "48"]
             ),
             Category(
                 imageData: UIImage(named: "Buzos")?.jpegData(compressionQuality: 1),
-                name: "Buzos"
+                name: "Buzos",
+                sizes: ["XS", "S", "M", "L", "XL"]
             )
         ]
         
