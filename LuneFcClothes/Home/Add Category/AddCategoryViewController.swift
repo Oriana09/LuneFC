@@ -14,48 +14,18 @@ protocol AddCategoryPresenterDelegate: AnyObject {
 
 class AddCategoryViewController: UIViewController, UINavigationControllerDelegate {
     
-    private lazy var productImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "categoryPlaceholder")
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(imageTapped)
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(
+            frame: .zero,
+            style: .insetGrouped
         )
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        tableView.delegate =  self
+        tableView.dataSource = self
+        tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
     }()
-    
-    private lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Nombre de la categoria"
-        textField.font = .systemFont(ofSize: 20)
-        textField.borderStyle = .roundedRect
-        textField.layer.cornerRadius = 10
-        textField.layer.masksToBounds = true
-        textField.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    private lazy var deleteButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        button.addTarget(self, action: #selector(deleteImage), for: .touchUpInside)
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    
-    
-    let padding: CGFloat = 16.0
-    let nameTextPadding: CGFloat = 20.0
     
     private let viewModel: AddCategoryViewModel
     weak var delegate: AddCategoryPresenterDelegate?
@@ -71,12 +41,33 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
+        self.SetUI()
+    }
+    
+    private func SetUI() {
         self.navigationItem.title = "Nueva Categoria"
-        self.setupConstraints()
-        self.cancelButtom()
+        self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
+        self.setupConstrains()
+        self.cancelButton()
         self.addCategoryButton()
+    }
+    
+    private func setupConstrains() {
+        self.view.addSubview(self.tableView)
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(
+                equalTo: view.topAnchor
+            ),
+            self.tableView.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor
+            ),
+            self.tableView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor
+            ),
+            self.tableView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor
+            )
+        ])
     }
     
     private func cancelButtom(){
@@ -86,7 +77,6 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
             style: .plain,
             target: self,
             action: #selector(cancelButton)
-            
         )
         addButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.leftBarButtonItem = addButton
@@ -94,94 +84,6 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
     
     @objc func cancelButton() {
         self.confirmationAlert()
-    }
-    
-    private func addCategoryButton(){
-        
-        let addCategoryButton =  UIBarButtonItem(
-            title: "Agregar",
-            style: .plain,
-            target: self,
-            action: #selector(addCategory)
-        )
-        
-        addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-        navigationItem.rightBarButtonItem = addCategoryButton
-    }
-    
-    @objc private func addCategory() {
-        
-        guard let nombre = nameTextField.text else {
-#warning("agregar alerta de qur faltan parametros")
-            return
-        }
-        
-        self.viewModel.saveCategory(
-            name: nombre,
-            image: self.productImage.image?.pngData(), 
-            sizes:
-        )
-        
-        self.dismiss()
-    }
-    
-    private func dismiss() {
-        self.delegate?.onDismiss()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    private func setupConstraints() {
-        self.view.addSubviews(
-            self.productImage,
-            self.nameTextField,
-            self.deleteButton
-        )
-        
-        NSLayoutConstraint.activate([
-            self.productImage.topAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.topAnchor,
-                constant: padding
-            ),
-            self.productImage.leadingAnchor.constraint(
-                equalTo: self.view.leadingAnchor,
-                constant: padding
-            ),
-            self.productImage.trailingAnchor.constraint(
-                equalTo: self.view.trailingAnchor,
-                constant: -padding
-            ),
-            self.productImage.heightAnchor.constraint(
-                equalToConstant: 250
-            ),
-            
-            self.nameTextField.topAnchor.constraint(
-                equalTo: self.productImage.bottomAnchor,
-                constant: nameTextPadding
-            ),
-            self.nameTextField.leadingAnchor.constraint(
-                equalTo: self.view.leadingAnchor,
-                constant: nameTextPadding
-            ),
-            self.nameTextField.trailingAnchor.constraint(
-                equalTo: self.view.trailingAnchor,
-                constant: -nameTextPadding
-            ),
-            self.nameTextField.heightAnchor.constraint(
-                equalToConstant: 50.0
-            ),
-            
-            self.deleteButton.topAnchor.constraint(
-                equalTo: self.productImage.topAnchor
-            ),
-            self.deleteButton.trailingAnchor.constraint(
-                equalTo: self.productImage.trailingAnchor,
-                constant: -16.0
-            ),
-            
-            self.deleteButton.heightAnchor.constraint(
-                equalToConstant: 50.0
-            )
-        ])
     }
     
     private func confirmationAlert() {
@@ -197,40 +99,107 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func imageTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
+    private func addCategoryButton(){
+        
+        let addCategoryButton =  UIBarButtonItem(
+            title: "Agregar",
+            style: .plain,
+            target: self,
+            action: #selector(addCategory)
+        )
+        
+        addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
+        navigationItem.rightBarButtonItem = addCategoryButton
+    }
+#warning("una vez que selecciono el boton quiero que se me agregue a categoryViewController")
+    @objc private func addCategory() {
+        self.viewModel.saveCategory()
+        self.dismiss()
     }
     
-    @objc func deleteImage() {
-        if self.productImage.image != UIImage(named: "categoryPlaceholder") {
-            self.productImage.image = UIImage(named: "categoryPlaceholder")
-            self.deleteButton.isHidden = true
+    private func dismiss() {
+        self.delegate?.onDismiss()
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension AddCategoryViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.viewModel.getTitle(for: section)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        #warning("Get from viewModel")
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        #warning("Get from viewModel")
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell: UITableViewCell
+        
+        switch indexPath.section {
+        case 0:
+            let imageCell = tableView.dequeueReusableCell(
+                withIdentifier: ImagePickerTableViewCell.identifier,
+                for: indexPath
+            ) as! ImagePickerTableViewCell
+            imageCell.configure(image: self.viewModel.getSelectedImage())
+            
+            cell = imageCell
+        default:
+            cell = tableView.dequeueReusableCell(
+                withIdentifier: ImagePickerTableViewCell.identifier,
+                for: indexPath
+            ) as! ImagePickerTableViewCell
         }
+        
+        return cell
+    }
+}
+
+
+
+//MARK: - UITableViewDelegate
+
+extension AddCategoryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+                  // Abre la galería de imágenes del dispositivo
+                  let imagePicker = UIImagePickerController()
+                  imagePicker.delegate = self
+                  imagePicker.sourceType = .photoLibrary
+                  present(imagePicker, animated: true, completion: nil)
+              }
     }
 }
 
 //MARK: - UIImagePickerControllerDelegate
 
 extension AddCategoryViewController: UIImagePickerControllerDelegate {
-    
+   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-        if let image = info[.originalImage] as? UIImage {
-            self.productImage.image = image
-            self.deleteButton.isHidden = false
-        } else {
-            print("Error: Could not get selected image")
+        guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
+            return
         }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
+        
+        guard let image = info[.originalImage] as? UIImage else {
+            return
+        }
+        
+        guard let cell = self.tableView.cellForRow(at: selectedIndexPath) as? ImagePickerTableViewCell else {
+            return
+        }
+        
+        self.viewModel.setSelectedImage(image: image)
+        self.tableView.reloadData()
+        self.dismiss(animated: true, completion: nil)
     }
 }
-
-

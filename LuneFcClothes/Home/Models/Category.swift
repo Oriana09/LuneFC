@@ -14,19 +14,19 @@ class Category: Object {
     
     @objc dynamic var imageData: Data? = nil
     @objc dynamic var name: String = ""
-    @objc dynamic var sizes: [String]? = []
+//    @objc dynamic var sizes: [String] = []
     
     required override init() {
         super.init()
     }
     init(
         imageData: Data?,
-        name: String,
-        sizes: [String]?
+        name: String
+//        sizes: [String]
     ) {
         self.imageData = imageData
         self.name = name
-        self.sizes = sizes
+//        self.sizes = sizes
         super.init()
     }
 }

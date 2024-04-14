@@ -86,6 +86,7 @@ class AddClothingListViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
+    
     }
     
     private func addCategoryButton(){

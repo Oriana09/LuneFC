@@ -124,6 +124,7 @@ public final class ColorManager {
     @Theme(light: ColorManager.sharedInstance.blue_gradient,
            dark: ColorManager.sharedInstance.blue_gradient)
     static var dark_blue_gradient_light_blue_gradient
+   
     
     static let sharedInstance = ColorManager()
 }
