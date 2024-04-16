@@ -14,6 +14,7 @@ protocol AddCategoryPresenterDelegate: AnyObject {
 
 class AddCategoryViewController: UIViewController, UINavigationControllerDelegate {
     
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
@@ -22,6 +23,7 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         tableView.delegate =  self
         tableView.dataSource = self
         tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
+        tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -41,15 +43,15 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.SetUI()
+        self.setUI()
     }
     
-    private func SetUI() {
+    private func setUI() {
         self.navigationItem.title = "Nueva Categoria"
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
         self.setupConstrains()
-        self.cancelButton()
-        self.addCategoryButton()
+        self.createCancelButton()
+        self.saveCategoryButton()
     }
     
     private func setupConstrains() {
@@ -70,36 +72,54 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         ])
     }
     
-    private func cancelButtom(){
+    private func createCancelButton(){
         
         let addButton =  UIBarButtonItem(
             title: "Cancel",
             style: .plain,
             target: self,
-            action: #selector(cancelButton)
+            action: #selector(cancelAction)
         )
         addButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.leftBarButtonItem = addButton
     }
     
-    @objc func cancelButton() {
-        self.confirmationAlert()
+    @objc func cancelAction() {
+        self.cancelAlert()
     }
     
-    private func confirmationAlert() {
-        let alert = UIAlertController(title: "¿Estás segura?", message: nil, preferredStyle: .alert)
+    private func cancelAlert() {
+        let alert = UIAlertController(
+            title: "¿Estás seguro que desea salir?",
+            message: nil,
+            preferredStyle: .alert
+        )
         
-        alert.addAction(UIAlertAction(title: "Sí", style: .default, handler: { _ in
-            
-            self.dismiss()
-        }))
+        alert.addAction(
+            UIAlertAction(
+                title: "Sí",
+                style: .default,
+                handler: { _ in
+                    
+                    self.dismissAction()
+                }))
         
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancelar",
+                style: .cancel,
+                handler: nil
+            )
+        )
         
-        present(alert, animated: true, completion: nil)
+        self.present(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
     
-    private func addCategoryButton(){
+    private func saveCategoryButton(){
         
         let addCategoryButton =  UIBarButtonItem(
             title: "Agregar",
@@ -111,13 +131,13 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.rightBarButtonItem = addCategoryButton
     }
-#warning("una vez que selecciono el boton quiero que se me agregue a categoryViewController")
+    
     @objc private func addCategory() {
         self.viewModel.saveCategory()
-        self.dismiss()
+        self.dismissAction()
     }
     
-    private func dismiss() {
+    private func dismissAction() {
         self.delegate?.onDismiss()
         self.dismiss(animated: true, completion: nil)
     }
@@ -129,14 +149,17 @@ extension AddCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.viewModel.getTitle(for: section)
     }
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return self.viewModel.getTitleFooter(for: section)
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        #warning("Get from viewModel")
-        return 1
+#warning("Get from viewModel")
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        #warning("Get from viewModel")
+#warning("Get from viewModel")
         return 1
     }
     
@@ -151,13 +174,18 @@ extension AddCategoryViewController: UITableViewDataSource {
                 for: indexPath
             ) as! ImagePickerTableViewCell
             imageCell.configure(image: self.viewModel.getSelectedImage())
-            
             cell = imageCell
-        default:
-            cell = tableView.dequeueReusableCell(
-                withIdentifier: ImagePickerTableViewCell.identifier,
+        case 1:
+            let nameCell = tableView.dequeueReusableCell(
+                withIdentifier: NameCategoryTableViewCell.identifier,
                 for: indexPath
-            ) as! ImagePickerTableViewCell
+            ) as! NameCategoryTableViewCell
+            nameCell.configure(title: self.viewModel.getTitle())
+            nameCell.delegate = self
+            cell = nameCell
+            
+        default:
+            cell = UITableViewCell()
         }
         
         return cell
@@ -172,19 +200,19 @@ extension AddCategoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-                  // Abre la galería de imágenes del dispositivo
-                  let imagePicker = UIImagePickerController()
-                  imagePicker.delegate = self
-                  imagePicker.sourceType = .photoLibrary
-                  present(imagePicker, animated: true, completion: nil)
-              }
+            // Abre la galería de imágenes del dispositivo
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
 }
 
 //MARK: - UIImagePickerControllerDelegate
 
 extension AddCategoryViewController: UIImagePickerControllerDelegate {
-   
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
             return
@@ -201,5 +229,11 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
         self.viewModel.setSelectedImage(image: image)
         self.tableView.reloadData()
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AddCategoryViewController: NameCategoryTableViewCellDelegate {
+    func onTitleChange(_ title: String) {
+        self.viewModel.setTitle(title)
     }
 }

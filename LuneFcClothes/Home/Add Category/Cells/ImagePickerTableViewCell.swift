@@ -27,9 +27,9 @@ class ImagePickerTableViewCell: UITableViewCell {
         super.updateConfiguration(using: state)
     
         var contentConfig = defaultContentConfiguration()
-//        let image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
-        contentConfig.image = self.image 
+        contentConfig.image = self.image
         contentConfig.imageProperties.tintColor = ColorManager.light_neutral_1000_dark_neutral_1000
+       
         let cellWidth = self.contentView.frame.width - 32
         let customSize = CGSize(
             width: cellWidth,
@@ -37,6 +37,7 @@ class ImagePickerTableViewCell: UITableViewCell {
         )
         contentConfig.imageProperties.reservedLayoutSize = customSize
         contentConfiguration = contentConfig
+        
     }
     
     func configure(image: UIImage?) {

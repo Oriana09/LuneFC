@@ -15,6 +15,8 @@ class AddCategoryViewModel {
     
     private var image: UIImage? = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
     
+    private var title: String = ""
+    
     var numberOfSection: Int {
         
         return 3
@@ -22,7 +24,7 @@ class AddCategoryViewModel {
     func saveCategory() {
         let newCategory = Category(
             imageData: image?.jpegData(compressionQuality: 1),
-            name: ""
+            name: self.title
         )
         
         do {
@@ -50,12 +52,34 @@ class AddCategoryViewModel {
         }
     }
     
+    func getTitleFooter(for section: Int) -> String {
+        switch section {
+        case 0:
+            return "Toque para agregar imagen"
+        case 1:
+            return ""
+        case 2:
+            return ""
+        default:
+            return ""
+            
+        }
+    }
+    
     func getSelectedImage() -> UIImage? {
         return self.image
     }
     
     func setSelectedImage(image: UIImage) {
         self.image = image
+    }
+
+    func getTitle() -> String {
+        return self.title
+    }
+    
+    func setTitle(_ title: String) {
+        self.title = title
     }
 }
 

@@ -64,29 +64,46 @@ class AddClothingListViewController: UIViewController {
             title: "Cancel",
             style: .plain,
             target: self,
-            action: #selector(cancelButton)
+            action: #selector(self.cancelAction)
             
         )
         addButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         navigationItem.leftBarButtonItem = addButton
     }
     
-    @objc func cancelButton() {
+    @objc func cancelAction() {
         self.confirmationAlert()
     }
     
     private func confirmationAlert() {
-        let alert = UIAlertController(title: "¿Estás segura?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "¿Estás seguro que desea salir?",
+            message: nil,
+            preferredStyle: .alert
+        )
         
-        alert.addAction(UIAlertAction(title: "Sí", style: .default, handler: { _ in
+        alert.addAction(
+            UIAlertAction(
+                title: "Sí",
+                style: .default,
+                handler: { _ in
          
-       //     self.dismiss()
+            self.dismiss(animated: true)
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancelar",
+                style: .cancel,
+                handler: nil
+            )
+        )
         
-        present(alert, animated: true, completion: nil)
-    
+        self.present(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
     
     private func addCategoryButton(){
