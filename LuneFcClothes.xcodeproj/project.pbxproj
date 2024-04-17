@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		691D08612BC41032002E9658 /* AddClothingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08602BC41032002E9658 /* AddClothingListViewController.swift */; };
 		691D08632BC41366002E9658 /* AddClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08622BC41366002E9658 /* AddClothingListViewModel.swift */; };
-		691D08652BC5E151002E9658 /* AddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08642BC5E151002E9658 /* AddImageTableViewCell.swift */; };
 		691D086A2BC6CFDF002E9658 /* AddSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08692BC6CFDF002E9658 /* AddSizeTableViewCell.swift */; };
 		691D086C2BCADA74002E9658 /* ImagePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D086B2BCADA74002E9658 /* ImagePickerTableViewCell.swift */; };
 		692EEE8F2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EEE8E2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift */; };
@@ -51,7 +50,6 @@
 /* Begin PBXFileReference section */
 		691D08602BC41032002E9658 /* AddClothingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewController.swift; sourceTree = "<group>"; };
 		691D08622BC41366002E9658 /* AddClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewModel.swift; sourceTree = "<group>"; };
-		691D08642BC5E151002E9658 /* AddImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageTableViewCell.swift; sourceTree = "<group>"; };
 		691D08692BC6CFDF002E9658 /* AddSizeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSizeTableViewCell.swift; sourceTree = "<group>"; };
 		691D086B2BCADA74002E9658 /* ImagePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerTableViewCell.swift; sourceTree = "<group>"; };
 		692EEE8E2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -115,10 +113,9 @@
 		691D08662BC5E174002E9658 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				691D08642BC5E151002E9658 /* AddImageTableViewCell.swift */,
-				691D08692BC6CFDF002E9658 /* AddSizeTableViewCell.swift */,
 				691D086B2BCADA74002E9658 /* ImagePickerTableViewCell.swift */,
 				692EEE8E2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift */,
+				691D08692BC6CFDF002E9658 /* AddSizeTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -429,7 +426,6 @@
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,
 				694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */,
 				693C949A2B8D179600B60C8D /* BlurContainerView.swift in Sources */,
-				691D08652BC5E151002E9658 /* AddImageTableViewCell.swift in Sources */,
 				694168572B9A3C6500B64661 /* CategoryViewModel.swift in Sources */,
 				691D086A2BC6CFDF002E9658 /* AddSizeTableViewCell.swift in Sources */,
 				692EEE8F2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift in Sources */,

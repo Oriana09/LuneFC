@@ -224,6 +224,7 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
         }
         
         self.viewModel.setSelectedImage(image: image)
+        cell.deleteButton.isHidden = false
         self.tableView.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
