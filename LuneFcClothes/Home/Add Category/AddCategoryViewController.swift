@@ -12,8 +12,7 @@ protocol AddCategoryPresenterDelegate: AnyObject {
     func onDismiss()
 }
 
-class AddCategoryViewController: UIViewController, UINavigationControllerDelegate {
-    
+class AddCategoryViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
@@ -25,7 +24,6 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
         tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
         tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         return tableView
     }()
     
@@ -47,27 +45,28 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
     }
     
     private func setUI() {
-        self.navigationItem.title = "Nueva Categoria"
+        self.navigationItem.title = "Nueva Categoría"
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
-        self.setupConstrains()
+        self.setupConstraints()
         self.createCancelButton()
         self.saveCategoryButton()
     }
     
-    private func setupConstrains() {
+    private func setupConstraints() {
         self.view.addSubview(self.tableView)
+        
         NSLayoutConstraint.activate([
             self.tableView.topAnchor.constraint(
-                equalTo: view.topAnchor
+                equalTo: self.view.topAnchor
             ),
             self.tableView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor
+                equalTo: self.view.bottomAnchor
             ),
             self.tableView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor
+                equalTo: self.view.leadingAnchor
             ),
             self.tableView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor
+                equalTo: self.view.trailingAnchor
             )
         ])
     }
@@ -75,7 +74,7 @@ class AddCategoryViewController: UIViewController, UINavigationControllerDelegat
     private func createCancelButton(){
         
         let addButton =  UIBarButtonItem(
-            title: "Cancel",
+            title: "Cancelar",
             style: .plain,
             target: self,
             action: #selector(cancelAction)
@@ -192,15 +191,13 @@ extension AddCategoryViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate - UINavigationControllerDelegate
 
-
-//MARK: - UITableViewDelegate
-
-extension AddCategoryViewController: UITableViewDelegate {
+extension AddCategoryViewController: UITableViewDelegate, UINavigationControllerDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            // Abre la galería de imágenes del dispositivo
+            
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
@@ -231,6 +228,8 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+//MARK: - NameCategoryTableViewCellDelegate
 
 extension AddCategoryViewController: NameCategoryTableViewCellDelegate {
     func onTitleChange(_ title: String) {

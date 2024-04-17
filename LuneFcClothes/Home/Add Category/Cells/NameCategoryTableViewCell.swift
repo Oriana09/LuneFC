@@ -28,7 +28,7 @@ class NameCategoryTableViewCell: UITableViewCell {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "introduce el nombre de categoria"
+        textField.placeholder = "Introduce el nombre de la categoría"
         textField.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -39,23 +39,38 @@ class NameCategoryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.addSubview(textField)
-        NSLayoutConstraint.activate([
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-        ])
+        self.setConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setConstraints() {
+        self.contentView.addSubview(self.textField)
+       
+        NSLayoutConstraint.activate([
+            self.textField.leadingAnchor.constraint(
+                equalTo: self.contentView.leadingAnchor,
+                constant: 16
+            ),
+            self.textField.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: -16
+            ),
+            self.textField.topAnchor.constraint(
+                equalTo: self.contentView.topAnchor,
+                constant: 8
+            ),
+            self.textField.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor,
+                constant: -8
+            )
+        ])
+    }
+    
     override var configurationState: UICellConfigurationState {
         var state = super.configurationState
-        
         state.textFieldPlaceholder = self.textField.placeholder
         return state
     }
@@ -75,6 +90,8 @@ class NameCategoryTableViewCell: UITableViewCell {
         self.textField.text = title
     }
 }
+
+//MARK: - UITextFieldDelegate
 
 extension NameCategoryTableViewCell: UITextFieldDelegate {
     

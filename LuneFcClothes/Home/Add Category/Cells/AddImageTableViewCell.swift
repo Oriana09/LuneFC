@@ -4,10 +4,7 @@
 ////
 ////  Created by Oriana Costancio on 09/04/2024.
 ////
-//#warning("tengo que configurar la celda con el model")
-//
-//#warning(" primero que todo, crear la celda de AddCategory")
-//import Foundation
+
 //import UIKit
 //
 //class AddImageTableViewCell: UITableViewCell, UINavigationControllerDelegate {
@@ -42,16 +39,7 @@
 //    
 //    let padding: CGFloat = 16.0
 //    let nameTextPadding: CGFloat = 20.0
-//    
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        
-//        self.setupConstraints()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+
 //    
 //    private func setupConstraints() {
 //        self.contentView.addSubviews(
@@ -98,10 +86,4 @@
 //        }
 //    }
 //    
-//    func configure(model: Category) {
-//        if let data = model.imageData {
-//            self.productImage.image = UIImage(data: data)
-//        }
-//
-//    }
-//}
+

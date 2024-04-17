@@ -44,7 +44,7 @@ class AddCategoryViewModel {
         case 0:
             return "Imagen"
         case 1:
-            return "Titulo"
+            return "Título"
         case 2:
             return "Talle"
         default:

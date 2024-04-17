@@ -29,7 +29,7 @@ class ImagePickerTableViewCell: UITableViewCell {
         var contentConfig = defaultContentConfiguration()
         contentConfig.image = self.image
         contentConfig.imageProperties.tintColor = ColorManager.light_neutral_1000_dark_neutral_1000
-       
+        
         let cellWidth = self.contentView.frame.width - 32
         let customSize = CGSize(
             width: cellWidth,
