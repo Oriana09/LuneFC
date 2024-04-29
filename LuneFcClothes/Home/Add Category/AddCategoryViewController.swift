@@ -3,7 +3,7 @@
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 11/03/2024.
-//
+    //
 
 import Foundation
 import UIKit
@@ -23,6 +23,8 @@ class AddCategoryViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
         tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
+        tableView.register(AddSizeButtonTableViewCell.self,
+            forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier )
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -146,20 +148,20 @@ class AddCategoryViewController: UIViewController {
 extension AddCategoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.viewModel.getTitle(for: section)
+        return self.viewModel.getTitleHeader(for: section)
     }
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return self.viewModel.getTitleFooter(for: section)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-#warning("Get from viewModel")
-        return 3
+
+        return self.viewModel.numberOfSection
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-#warning("Get from viewModel")
-        return 1
+        
+        return self.viewModel.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,10 +181,38 @@ extension AddCategoryViewController: UITableViewDataSource {
                 withIdentifier: NameCategoryTableViewCell.identifier,
                 for: indexPath
             ) as! NameCategoryTableViewCell
-            nameCell.configure(title: self.viewModel.getTitle())
+            nameCell.configure(
+                title: self.viewModel.getTitle(
+                    index: indexPath
+                )
+            )
             nameCell.delegate = self
             cell = nameCell
             
+        case 2:
+            //Todo: Crear metodo en el VM para obtener numero de celdas en cada seccion
+            if indexPath.row == self.viewModel.numberOfRowsInSection(indexPath.section) - 1 {
+                let addSize = tableView.dequeueReusableCell(
+                    withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
+                ) as! AddSizeButtonTableViewCell
+                addSize.delegate = self
+                cell = addSize
+                
+            } else {
+                let ziseCell = tableView.dequeueReusableCell(
+                    withIdentifier: NameCategoryTableViewCell.identifier,
+                    for: indexPath
+                ) as! NameCategoryTableViewCell
+               
+                ziseCell.configure(
+                    title: self.viewModel.getTitle(
+                        index: indexPath
+                    )
+                )
+                ziseCell.delegate = self
+                cell = ziseCell
+            }
+          
         default:
             cell = UITableViewCell()
         }
@@ -225,6 +255,7 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
         
         self.viewModel.setSelectedImage(image: image)
         cell.deleteButton.isHidden = false
+       
         self.tableView.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
@@ -233,7 +264,45 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
 //MARK: - NameCategoryTableViewCellDelegate
 
 extension AddCategoryViewController: NameCategoryTableViewCellDelegate {
-    func onTitleChange(_ title: String) {
-        self.viewModel.setTitle(title)
+ 
+    func onTitleChange(_ title: String, cell: UITableViewCell) {
+        guard let index = self.tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        self.viewModel.setTitle(title, index: index)
+    }
+    
+    
+}
+
+extension AddCategoryViewController: AddSizeButtonTableViewCellDelegate {
+
+    func didTapAddSizeButton() {
+        
+//        self.viewModel.addNewSize()
+        
+        
+        // Obtener el índice de la última celda de la sección de tallas
+        let lastIndex = viewModel.sizes.count - 1
+        
+        // Verificar si la última celda está vacía
+        if !viewModel.sizes[lastIndex].isEmpty {
+            // Si la última celda no está vacía, agregar una nueva celda
+            viewModel.addNewSize()
+            
+            // Actualizar la tabla para reflejar los cambios
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath(row: lastIndex + 1, section: 2)], with: .automatic)
+            tableView.endUpdates()
+            
+            // Desplazar hacia abajo para mostrar la nueva celda
+            tableView.scrollToRow(at: IndexPath(row: lastIndex + 1, section: 2), at: .bottom, animated: true)
+        }
+        //        self.tableView.beginUpdates()
+        //        self.tableView.insertRows(at: [IndexPath(row: viewModel.sizes.count - 1, section: 2)], with: .automatic)
+        ////        self. viewModel.getNewIndexPathForSizeSection()
+        //        self.tableView.endUpdates()
+        //        self.tableView.scrollToRow(at: IndexPath(row: viewModel.sizes.count - 1, section: 2), at: .bottom, animated: true)
     }
 }

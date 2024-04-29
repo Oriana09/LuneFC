@@ -150,8 +150,13 @@ class LoginViewController: UIViewController {
         self.setupKeyboardNotifications()
         self.configurePresentationController()
         self.navigationController?.navigationBar.isHidden = true
+     
+        
+
     }
     
+ 
+
     private func setupView() {
         self.view.backgroundColor = ColorManager.light_neutral_50_dark_neutral_100
         self.setConstrains()
@@ -161,10 +166,22 @@ class LoginViewController: UIViewController {
     }
     
     private func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide)
+            , 
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
-    
+  
     private func configurePresentationController() {
         
         if #available(iOS 15.0, *) {
@@ -194,7 +211,14 @@ class LoginViewController: UIViewController {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
+    
         
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+      
+        
+       
         if !blurBoxHasPosition {
             self.blurBoxOriginYPosition = self.blurBox.frame.origin.y
             self.blurBoxHasPosition = true
@@ -202,8 +226,8 @@ class LoginViewController: UIViewController {
         
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let keyboardHeight = keyboardSize.height
             
+            let keyboardHeight = keyboardSize.height
             let fieldFrame = blurBox.frame
             let fieldOriginY = fieldFrame.origin.y
             let fieldHeight = fieldFrame.size.height
@@ -213,14 +237,16 @@ class LoginViewController: UIViewController {
                 let offsetY = fieldOriginY + fieldHeight - visibleRectHeight
                 
                 self.blurBox.frame.origin.y -= offsetY + 16
+                
             }
         }
     }
     
     @objc func keyboardWillHide() {
+       
         self.hideKeyboard()
     }
-    
+
     private func setConstrains() {
         self.view.addSubview(self.viewContainer)
         self.viewContainer.addSubviews(
@@ -377,6 +403,8 @@ extension LoginViewController: LoginViewModelDelegate {
 extension LoginViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        
+        
         let mailIsEmpty = self.mailTextField.text!.isEmpty
         let passwordIsEmpty = self.passwordTextField.text!.isEmpty
         
@@ -389,8 +417,10 @@ extension LoginViewController: UITextFieldDelegate {
     
     func hideKeyboard() {
         UIView.animate(withDuration: 0.3) {
+           
             self.blurBox.frame.origin.y = self.blurBoxOriginYPosition
         }
+       
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -408,4 +438,6 @@ extension LoginViewController: UITextFieldDelegate {
         
         self.updateButtonState(isEnable: !mailIsEmpty && !passwordIsEmpty)
     }
+    
+    
 }

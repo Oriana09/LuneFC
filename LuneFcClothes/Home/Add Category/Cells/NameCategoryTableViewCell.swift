@@ -8,7 +8,8 @@ import UIKit
 import Foundation
 
 protocol NameCategoryTableViewCellDelegate: AnyObject {
-    func onTitleChange(_ title: String)
+    func onTitleChange(_ title: String, cell: UITableViewCell)
+
 }
 
 private extension UIConfigurationStateCustomKey {
@@ -97,8 +98,9 @@ extension NameCategoryTableViewCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        self.delegate?.onTitleChange(textField.text ?? "")
+        self.delegate?.onTitleChange(textField.text ?? "", cell: self)
         
         return true
     }
+
 }

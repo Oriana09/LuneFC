@@ -17,14 +17,30 @@ class AddCategoryViewModel {
     
     private var title: String = ""
     
+    var sizes: [String] = [""]
+    
     var numberOfSection: Int {
-        
         return 3
     }
+    
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        switch section {
+        case SectionType.image.rawValue:
+            return 1
+        case SectionType.title.rawValue:
+            return 1
+        case SectionType.size.rawValue:
+            return self.sizes.count + 1
+        default:
+            return 0
+        }
+    }
+    
     func saveCategory() {
         let newCategory = Category(
             imageData: image?.jpegData(compressionQuality: 1),
             name: self.title
+            //            sizes: self.sizes
         )
         
         do {
@@ -39,7 +55,7 @@ class AddCategoryViewModel {
         }
     }
     
-    func getTitle(for section: Int) -> String {
+    func getTitleHeader(for section: Int) -> String {
         switch section {
         case 0:
             return "Imagen"
@@ -73,13 +89,55 @@ class AddCategoryViewModel {
     func setSelectedImage(image: UIImage) {
         self.image = image
     }
-
-    func getTitle() -> String {
-        return self.title
+    
+    func getTitle(index: IndexPath) -> String {
+        //        Esto permite que la función tome diferentes acciones según la sección de la vista de tabla  a la que pertenece el índice.
+        switch index.section {
+            //            devuelve el título almacenado en la propiedad title
+        case 1:
+            return self.title
+            //            devuelve un elemento del array size en la posición especificada por index.row. Esto sugiere que la sección 2 contiene elementos que se pueden obtener del array size.
+        case 2:
+            return self.sizes[index.row]
+        default:
+            return ""
+        }
     }
     
-    func setTitle(_ title: String) {
-        self.title = title
+    func setTitle(_ title: String, index: IndexPath) {
+        switch index.section {
+        case 1:
+            self.title = title
+        case 2:
+            self.sizes[index.row] = title
+        default: break
+        }
+    }
+    
+    
+    func addNewSize() {
+        self.sizes.append("")
     }
 }
-
+    
+    extension AddCategoryViewModel {
+        
+        private enum SectionType: Int {
+            case image = 0
+            case title = 1
+            case size = 2
+        }
+    }
+    
+    //
+    //    func getNewIndexPathForSizeSection() -> [IndexPath] {
+    //
+    //      let indexPath =  [
+    //        IndexPath(
+    //            row: self.sizes.count - 1,
+    //            section: SectionType.size.rawValue
+    //        )
+    //      ]
+    //        return indexPath
+    //    }
+    

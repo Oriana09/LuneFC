@@ -14,7 +14,7 @@ class Category: Object {
     
     @objc dynamic var imageData: Data? = nil
     @objc dynamic var name: String = ""
-//    @objc dynamic var sizes: [String] = []
+//    @objc dynamic var sizes: [String] = [""]
     
     required override init() {
         super.init()

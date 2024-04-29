@@ -27,9 +27,9 @@ private extension UICellConfigurationState {
 
 class ImagePickerTableViewCell: UITableViewCell {
     
-    static let identifier = "CustomTableViewCell"
+    static let identifier = "ImagePickerTableViewCell"
     
-    private lazy var productImage: UIImageView = {
+     lazy var productImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
@@ -41,7 +41,7 @@ class ImagePickerTableViewCell: UITableViewCell {
     lazy var deleteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.setImage(UIImage(named: "close"), for: .normal)
         button.addTarget(self, action: #selector(deleteImage), for: .touchUpInside)
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -94,8 +94,11 @@ class ImagePickerTableViewCell: UITableViewCell {
                 constant: -16.0
             ),
             self.deleteButton.heightAnchor.constraint(
-                equalToConstant: 50.0
-            )
+                equalToConstant: 44.0
+            ),
+            self.deleteButton.widthAnchor.constraint(
+                equalToConstant: 44.0
+            ),
         ])
     }
     
@@ -118,7 +121,8 @@ class ImagePickerTableViewCell: UITableViewCell {
     
     @objc private func deleteImage() {
         if self.productImage.image != UIImage(named: "photo_placeholder") {
-            self.productImage.image = UIImage(named: "photo_placeholder")
+            self.productImage.image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
+//            self.productImage.tintColor =
             self.deleteButton.isHidden = true
         }
     }
