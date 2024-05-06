@@ -187,17 +187,17 @@ extension AddCategoryViewController: UITableViewDataSource {
                 )
             )
             nameCell.delegate = self
+            
             cell = nameCell
             
         case 2:
-            //Todo: Crear metodo en el VM para obtener numero de celdas en cada seccion
             if indexPath.row == self.viewModel.numberOfRowsInSection(indexPath.section) - 1 {
                 let addSize = tableView.dequeueReusableCell(
                     withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
                 ) as! AddSizeButtonTableViewCell
                 addSize.delegate = self
                 cell = addSize
-                
+            
             } else {
                 let ziseCell = tableView.dequeueReusableCell(
                     withIdentifier: NameCategoryTableViewCell.identifier,
@@ -211,6 +211,7 @@ extension AddCategoryViewController: UITableViewDataSource {
                 )
                 ziseCell.delegate = self
                 cell = ziseCell
+               
             }
           
         default:
@@ -234,6 +235,19 @@ extension AddCategoryViewController: UITableViewDelegate, UINavigationController
             present(imagePicker, animated: true, completion: nil)
         }
     }
+    
+
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        // Si es la segunda sección, establece un espacio entre las celdas
+//        if section == 2 {
+//            return 20 // Espacio entre celdas en la segunda sección
+//        } else {
+//            return 0.1 // Espacio mínimo entre celdas en otras secciones
+//        }
+//    }
+
+    
+   
 }
 
 //MARK: - UIImagePickerControllerDelegate
@@ -276,33 +290,23 @@ extension AddCategoryViewController: NameCategoryTableViewCellDelegate {
     
 }
 
-extension AddCategoryViewController: AddSizeButtonTableViewCellDelegate {
+//MARK: - AddSizeButtonTableViewCellDelegate
 
+extension AddCategoryViewController: AddSizeButtonTableViewCellDelegate {
+    
     func didTapAddSizeButton() {
         
-//        self.viewModel.addNewSize()
-        
-        
-        // Obtener el índice de la última celda de la sección de tallas
         let lastIndex = viewModel.sizes.count - 1
         
-        // Verificar si la última celda está vacía
         if !viewModel.sizes[lastIndex].isEmpty {
-            // Si la última celda no está vacía, agregar una nueva celda
-            viewModel.addNewSize()
+            self.viewModel.addNewSize()
             
-            // Actualizar la tabla para reflejar los cambios
-            tableView.beginUpdates()
-            tableView.insertRows(at: [IndexPath(row: lastIndex + 1, section: 2)], with: .automatic)
-            tableView.endUpdates()
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [IndexPath(row: lastIndex + 1, section: 2)], with: .automatic)
+            self.tableView.endUpdates()
             
-            // Desplazar hacia abajo para mostrar la nueva celda
-            tableView.scrollToRow(at: IndexPath(row: lastIndex + 1, section: 2), at: .bottom, animated: true)
+            self.tableView.scrollToRow(at: IndexPath(row: lastIndex + 1, section: 2), at: .bottom, animated: true)
+          
         }
-        //        self.tableView.beginUpdates()
-        //        self.tableView.insertRows(at: [IndexPath(row: viewModel.sizes.count - 1, section: 2)], with: .automatic)
-        ////        self. viewModel.getNewIndexPathForSizeSection()
-        //        self.tableView.endUpdates()
-        //        self.tableView.scrollToRow(at: IndexPath(row: viewModel.sizes.count - 1, section: 2), at: .bottom, animated: true)
     }
 }

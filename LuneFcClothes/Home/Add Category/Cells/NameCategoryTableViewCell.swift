@@ -29,7 +29,6 @@ class NameCategoryTableViewCell: UITableViewCell {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Introduce el nombre de la categoría"
         textField.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false

@@ -39,8 +39,8 @@ class AddCategoryViewModel {
     func saveCategory() {
         let newCategory = Category(
             imageData: image?.jpegData(compressionQuality: 1),
-            name: self.title
-            //            sizes: self.sizes
+            name: self.title,
+            sizes: self.sizes
         )
         
         do {
@@ -73,7 +73,7 @@ class AddCategoryViewModel {
         case 0:
             return "Toque para agregar imagen"
         case 1:
-            return ""
+            return "Introduce el nombre de la categoría"
         case 2:
             return ""
         default:
@@ -127,6 +127,25 @@ class AddCategoryViewModel {
             case title = 1
             case size = 2
         }
+        
+        func saveAndPrintCategory() {
+            // Guardar la categoría en Realm
+            saveCategory()
+            
+            // Recuperar todas las categorías de Realm
+            let categories = realm.objects(Category.self)
+            
+            // Imprimir los tamaños de todas las categorías
+            for category in categories {
+                print("Category Name: \(category.name)")
+                print("Sizes:")
+                for size in category.sizes {
+                    print("- \(size)")
+                }
+                print("---------------------")
+            }
+        }
+
     }
     
     //
