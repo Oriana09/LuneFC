@@ -128,23 +128,25 @@ class AddCategoryViewModel {
             case size = 2
         }
         
-        func saveAndPrintCategory() {
-            // Guardar la categoría en Realm
-            saveCategory()
-            
-            // Recuperar todas las categorías de Realm
-            let categories = realm.objects(Category.self)
-            
-            // Imprimir los tamaños de todas las categorías
-            for category in categories {
-                print("Category Name: \(category.name)")
-                print("Sizes:")
-                for size in category.sizes {
-                    print("- \(size)")
+        // Recuperar todas las categorías de Realm
+        func printCategoriesAndSizes() {
+                let categories = realm.objects(Category.self)
+                
+                for category in categories {
+                    // Imprimir el nombre de la categoría
+                    print("Category Name: \(category.name)")
+                    
+                    // Imprimir los tamaños de la categoría
+                    print("Sizes:")
+                    for size in category.sizes {
+                        print("- \(size)")
+                    }
+                    
+                    // Imprimir un separador para distinguir entre categorías
+                    print("------------------------")
                 }
-                print("---------------------")
             }
-        }
+
 
     }
     

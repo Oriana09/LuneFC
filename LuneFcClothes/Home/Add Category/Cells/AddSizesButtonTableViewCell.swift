@@ -24,20 +24,19 @@ private extension UICellConfigurationState {
 }
 class AddSizeButtonTableViewCell: UITableViewCell {
         
-        static let identifier = "AddSizeButtonTableViewCell"
+    static let identifier = "AddSizeButtonTableViewCell"
+    
+    weak var delegate: AddSizeButtonTableViewCellDelegate?
+    
+    private  lazy var plusImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "plus")
+        imageView.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
         
-        weak var delegate: AddSizeButtonTableViewCellDelegate?
-        
-        
-        private  lazy var plusImage: UIImageView = {
-            let imageView = UIImageView()
-            imageView.image = UIImage(systemName: "plus")
-            imageView.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-            
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            return imageView
-        }()
-        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.set()

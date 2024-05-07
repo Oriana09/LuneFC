@@ -31,6 +31,8 @@ class AddCategoryViewController: UIViewController {
     
     private let viewModel: AddCategoryViewModel
     weak var delegate: AddCategoryPresenterDelegate?
+   
+  
     
     init(viewModel: AddCategoryViewModel) {
         self.viewModel = viewModel
@@ -211,6 +213,7 @@ extension AddCategoryViewController: UITableViewDataSource {
                 )
                 ziseCell.delegate = self
                 cell = ziseCell
+                viewModel.printCategoriesAndSizes()
                
             }
           
