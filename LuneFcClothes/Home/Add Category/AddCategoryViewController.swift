@@ -235,19 +235,6 @@ extension AddCategoryViewController: UITableViewDelegate, UINavigationController
             present(imagePicker, animated: true, completion: nil)
         }
     }
-    
-
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        // Si es la segunda sección, establece un espacio entre las celdas
-//        if section == 2 {
-//            return 20 // Espacio entre celdas en la segunda sección
-//        } else {
-//            return 0.1 // Espacio mínimo entre celdas en otras secciones
-//        }
-//    }
-
-    
-   
 }
 
 //MARK: - UIImagePickerControllerDelegate
