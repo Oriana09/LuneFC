@@ -16,13 +16,13 @@ class ClothingListViewController: UIViewController {
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
         tableView.delegate =  self
         tableView.dataSource = self
-        
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
     
-    var viewModel: ClothingListViewModel
+   private var viewModel: ClothingListViewModel
     
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
@@ -44,11 +44,20 @@ class ClothingListViewController: UIViewController {
     
     private func setupConstrains() {
         self.view.addSubview(self.tableView)
+        
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            self.tableView.topAnchor.constraint(
+                equalTo: self.view.topAnchor
+            ),
+            self.tableView.bottomAnchor.constraint(
+                equalTo: self.view.bottomAnchor
+            ),
+            self.tableView.leadingAnchor.constraint(
+                equalTo:  self.view.leadingAnchor
+            ),
+            self.tableView.trailingAnchor.constraint(
+                equalTo: self.view.trailingAnchor
+            )
         ])
     }
     
@@ -65,14 +74,23 @@ class ClothingListViewController: UIViewController {
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-    let addClothingListVM = AddClothingListViewModel()
-    let addClothingListVC = AddClothingListViewController(ViewModel: addClothingListVM)
+        let addClothingListVM = AddClothingListViewModel(
+            category: self.viewModel.category
+        )
+        let addClothingListVC = AddClothingListViewController(
+            ViewModel: addClothingListVM
+        )
+        let navigationVC = UINavigationController(
+            rootViewController: addClothingListVC
+        )
+        self.present(navigationVC, animated: true)
     }
+    
 }
 // MARK: - UITableViewDataSource Methods
 
 extension ClothingListViewController: UITableViewDataSource {
-  
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.items?.count ?? 1
     }
@@ -107,7 +125,7 @@ extension ClothingListViewController: UITableViewDataSource {
 // MARK: -  UITableViewDelegate Methods
 
 extension ClothingListViewController: UITableViewDelegate {
- 
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Eliminar") { [weak self] (action, view, completionHandler) in

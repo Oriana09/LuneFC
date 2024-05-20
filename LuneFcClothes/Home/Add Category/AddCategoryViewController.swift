@@ -3,7 +3,6 @@
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 11/03/2024.
-    //
 
 import Foundation
 import UIKit
@@ -24,15 +23,13 @@ class AddCategoryViewController: UIViewController {
         tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
         tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
         tableView.register(AddSizeButtonTableViewCell.self,
-            forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier )
+                           forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier )
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     private let viewModel: AddCategoryViewModel
     weak var delegate: AddCategoryPresenterDelegate?
-   
-  
     
     init(viewModel: AddCategoryViewModel) {
         self.viewModel = viewModel
@@ -152,12 +149,13 @@ extension AddCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.viewModel.getTitleHeader(for: section)
     }
+    
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return self.viewModel.getTitleFooter(for: section)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-
+        
         return self.viewModel.numberOfSection
     }
     
@@ -186,7 +184,7 @@ extension AddCategoryViewController: UITableViewDataSource {
             nameCell.configure(
                 title: self.viewModel.getTitle(
                     index: indexPath
-                )
+                ), placeholder: "Remeras"
             )
             nameCell.delegate = self
             
@@ -199,24 +197,22 @@ extension AddCategoryViewController: UITableViewDataSource {
                 ) as! AddSizeButtonTableViewCell
                 addSize.delegate = self
                 cell = addSize
-            
+                
             } else {
                 let ziseCell = tableView.dequeueReusableCell(
                     withIdentifier: NameCategoryTableViewCell.identifier,
                     for: indexPath
                 ) as! NameCategoryTableViewCell
-               
+                
                 ziseCell.configure(
                     title: self.viewModel.getTitle(
                         index: indexPath
-                    )
+                    ), placeholder: "S"
                 )
                 ziseCell.delegate = self
                 cell = ziseCell
-                viewModel.printCategoriesAndSizes()
-               
             }
-          
+            
         default:
             cell = UITableViewCell()
         }
@@ -259,7 +255,7 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
         
         self.viewModel.setSelectedImage(image: image)
         cell.deleteButton.isHidden = false
-       
+        
         self.tableView.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
@@ -268,16 +264,13 @@ extension AddCategoryViewController: UIImagePickerControllerDelegate {
 //MARK: - NameCategoryTableViewCellDelegate
 
 extension AddCategoryViewController: NameCategoryTableViewCellDelegate {
- 
+    
     func onTitleChange(_ title: String, cell: UITableViewCell) {
         guard let index = self.tableView.indexPath(for: cell) else {
             return
         }
-        
         self.viewModel.setTitle(title, index: index)
     }
-    
-    
 }
 
 //MARK: - AddSizeButtonTableViewCellDelegate
@@ -296,7 +289,7 @@ extension AddCategoryViewController: AddSizeButtonTableViewCellDelegate {
             self.tableView.endUpdates()
             
             self.tableView.scrollToRow(at: IndexPath(row: lastIndex + 1, section: 2), at: .bottom, animated: true)
-          
+            
         }
     }
 }

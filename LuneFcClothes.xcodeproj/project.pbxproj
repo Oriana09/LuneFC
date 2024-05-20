@@ -101,11 +101,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		691583AD2BEA7C1B009D5F19 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		691D085F2BC40F56002E9658 /* AddClothingList */ = {
 			isa = PBXGroup;
 			children = (
 				691D08602BC41032002E9658 /* AddClothingListViewController.swift */,
 				691D08622BC41366002E9658 /* AddClothingListViewModel.swift */,
+				691583AD2BEA7C1B009D5F19 /* Cells */,
 			);
 			path = AddClothingList;
 			sourceTree = "<group>";
@@ -172,8 +180,8 @@
 			children = (
 				69F80E672B7EA6730060A9B1 /* ClothingListViewController.swift */,
 				69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */,
-				694168682BB5D6DC00B64661 /* Cells */,
 				6941686A2BB5D7CB00B64661 /* Models */,
+				694168682BB5D6DC00B64661 /* Cells */,
 				691D085F2BC40F56002E9658 /* AddClothingList */,
 			);
 			path = " ClothingList";

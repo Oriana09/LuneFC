@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class ClothingItem: Object {
-    @objc dynamic var idCode: String? = nil
+    @objc dynamic var idCode: String = ""
     @objc dynamic var image: Data? = nil
     @objc dynamic var price: Double = 0.0
     @objc dynamic var title: String = ""
@@ -22,18 +22,18 @@ class ClothingItem: Object {
     }
     
     init(
-        idCode: String?,
         image: Data?,
+        idCode: String,
+        title: String,
         price: Double,
         size: String,
-        title: String,
         category: String
     ) {
-        self.idCode = idCode
         self.image = image
+        self.idCode = idCode
+        self.title = title
         self.price = price
         self.size = size
-        self.title = title
         self.category = category
         super.init()
     }

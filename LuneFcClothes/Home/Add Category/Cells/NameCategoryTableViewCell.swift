@@ -9,7 +9,7 @@ import Foundation
 
 protocol NameCategoryTableViewCellDelegate: AnyObject {
     func onTitleChange(_ title: String, cell: UITableViewCell)
-
+    
 }
 
 private extension UIConfigurationStateCustomKey {
@@ -26,6 +26,8 @@ private extension UICellConfigurationState {
 class NameCategoryTableViewCell: UITableViewCell {
     
     static let identifier = "NameCategoryTableViewCell"
+    
+    
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -48,7 +50,7 @@ class NameCategoryTableViewCell: UITableViewCell {
     
     private func setConstraints() {
         self.contentView.addSubview(self.textField)
-       
+        
         NSLayoutConstraint.activate([
             self.textField.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
@@ -72,6 +74,7 @@ class NameCategoryTableViewCell: UITableViewCell {
     override var configurationState: UICellConfigurationState {
         var state = super.configurationState
         state.textFieldPlaceholder = self.textField.placeholder
+        
         return state
     }
     
@@ -86,8 +89,9 @@ class NameCategoryTableViewCell: UITableViewCell {
         self.textField.placeholder = textFieldPlaceholder
     }
     
-    func configure(title: String) {
+    func configure(title: String, placeholder: String) {
         self.textField.text = title
+        self.textField.placeholder = placeholder
     }
 }
 

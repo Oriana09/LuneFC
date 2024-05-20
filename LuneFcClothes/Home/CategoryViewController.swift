@@ -141,7 +141,9 @@ extension CategoryViewController: UICollectionViewDelegate {
             
             return
         }
-        let clothingListVM = ClothingListViewModel(category: selectedCategory)
+        let clothingListVM = ClothingListViewModel(
+            category: selectedCategory
+        )
         let clothingListVC = ClothingListViewController(
             viewModel: clothingListVM
         )

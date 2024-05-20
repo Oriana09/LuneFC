@@ -38,7 +38,7 @@ class AddCategoryViewModel {
     
     func saveCategory() {
         let newCategory = Category(
-            imageData: image?.jpegData(compressionQuality: 1),
+            imageData: self.image?.jpegData(compressionQuality: 1),
             name: self.title,
             sizes: self.sizes
         )
@@ -58,7 +58,7 @@ class AddCategoryViewModel {
     func getTitleHeader(for section: Int) -> String {
         switch section {
         case 0:
-            return "Imagen"
+            return "Imagén"
         case 1:
             return "Título"
         case 2:
@@ -73,7 +73,7 @@ class AddCategoryViewModel {
         case 0:
             return "Toque para agregar imagen"
         case 1:
-            return "Introduce el nombre de la categoría"
+            return ""
         case 2:
             return ""
         default:
@@ -114,41 +114,19 @@ class AddCategoryViewModel {
         }
     }
     
-    
     func addNewSize() {
         self.sizes.append("")
     }
 }
     
-    extension AddCategoryViewModel {
-        
-        private enum SectionType: Int {
-            case image = 0
-            case title = 1
-            case size = 2
-        }
-        
-        // Recuperar todas las categorías de Realm
-        func printCategoriesAndSizes() {
-                let categories = realm.objects(Category.self)
-                
-                for category in categories {
-                    // Imprimir el nombre de la categoría
-                    print("Category Name: \(category.name)")
-                    
-                    // Imprimir los tamaños de la categoría
-                    print("Sizes:")
-                    for size in category.sizes {
-                        print("- \(size)")
-                    }
-                    
-                    // Imprimir un separador para distinguir entre categorías
-                    print("------------------------")
-                }
-            }
-
-
+extension AddCategoryViewModel {
+    
+    private enum SectionType: Int {
+        case image = 0
+        case title = 1
+        case size = 2
     }
+}
     
     //
     //    func getNewIndexPathForSizeSection() -> [IndexPath] {
