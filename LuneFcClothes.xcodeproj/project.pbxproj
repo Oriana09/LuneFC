@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		691583AC2BE9785B009D5F19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 691583AB2BE9785B009D5F19 /* Assets.xcassets */; };
+		691583AF2BFD66A2009D5F19 /* AddProductItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691583AE2BFD66A2009D5F19 /* AddProductItem.swift */; };
+		691583B22BFD66EC009D5F19 /* AddProductItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691583B12BFD66EC009D5F19 /* AddProductItemTableViewCell.swift */; };
 		691D08612BC41032002E9658 /* AddClothingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08602BC41032002E9658 /* AddClothingListViewController.swift */; };
 		691D08632BC41366002E9658 /* AddClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08622BC41366002E9658 /* AddClothingListViewModel.swift */; };
 		691D086A2BC6CFDF002E9658 /* AddSizesButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D08692BC6CFDF002E9658 /* AddSizesButtonTableViewCell.swift */; };
@@ -49,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		691583AB2BE9785B009D5F19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		691583AE2BFD66A2009D5F19 /* AddProductItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductItem.swift; sourceTree = "<group>"; };
+		691583B12BFD66EC009D5F19 /* AddProductItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductItemTableViewCell.swift; sourceTree = "<group>"; };
 		691D08602BC41032002E9658 /* AddClothingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewController.swift; sourceTree = "<group>"; };
 		691D08622BC41366002E9658 /* AddClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothingListViewModel.swift; sourceTree = "<group>"; };
 		691D08692BC6CFDF002E9658 /* AddSizesButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSizesButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -104,8 +108,18 @@
 		691583AD2BEA7C1B009D5F19 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				691583B12BFD66EC009D5F19 /* AddProductItemTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		691583B02BFD66AB009D5F19 /* AddProductItem */ = {
+			isa = PBXGroup;
+			children = (
+				691583AE2BFD66A2009D5F19 /* AddProductItem.swift */,
+				691583AD2BEA7C1B009D5F19 /* Cells */,
+			);
+			path = AddProductItem;
 			sourceTree = "<group>";
 		};
 		691D085F2BC40F56002E9658 /* AddClothingList */ = {
@@ -113,7 +127,7 @@
 			children = (
 				691D08602BC41032002E9658 /* AddClothingListViewController.swift */,
 				691D08622BC41366002E9658 /* AddClothingListViewModel.swift */,
-				691583AD2BEA7C1B009D5F19 /* Cells */,
+				691583B02BFD66AB009D5F19 /* AddProductItem */,
 			);
 			path = AddClothingList;
 			sourceTree = "<group>";
@@ -416,6 +430,7 @@
 				691D08632BC41366002E9658 /* AddClothingListViewModel.swift in Sources */,
 				691D086C2BCADA74002E9658 /* ImagePickerTableViewCell.swift in Sources */,
 				69F321822BC0CF33001E9FCC /* User.swift in Sources */,
+				691583AF2BFD66A2009D5F19 /* AddProductItem.swift in Sources */,
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingTableViewCell.swift in Sources */,
 				69F80E702B86735D0060A9B1 /* ColorManager.swift in Sources */,
@@ -439,6 +454,7 @@
 				692EEE8F2BCEA1E400AF8E59 /* NameCategoryTableViewCell.swift in Sources */,
 				69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */,
 				6941685B2B9A439D00B64661 /* ProductDatailViewModel.swift in Sources */,
+				691583B22BFD66EC009D5F19 /* AddProductItemTableViewCell.swift in Sources */,
 				694168622B9F91A900B64661 /* AddCategoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

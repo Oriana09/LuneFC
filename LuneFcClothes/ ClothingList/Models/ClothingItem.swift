@@ -15,6 +15,7 @@ class ClothingItem: Object {
     @objc dynamic var price: Double = 0.0
     @objc dynamic var title: String = ""
     @objc dynamic var size: String = ""
+//    @objc dynamic var type: String = ""
     @objc dynamic var category: String = ""
     
     required override init() {
@@ -27,6 +28,7 @@ class ClothingItem: Object {
         title: String,
         price: Double,
         size: String,
+//        type: String,
         category: String
     ) {
         self.image = image
@@ -34,6 +36,7 @@ class ClothingItem: Object {
         self.title = title
         self.price = price
         self.size = size
+//        self.type = type
         self.category = category
         super.init()
     }

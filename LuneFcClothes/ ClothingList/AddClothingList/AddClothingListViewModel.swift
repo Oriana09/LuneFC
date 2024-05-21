@@ -13,13 +13,14 @@ class AddClothingListViewModel {
     
     private let realm = try! Realm()
     
-    private var image: UIImage? = UIImage(
-        named: "photo_placeholder"
-    )?.withRenderingMode(.alwaysTemplate)
     private var idCode: String
     private var title: String
     private var price: Double
+    private var image: UIImage? = UIImage(
+        named: "photo_placeholder"
+    )?.withRenderingMode(.alwaysTemplate)
     private var size: String
+//    private var type: String
     private var category: Category
     
     init(
@@ -28,6 +29,7 @@ class AddClothingListViewModel {
         title: String = "",
         price: Double = 0.0,
         size: String = "",
+//        type: String = "",
         category: Category
     ) {
         self.image = image
@@ -35,6 +37,7 @@ class AddClothingListViewModel {
         self.title = title
         self.price = price
         self.size = size
+//        self.type = type
         self.category = category
     }
     
@@ -45,6 +48,7 @@ class AddClothingListViewModel {
             title: self.title,
             price: self.price,
             size: self.size, 
+//            type: self.type,
             category: self.category.name
         )
         do {
@@ -61,15 +65,13 @@ class AddClothingListViewModel {
     func getTitleHeader(for section: Int) -> String {
         switch section {
         case 0:
-            return "Imagén"
-        case 1:
             return "Código"
-        case 2:
+        case 1:
             return "Título"
-        case 3:
+        case 2:
             return "Precio"
-        case 4:
-            return "Cantidad"
+        case 3:
+            return "Producto"
         default:
             return ""
         }
@@ -78,7 +80,7 @@ class AddClothingListViewModel {
     func getTitleFooter(for section: Int) -> String {
         switch section {
         case 0:
-            return "Toque para agregar imagen"
+            return ""
         case 1:
             return ""
         case 2:
@@ -90,7 +92,7 @@ class AddClothingListViewModel {
     }
     
     var numberOfSection: Int {
-        return 5
+        return 4
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
@@ -104,7 +106,8 @@ class AddClothingListViewModel {
         case SectionType.price.rawValue:
             return 1
         case SectionType.quantity.rawValue:
-            return self.category.sizes.count
+            return 1
+//            return self.category.sizes.count
         default:
             return 0
         }

@@ -10,7 +10,11 @@ import UIKit
 protocol AddClothingListPresenterDelegate: AnyObject {
     func onDismiss()
 }
-class AddClothingListViewController: UIViewController {
+class AddClothingListViewController: UIViewController, AddSizeButtonTableViewCellDelegate {
+    func didTapAddSizeButton() {
+//        self.navigationController?.pushViewController(addProductItem, animated: true)
+    }
+    
     
    
     private lazy var tableView: UITableView = {
@@ -22,16 +26,17 @@ class AddClothingListViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
         tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
+        tableView.register(AddSizeButtonTableViewCell.self, forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
 
-    private let ViewModel: AddClothingListViewModel
+    private let viewModel: AddClothingListViewModel
     weak var delegate: AddClothingListPresenterDelegate?
     
     init(ViewModel: AddClothingListViewModel) {
-        self.ViewModel = ViewModel
+        self.viewModel = ViewModel
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -148,19 +153,19 @@ class AddClothingListViewController: UIViewController {
 extension AddClothingListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.ViewModel.getTitleHeader(for: section)
+        return self.viewModel.getTitleHeader(for: section)
     }
     
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return self.ViewModel.getTitleFooter(for: section)
-    }
+//    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        return self.ViewModel.getTitleFooter(for: section)
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.ViewModel.numberOfSection
+        return self.viewModel.numberOfSection
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ViewModel.numberOfRowsInSection(section)
+        return self.viewModel.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,35 +174,66 @@ extension AddClothingListViewController: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            let imageCell = tableView.dequeueReusableCell(
-                withIdentifier: ImagePickerTableViewCell.identifier,
-                for: indexPath
-            ) as! ImagePickerTableViewCell
-            imageCell.configure(image: self.ViewModel.getSelectedImage())
-            cell = imageCell
-        case 1:
             let idCodeCell = tableView.dequeueReusableCell(
                 withIdentifier: NameCategoryTableViewCell.identifier,
                 for: indexPath
             ) as! NameCategoryTableViewCell
             idCodeCell.configure(
-                title: self.ViewModel.getTitle(index: indexPath), placeholder: ""
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:AR24094"
             )
             idCodeCell.delegate = self
-            
             cell = idCodeCell
             
-        case 2:
+        case 1:
             let titleCell = tableView.dequeueReusableCell(
                 withIdentifier: NameCategoryTableViewCell.identifier,
                 for: indexPath
             ) as! NameCategoryTableViewCell
             
             titleCell.configure(
-                title: self.ViewModel.getTitle(index: indexPath), placeholder: "Pantalón Wid Leg"
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:Pantalón Wid Leg"
             )
             titleCell.delegate = self
             cell = titleCell
+            
+        case 2:
+            let priceCell = tableView.dequeueReusableCell(
+                withIdentifier: NameCategoryTableViewCell.identifier,
+                for: indexPath
+            ) as! NameCategoryTableViewCell
+            
+            priceCell.configure(
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "$"
+            )
+            priceCell.delegate = self
+            cell = priceCell
+        case 3:
+            let addSize = tableView.dequeueReusableCell(
+                withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
+            ) as! AddSizeButtonTableViewCell
+            addSize.delegate = self
+            cell = addSize
+            
+            
+//            let imageCell = tableView.dequeueReusableCell(
+//                withIdentifier: ImagePickerTableViewCell.identifier,
+//                for: indexPath
+//            ) as! ImagePickerTableViewCell
+//            imageCell.configure(image: self.ViewModel.getSelectedImage())
+//            cell = imageCell
+//        case 1:
+//            let idCodeCell = tableView.dequeueReusableCell(
+//                withIdentifier: NameCategoryTableViewCell.identifier,
+//                for: indexPath
+//            ) as! NameCategoryTableViewCell
+//            idCodeCell.configure(
+//                title: self.ViewModel.getTitle(index: indexPath), placeholder: ""
+//            )
+//            idCodeCell.delegate = self
+//            
+//            cell = idCodeCell
+//            
+//
             
         default:
             cell = UITableViewCell()
@@ -238,7 +274,7 @@ extension AddClothingListViewController: UIImagePickerControllerDelegate {
             return
         }
         
-        self.ViewModel.setSelectedImage(image: image)
+        self.viewModel.setSelectedImage(image: image)
         cell.deleteButton.isHidden = false
         
         self.tableView.reloadData()
@@ -253,6 +289,6 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
             return
         }
         
-        self.ViewModel.setTitle(title, index: index)
+        self.viewModel.setTitle(title, index: index)
     }
 }
