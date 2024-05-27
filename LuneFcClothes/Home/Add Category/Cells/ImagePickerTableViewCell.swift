@@ -29,7 +29,7 @@ class ImagePickerTableViewCell: UITableViewCell {
     
     static let identifier = "ImagePickerTableViewCell"
     
-     lazy var productImage: UIImageView = {
+    lazy var productImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
@@ -112,8 +112,14 @@ class ImagePickerTableViewCell: UITableViewCell {
     override func updateConfiguration(using state: UICellConfigurationState) {
         super.updateConfiguration(using: state)
         
+        //        if let productImage = state.productImage {
+        //            self.productImage.image = productImage
+        //        }
+        
         if let productImage = state.productImage {
             self.productImage.image = productImage
+        } else {
+            self.productImage.image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
         }
         
         self.deleteButton.isHidden = state.deleteButtonHidden
@@ -122,7 +128,7 @@ class ImagePickerTableViewCell: UITableViewCell {
     @objc private func deleteImage() {
         if self.productImage.image != UIImage(named: "photo_placeholder") {
             self.productImage.image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
-//            self.productImage.tintColor =
+            
             self.deleteButton.isHidden = true
         }
     }

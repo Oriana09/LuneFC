@@ -17,7 +17,10 @@ class User: Object {
         super.init()
     }
     
-    init(email: String, isLoggued: Bool) {
+    init(
+        email: String,
+        isLoggued: Bool
+    ) {
         self.email = email
         self.isLoggued = isLoggued
         super.init()

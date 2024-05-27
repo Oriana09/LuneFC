@@ -10,11 +10,8 @@ import UIKit
 protocol AddClothingListPresenterDelegate: AnyObject {
     func onDismiss()
 }
-class AddClothingListViewController: UIViewController, AddSizeButtonTableViewCellDelegate {
-    func didTapAddSizeButton() {
-//        self.navigationController?.pushViewController(addProductItem, animated: true)
-    }
-    
+class AddClothingListViewController: UIViewController {
+
     
    
     private lazy var tableView: UITableView = {
@@ -291,4 +288,22 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
         
         self.viewModel.setTitle(title, index: index)
     }
+}
+
+//MARK: - AddSizeButtonTableViewCellDelegate
+
+extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
+    func didTapAddSizeButton() {
+        
+        let addProdudctVM = AddProductItemViewModel()
+        let addProductVC = AddProductItemViewController(
+            viewModel: addProdudctVM
+        )
+        
+        self.navigationController?.pushViewController(
+            addProductVC,
+            animated: true
+        )
+    }
+    
 }
