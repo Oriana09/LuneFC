@@ -18,16 +18,19 @@ class AddProductItemViewModel {
     )?.withRenderingMode(.alwaysTemplate)
     private var size: String
     private var style: String
-    
+   private var category: Category
+//    private var selectedCategoryName: String?
     
     init(
         image: UIImage? = nil,
         size: String = "",
-        style: String = ""
+        style: String = "",
+        category: Category
     ) {
         self.image = image
         self.size = size
         self.style = style
+        self.category = category
     }
 
     func saveProductItem() {
@@ -45,6 +48,21 @@ class AddProductItemViewModel {
             print("Error saving category: \(error)")
         }
     }
+    
+//    func selectCategory(named categoryName: String) {
+//            self.selectedCategoryName = categoryName
+//    }
+    
+//    func getCategorySizes() -> [String] {
+//           guard let categoryName = selectedCategoryName else { return [] }
+//           let categories = realm.objects(Category.self).filter("name == %@", categoryName)
+//           guard let category = categories.first else { return [] }
+//           return Array(category.sizes)
+//    }
+    func getCategory() -> Category {
+        return self.category
+    }
+
     
     func getTitleHeader(for section: Int) -> String {
         switch section {
@@ -67,9 +85,9 @@ class AddProductItemViewModel {
         switch section {
         case SectionType.image.rawValue:
             return 1
-        case SectionType.style.rawValue:
-            return 1
         case SectionType.size.rawValue:
+            return 1
+        case SectionType.style.rawValue:
             return 1
         default:
             return 0
@@ -110,6 +128,7 @@ class AddProductItemViewModel {
             
         }
     }
+    
 
 //    func getSizes() -> String {
 //        return size
@@ -132,8 +151,8 @@ extension AddProductItemViewModel {
     
     private enum SectionType: Int {
         case image = 0
-        case style = 1
-        case size = 2
+        case size = 1
+        case style = 2
         
     }
 }

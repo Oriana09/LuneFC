@@ -157,6 +157,10 @@ class AddClothingListViewModel {
             
         }
     }
+    
+    func getCategory() -> Category {
+        return self.category
+    }
 }
 
 extension AddClothingListViewModel {

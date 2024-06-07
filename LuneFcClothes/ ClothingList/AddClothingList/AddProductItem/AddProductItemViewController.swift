@@ -22,9 +22,12 @@ class AddProductItemViewController: UIViewController {
     }()
     
     private let viewModel: AddProductItemViewModel
+//    private var categorySizes: [String] = []
+//    private var selectedCategoryName: String
     
     init(viewModel: AddProductItemViewModel) {
         self.viewModel = viewModel
+//        self.selectedCategoryName = categoryName
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -41,6 +44,8 @@ class AddProductItemViewController: UIViewController {
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
         self.setupConstraints()
         self.registerCell()
+//        self.tableView.reloadData()
+
     }
     
     private func setupConstraints() {
@@ -64,8 +69,17 @@ class AddProductItemViewController: UIViewController {
     
     private func registerCell() {
         self.tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
+        self.tableView.register(SizesCollectionTableViewCell.self, forCellReuseIdentifier: SizesCollectionTableViewCell.identifier)
+        
     }
     
+//    private func loadSizes() {
+//        // Utiliza el nombre de la categoría seleccionada para recuperar las tallas
+//        viewModel.selectCategory(named: self.selectedCategoryName)
+//        self.categorySizes = viewModel.getCategorySizes()
+//        self.tableView.reloadData()
+//    }
+
 }
 
 // MARK: - UITableViewDataSource
@@ -102,6 +116,13 @@ extension AddProductItemViewController: UITableViewDataSource {
             ) as! ImagePickerTableViewCell
             imageCell.configure(image: self.viewModel.getSelectedImage())
             cell = imageCell
+        case 2:
+            let sizeCell = tableView.dequeueReusableCell(
+                withIdentifier: SizesCollectionTableViewCell.identifier,
+                for: indexPath
+            ) as! SizesCollectionTableViewCell
+            sizeCell.configure(with: self.viewModel.getCategory())
+            cell = sizeCell
         default:
             cell = UITableViewCell()
         }

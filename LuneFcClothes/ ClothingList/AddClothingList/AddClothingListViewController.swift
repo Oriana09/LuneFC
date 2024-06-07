@@ -12,8 +12,6 @@ protocol AddClothingListPresenterDelegate: AnyObject {
 }
 class AddClothingListViewController: UIViewController {
 
-    
-   
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
@@ -28,7 +26,6 @@ class AddClothingListViewController: UIViewController {
         return tableView
     }()
     
-
     private let viewModel: AddClothingListViewModel
     weak var delegate: AddClothingListPresenterDelegate?
     
@@ -294,11 +291,11 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
 
 extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
     func didTapAddSizeButton() {
-        
-        let addProdudctVM = AddProductItemViewModel()
-        let addProductVC = AddProductItemViewController(
-            viewModel: addProdudctVM
+        let addProdudctVM = AddProductItemViewModel(
+            category: self.viewModel.getCategory()
         )
+        let addProductVC = AddProductItemViewController(
+            viewModel: addProdudctVM)
         
         self.navigationController?.pushViewController(
             addProductVC,
