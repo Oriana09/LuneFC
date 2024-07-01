@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 
-class SizeCollectionViewCell: UICollectionViewCell {
+
+class CollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "SizeCollectionViewCell"
+    static let identifier = "CollectionViewCell"
+   
     
-    private let sizeLabel: UILabel = {
+    private let Label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -41,19 +43,20 @@ class SizeCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
-        self.contentView.addSubview(self.sizeLabel)
+        self.contentView.addSubview(self.Label)
         
         NSLayoutConstraint.activate([
-            self.sizeLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            self.sizeLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
+            self.Label.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            self.Label.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
         ])
     }
     
+
+    
     func configure(with size: String, isSelected: Bool) {
-        self.sizeLabel.text = size
+        self.Label.text = size
         if isSelected {
             self.contentView.backgroundColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-            
         } else {
             self.contentView.backgroundColor = .clear
         }

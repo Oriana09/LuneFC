@@ -16,38 +16,44 @@ class AddProductItemViewModel {
     private var image: UIImage? = UIImage(
         named: "photo_placeholder"
     )?.withRenderingMode(.alwaysTemplate)
-    private var size: String
-    private var style: String
-   private var category: Category
-//    private var selectedCategoryName: String?
+    private var selectedSize: String
+     var selectedStyle: String
+    private var category: Category
+    var styles: [String]
+    var sizes: [String]
     
     init(
         image: UIImage? = nil,
-        size: String = "",
-        style: String = "",
-        category: Category
+        selectedSize: String = "",
+        selectedStyle: String = "",
+        styles: [String] = [],
+        sizes: [String] = [],
+         category: Category
     ) {
         self.image = image
-        self.size = size
-        self.style = style
+        self.selectedSize = selectedSize
+        self.selectedStyle = selectedStyle
+        self.styles = styles
+        self.sizes = sizes
         self.category = category
     }
 
-    func saveProductItem() {
-        let newAddProductItem = ProductItem(
-            image: self.image?.jpegData(compressionQuality: 1),
-            size: self.size,
-            style: self.style
-        )
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(newAddProductItem)
-            }
-        } catch {
-            print("Error saving category: \(error)")
-        }
-    }
+//    func saveProductItem() {
+//        let newAddProductItem = ProductItem(
+//            image: self.image?.jpegData(compressionQuality: 1),
+//            size: self.selectedSize,
+//            style: self.selectedStyle
+//        )
+//        
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                realm.add(newAddProductItem)
+//            }
+//        } catch {
+//            print("Error saving category: \(error)")
+//        }
+//    }
     
 //    func selectCategory(named categoryName: String) {
 //            self.selectedCategoryName = categoryName
@@ -59,10 +65,14 @@ class AddProductItemViewModel {
 //           guard let category = categories.first else { return [] }
 //           return Array(category.sizes)
 //    }
-    func getCategory() -> Category {
-        return self.category
+    func getSizes() -> [String] {
+        return self.category.stringSizes
     }
-
+    
+    func getStyle() -> [String] {
+        return self.styles
+    }
+    
     
     func getTitleHeader(for section: Int) -> String {
         switch section {
@@ -142,9 +152,13 @@ class AddProductItemViewModel {
 //        return style
 //    }
 //    
-//    func addStyle(_ style: String) {
-//        self.style.append(style)
-//    }
+    func addStyle(_ style: String) {
+        self.styles.append(style)
+    }
+    
+    func addSize(_ size: String) {
+        self.sizes.append(size)
+    }
 }
 
 extension AddProductItemViewModel {

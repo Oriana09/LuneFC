@@ -8,12 +8,17 @@
 import Foundation
 import UIKit
 
+enum InputType {
+    case style
+    case size
+}
+
 class AddProductItemViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
-            frame: .zero,
-            style: .insetGrouped
+            frame: .zero
+//            style: .insetGrouped
         )
         tableView.delegate = self
         tableView.dataSource = self
@@ -22,12 +27,12 @@ class AddProductItemViewController: UIViewController {
     }()
     
     private let viewModel: AddProductItemViewModel
-//    private var categorySizes: [String] = []
-//    private var selectedCategoryName: String
+    //    private var categorySizes: [String] = []
+    //    private var selectedCategoryName: String
     
     init(viewModel: AddProductItemViewModel) {
         self.viewModel = viewModel
-//        self.selectedCategoryName = categoryName
+        //        self.selectedCategoryName = categoryName
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -44,8 +49,8 @@ class AddProductItemViewController: UIViewController {
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
         self.setupConstraints()
         self.registerCell()
-//        self.tableView.reloadData()
-
+        //        self.tableView.reloadData()
+        
     }
     
     private func setupConstraints() {
@@ -69,17 +74,52 @@ class AddProductItemViewController: UIViewController {
     
     private func registerCell() {
         self.tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
-        self.tableView.register(SizesCollectionTableViewCell.self, forCellReuseIdentifier: SizesCollectionTableViewCell.identifier)
-        
+        self.tableView.register(CollectionTableViewCell.self, forCellReuseIdentifier: CollectionTableViewCell.identifier)
     }
     
-//    private func loadSizes() {
-//        // Utiliza el nombre de la categoría seleccionada para recuperar las tallas
-//        viewModel.selectCategory(named: self.selectedCategoryName)
-//        self.categorySizes = viewModel.getCategorySizes()
-//        self.tableView.reloadData()
-//    }
+    func presentAddColorAlert(for type: InputType) {
+        let title: String
+            let placeholder: String
+            
+            switch type {
+            case .style:
+                title = "Enter Style"
+                placeholder = "Style"
+            case .size:
+                title = "Enter Size"
+                placeholder = "Size"
+            }
+        
+        let alertController = UIAlertController(title: "Enter Color", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Color"
+        }
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { _ in
+              if let textField = alertController.textFields?.first, let inputText = textField.text {
+                  switch type {
+                  case .style:
+                      self.viewModel.addStyle(inputText)
+                  case .size:
+                      self.viewModel.addSize(inputText)
+                  }
+                  self.tableView.reloadData()
+              }
+          }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 
+    //    private func loadSizes() {
+    //        // Utiliza el nombre de la categoría seleccionada para recuperar las tallas
+    //        viewModel.selectCategory(named: self.selectedCategoryName)
+    //        self.categorySizes = viewModel.getCategorySizes()
+    //        self.tableView.reloadData()
+    //    }
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -116,12 +156,21 @@ extension AddProductItemViewController: UITableViewDataSource {
             ) as! ImagePickerTableViewCell
             imageCell.configure(image: self.viewModel.getSelectedImage())
             cell = imageCell
+        case 1:
+            let styleCell = tableView.dequeueReusableCell(
+                withIdentifier: CollectionTableViewCell.identifier,
+                for: indexPath
+            ) as! CollectionTableViewCell
+            styleCell.configure(with: self.viewModel.getStyle(), inputType: .style)
+            styleCell.delegate = self
+            cell = styleCell
         case 2:
             let sizeCell = tableView.dequeueReusableCell(
-                withIdentifier: SizesCollectionTableViewCell.identifier,
+                withIdentifier: CollectionTableViewCell.identifier,
                 for: indexPath
-            ) as! SizesCollectionTableViewCell
-            sizeCell.configure(with: self.viewModel.getCategory())
+            ) as! CollectionTableViewCell
+            sizeCell.configure(with: self.viewModel.getSizes(), inputType: .size)
+            sizeCell.delegate = self
             cell = sizeCell
         default:
             cell = UITableViewCell()
@@ -170,3 +219,34 @@ extension AddProductItemViewController: UIImagePickerControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+extension AddProductItemViewController: CollectionTableViewCellDelegate {
+    
+    func onAddButtonTap(for type: InputType) {
+        self.presentAddColorAlert(for: type)
+    }
+}
+
+////MARK: - UIImagePickerControllerDelegate
+////
+//extension AddProductItemViewController: AddButtonCollectionViewCellDelegate {
+//    func didTapAddButton(in cell: AddButtonCollectionViewCell) {
+//        let alertController = UIAlertController(title: "Enter Color", message: nil, preferredStyle: .alert)
+//        alertController.addTextField { textField in
+//            textField.placeholder = "Color"
+//        }
+//        let confirmAction = UIAlertAction(title: "OK", style: .default) { _ in
+//            if let textField = alertController.textFields?.first, let colorText = textField.text {
+//                // Maneja el input del usuario
+//                print("User entered color: \(colorText)")
+//            }
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        
+//        alertController.addAction(confirmAction)
+//        alertController.addAction(cancelAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
+//    }
+//}
+//

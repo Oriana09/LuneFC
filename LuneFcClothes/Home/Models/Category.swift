@@ -23,11 +23,15 @@ class Category: Object {
         imageData: Data?,
         name: String,
         sizes: [String]
-
     ) {
         self.imageData = imageData
         self.name = name
         self.sizes.append(objectsIn: sizes)
         super.init()
     }
+    
+    var stringSizes: [String] {
+        return Array(self.sizes)
+    }
 }
+

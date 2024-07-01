@@ -23,7 +23,7 @@ private extension UICellConfigurationState {
     }
 }
 class AddSizeButtonTableViewCell: UITableViewCell {
-        
+    
     static let identifier = "AddSizeButtonTableViewCell"
     
     weak var delegate: AddSizeButtonTableViewCellDelegate?
@@ -58,26 +58,26 @@ class AddSizeButtonTableViewCell: UITableViewCell {
     
     
     override var configurationState: UICellConfigurationState {
-            var state = super.configurationState
-            state.imageCenter = self.plusImage.image
-            return state
-        }
-        
-        override func updateConfiguration(using state:UICellConfigurationState) {
-            super.updateConfiguration(using: state)
-            
-            self.plusImage.image = state.imageCenter
-            
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-            self.contentView.addGestureRecognizer(tapGesture)
-            
-            self.isUserInteractionEnabled = true
-            
-        }
-        
-        @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
-          
-            self.delegate?.didTapAddSizeButton()
-        }
+        var state = super.configurationState
+        state.imageCenter = self.plusImage.image
+        return state
     }
+    
+    override func updateConfiguration(using state:UICellConfigurationState) {
+        super.updateConfiguration(using: state)
+        
+        self.plusImage.image = state.imageCenter
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        self.contentView.addGestureRecognizer(tapGesture)
+        
+        self.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
+        
+        self.delegate?.didTapAddSizeButton()
+    }
+}
 

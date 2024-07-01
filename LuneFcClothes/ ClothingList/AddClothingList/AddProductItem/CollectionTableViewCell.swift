@@ -8,11 +8,17 @@
 import Foundation
 import UIKit
 
-class SizesCollectionTableViewCell: UITableViewCell {
+protocol CollectionTableViewCellDelegate: AnyObject {
+    func onAddButtonTap(for type: InputType)
+}
+
+class CollectionTableViewCell: UITableViewCell {
     
-    static let identifier = "SizesCollectionTableViewCell"
+    static let identifier = "CollectionTableViewCell"
     
-    private var model: Category = Category()
+    private var model: [String] = []
+    weak var delegate: CollectionTableViewCellDelegate?
+    var inputType: InputType?
     
     private var selectedIndex: IndexPath?
     
@@ -29,8 +35,8 @@ class SizesCollectionTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(SizeCollectionViewCell.self, forCellWithReuseIdentifier: SizeCollectionViewCell.identifier)
-        
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
+//        collectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -54,46 +60,83 @@ class SizesCollectionTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with model: Category) {
+    func configure(with model: [String], inputType: InputType) {
         self.model = model
+        self.model.append("+")
+        self.inputType = inputType
         self.collectionView.reloadData()
     }
 }
 
 // MARK: - UICollectionViewDataSource
-extension SizesCollectionTableViewCell: UICollectionViewDataSource {
+extension CollectionTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.model.sizes.count
+        return self.model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SizeCollectionViewCell.identifier, for: indexPath) as! SizeCollectionViewCell
-        let isSelected = indexPath == selectedIndex
-        cell.configure(with: self.model.sizes[indexPath.item], isSelected: isSelected)
-        return cell
+        
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CollectionViewCell.identifier,
+                for: indexPath
+            ) as! CollectionViewCell
+            let isSelected = indexPath == selectedIndex
+            cell.configure(
+                with: self.model[indexPath.item],
+                isSelected: isSelected
+            )
+            return cell
+            
     }
 }
-
 // MARK: - UICollectionViewDataSource - UICollectionViewDelegate
 
-extension SizesCollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension CollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard indexPath.row != self.model.count - 1 else {
+            //Avistar al VC que presente la alerta
+            if let inputType = self.inputType {
+                self.delegate?.onAddButtonTap(for: inputType)
+            }
+            return
+        }
+        
         if let previousIndex = selectedIndex {
-            let previousCell = collectionView.cellForItem(at: previousIndex) as? SizeCollectionViewCell
-            previousCell?.configure(with: model.sizes[previousIndex.item], isSelected: false)
+            let previousCell = collectionView.cellForItem(at: previousIndex) as? CollectionViewCell
+            previousCell?.configure(with: model[previousIndex.item], isSelected: false)
         }
         
         selectedIndex = indexPath
         
-        let selectedCell = collectionView.cellForItem(at: indexPath) as? SizeCollectionViewCell
-        selectedCell?.configure(with: model.sizes[indexPath.item], isSelected: true)
+        let selectedCell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
+        selectedCell?.configure(
+            with: model[indexPath.item],
+            isSelected: true
+        )
         
         self.collectionView.performBatchUpdates(nil, completion: nil)
     }
 }
+
+//MARK: - AddButtonCollectionViewCellDelegate
+
+//extension CollectionTableViewCell: AddButtonCollectionViewCellDelegate {
+//    
+//    func didTapAddButton(in cell: AddButtonCollectionViewCell) {
+//        guard let viewController = self.window?.rootViewController as? AddProductItemViewController else {
+//            return
+//        }
+//        viewController.presentAddColorAlert(for: <#InputType#>)
+//    }
+//}
+
+
+
+
