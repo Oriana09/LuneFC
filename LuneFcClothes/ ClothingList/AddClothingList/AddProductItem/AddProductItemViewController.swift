@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum InputType {
+enum InputType: Int {
     case style
     case size
 }
@@ -74,25 +74,25 @@ class AddProductItemViewController: UIViewController {
     
     private func registerCell() {
         self.tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
-        self.tableView.register(CollectionTableViewCell.self, forCellReuseIdentifier: CollectionTableViewCell.identifier)
+        self.tableView.register(AddProductCollectionTableViewCell.self, forCellReuseIdentifier: AddProductCollectionTableViewCell.identifier)
     }
     
     func presentAddColorAlert(for type: InputType) {
         let title: String
-            let placeholder: String
+        let placeholder: String
             
-            switch type {
-            case .style:
-                title = "Enter Style"
-                placeholder = "Style"
-            case .size:
-                title = "Enter Size"
-                placeholder = "Size"
-            }
+        switch type {
+        case .style:
+            title = "Nuervo Color"
+            placeholder = "Color"
+        case .size:
+            title = "Nuevo Talle"
+            placeholder = "Talle"
+        }
         
-        let alertController = UIAlertController(title: "Enter Color", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
-            textField.placeholder = "Color"
+            textField.placeholder = placeholder
         }
         let confirmAction = UIAlertAction(title: "OK", style: .default) { _ in
               if let textField = alertController.textFields?.first, let inputText = textField.text {
@@ -158,18 +158,21 @@ extension AddProductItemViewController: UITableViewDataSource {
             cell = imageCell
         case 1:
             let styleCell = tableView.dequeueReusableCell(
-                withIdentifier: CollectionTableViewCell.identifier,
+                withIdentifier: AddProductCollectionTableViewCell.identifier,
                 for: indexPath
-            ) as! CollectionTableViewCell
+            ) as! AddProductCollectionTableViewCell
             styleCell.configure(with: self.viewModel.getStyle(), inputType: .style)
             styleCell.delegate = self
             cell = styleCell
         case 2:
             let sizeCell = tableView.dequeueReusableCell(
-                withIdentifier: CollectionTableViewCell.identifier,
+                withIdentifier: AddProductCollectionTableViewCell.identifier,
                 for: indexPath
-            ) as! CollectionTableViewCell
-            sizeCell.configure(with: self.viewModel.getSizes(), inputType: .size)
+            ) as! AddProductCollectionTableViewCell
+            sizeCell.configure(
+                with: self.viewModel.getSizes(),
+                inputType: .size
+            )
             sizeCell.delegate = self
             cell = sizeCell
         default:
@@ -220,7 +223,7 @@ extension AddProductItemViewController: UIImagePickerControllerDelegate {
     }
 }
 
-extension AddProductItemViewController: CollectionTableViewCellDelegate {
+extension AddProductItemViewController: AddProductCollectionTableViewCellDelegate {
     
     func onAddButtonTap(for type: InputType) {
         self.presentAddColorAlert(for: type)

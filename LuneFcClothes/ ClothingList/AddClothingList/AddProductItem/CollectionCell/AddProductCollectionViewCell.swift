@@ -8,12 +8,10 @@
 import Foundation
 import UIKit
 
-
-class CollectionViewCell: UICollectionViewCell {
+class AddProductCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "CollectionViewCell"
+    static let identifier = "AddProductCollectionViewCell"
    
-    
     private let Label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center

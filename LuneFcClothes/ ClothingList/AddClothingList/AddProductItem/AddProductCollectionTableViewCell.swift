@@ -8,16 +8,16 @@
 import Foundation
 import UIKit
 
-protocol CollectionTableViewCellDelegate: AnyObject {
+protocol AddProductCollectionTableViewCellDelegate: AnyObject {
     func onAddButtonTap(for type: InputType)
 }
 
-class CollectionTableViewCell: UITableViewCell {
+class AddProductCollectionTableViewCell: UITableViewCell {
     
-    static let identifier = "CollectionTableViewCell"
+    static let identifier = "AddProductCollectionTableViewCell"
     
     private var model: [String] = []
-    weak var delegate: CollectionTableViewCellDelegate?
+    weak var delegate: AddProductCollectionTableViewCellDelegate?
     var inputType: InputType?
     
     private var selectedIndex: IndexPath?
@@ -35,7 +35,7 @@ class CollectionTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
+        collectionView.register(AddProductCollectionViewCell.self, forCellWithReuseIdentifier: AddProductCollectionViewCell.identifier)
 //        collectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
         return collectionView
     }()
@@ -69,7 +69,7 @@ class CollectionTableViewCell: UITableViewCell {
 }
 
 // MARK: - UICollectionViewDataSource
-extension CollectionTableViewCell: UICollectionViewDataSource {
+extension AddProductCollectionTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.model.count
@@ -78,9 +78,9 @@ extension CollectionTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CollectionViewCell.identifier,
+                withReuseIdentifier: AddProductCollectionViewCell.identifier,
                 for: indexPath
-            ) as! CollectionViewCell
+            ) as! AddProductCollectionViewCell
             let isSelected = indexPath == selectedIndex
             cell.configure(
                 with: self.model[indexPath.item],
@@ -92,7 +92,7 @@ extension CollectionTableViewCell: UICollectionViewDataSource {
 }
 // MARK: - UICollectionViewDataSource - UICollectionViewDelegate
 
-extension CollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 40)
@@ -109,13 +109,13 @@ extension CollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollect
         }
         
         if let previousIndex = selectedIndex {
-            let previousCell = collectionView.cellForItem(at: previousIndex) as? CollectionViewCell
+            let previousCell = collectionView.cellForItem(at: previousIndex) as? AddProductCollectionViewCell
             previousCell?.configure(with: model[previousIndex.item], isSelected: false)
         }
         
         selectedIndex = indexPath
         
-        let selectedCell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell
+        let selectedCell = collectionView.cellForItem(at: indexPath) as? AddProductCollectionViewCell
         selectedCell?.configure(
             with: model[indexPath.item],
             isSelected: true

@@ -17,8 +17,7 @@ class AddProductItemViewModel {
         named: "photo_placeholder"
     )?.withRenderingMode(.alwaysTemplate)
     private var selectedSize: String
-     var selectedStyle: String
-    private var category: Category
+    var selectedStyle: String
     var styles: [String]
     var sizes: [String]
     
@@ -27,15 +26,13 @@ class AddProductItemViewModel {
         selectedSize: String = "",
         selectedStyle: String = "",
         styles: [String] = [],
-        sizes: [String] = [],
-         category: Category
+        sizes: [String]
     ) {
         self.image = image
         self.selectedSize = selectedSize
         self.selectedStyle = selectedStyle
         self.styles = styles
         self.sizes = sizes
-        self.category = category
     }
 
 //    func saveProductItem() {
@@ -66,7 +63,7 @@ class AddProductItemViewModel {
 //           return Array(category.sizes)
 //    }
     func getSizes() -> [String] {
-        return self.category.stringSizes
+        return self.sizes
     }
     
     func getStyle() -> [String] {

@@ -292,7 +292,7 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
 extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
     func didTapAddSizeButton() {
         let addProdudctVM = AddProductItemViewModel(
-            category: self.viewModel.getCategory()
+            sizes: self.viewModel.getCategory().stringSizes
         )
         let addProductVC = AddProductItemViewController(
             viewModel: addProdudctVM)
