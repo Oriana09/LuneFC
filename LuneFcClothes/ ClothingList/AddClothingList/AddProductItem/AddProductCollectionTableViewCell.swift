@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol AddProductCollectionTableViewCellDelegate: AnyObject {
-    func onAddButtonTap(for type: InputType)
+    func onAddButtonTap(for type: ProductAttributeType)
 }
 
 class AddProductCollectionTableViewCell: UITableViewCell {
@@ -17,10 +17,9 @@ class AddProductCollectionTableViewCell: UITableViewCell {
     static let identifier = "AddProductCollectionTableViewCell"
     
     private var model: [String] = []
-    weak var delegate: AddProductCollectionTableViewCellDelegate?
-    var inputType: InputType?
-    
+    private  var inputType: ProductAttributeType?
     private var selectedIndex: IndexPath?
+    weak var delegate: AddProductCollectionTableViewCellDelegate?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -36,7 +35,6 @@ class AddProductCollectionTableViewCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(AddProductCollectionViewCell.self, forCellWithReuseIdentifier: AddProductCollectionViewCell.identifier)
-//        collectionView.register(AddButtonCollectionViewCell.self, forCellWithReuseIdentifier: AddButtonCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -60,7 +58,7 @@ class AddProductCollectionTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with model: [String], inputType: InputType) {
+    func configure(with model: [String], inputType: ProductAttributeType) {
         self.model = model
         self.model.append("+")
         self.inputType = inputType
@@ -77,17 +75,17 @@ extension AddProductCollectionTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: AddProductCollectionViewCell.identifier,
-                for: indexPath
-            ) as! AddProductCollectionViewCell
-            let isSelected = indexPath == selectedIndex
-            cell.configure(
-                with: self.model[indexPath.item],
-                isSelected: isSelected
-            )
-            return cell
-            
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: AddProductCollectionViewCell.identifier,
+            for: indexPath
+        ) as! AddProductCollectionViewCell
+        let isSelected = indexPath == selectedIndex
+        cell.configure(
+            with: self.model[indexPath.item],
+            isSelected: isSelected
+        )
+        return cell
+        
     }
 }
 // MARK: - UICollectionViewDataSource - UICollectionViewDelegate
@@ -101,7 +99,7 @@ extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard indexPath.row != self.model.count - 1 else {
-            //Avistar al VC que presente la alerta
+            
             if let inputType = self.inputType {
                 self.delegate?.onAddButtonTap(for: inputType)
             }
@@ -124,19 +122,6 @@ extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout,
         self.collectionView.performBatchUpdates(nil, completion: nil)
     }
 }
-
-//MARK: - AddButtonCollectionViewCellDelegate
-
-//extension CollectionTableViewCell: AddButtonCollectionViewCellDelegate {
-//    
-//    func didTapAddButton(in cell: AddButtonCollectionViewCell) {
-//        guard let viewController = self.window?.rootViewController as? AddProductItemViewController else {
-//            return
-//        }
-//        viewController.presentAddColorAlert(for: <#InputType#>)
-//    }
-//}
-
 
 
 

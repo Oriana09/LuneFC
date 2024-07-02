@@ -9,11 +9,10 @@ import Foundation
 import RealmSwift
 
 class ProductItem: Object {
+    
     @objc dynamic var image: Data? = nil
     @objc dynamic var size: String = ""
     @objc dynamic var style: String = ""
-    
-    
     
     required override init() {
         super.init()
