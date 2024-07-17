@@ -11,7 +11,7 @@ protocol AddClothingListPresenterDelegate: AnyObject {
     func onDismiss()
 }
 class AddClothingListViewController: UIViewController {
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
@@ -41,6 +41,14 @@ class AddClothingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.SetUI()
+        self.configureViewModel()
+    }
+    
+    private func configureViewModel() {
+        self.viewModel.onReloadTableView = { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
     }
     
     private func SetUI() {
@@ -150,9 +158,9 @@ extension AddClothingListViewController: UITableViewDataSource {
         return self.viewModel.getTitleHeader(for: section)
     }
     
-//    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-//        return self.ViewModel.getTitleFooter(for: section)
-//    }
+    //    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    //        return self.ViewModel.getTitleFooter(for: section)
+    //    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.numberOfSection
@@ -202,32 +210,41 @@ extension AddClothingListViewController: UITableViewDataSource {
             priceCell.delegate = self
             cell = priceCell
         case 3:
-            let addSize = tableView.dequeueReusableCell(
-                withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
-            ) as! AddSizeButtonTableViewCell
-            addSize.delegate = self
-            cell = addSize
+            if indexPath.row == self.viewModel.items.count {
+                let addSize = tableView.dequeueReusableCell(
+                    withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
+                ) as! AddSizeButtonTableViewCell
+                addSize.delegate = self
+                cell = addSize
+            } else {
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: AddProductTableViewCell.identifier,
+                    for: indexPath
+                ) as! AddProductTableViewCell
+                let item = viewModel.items[indexPath.row]
+                cell.configure(with: item)
+                return cell
+            }
             
-            
-//            let imageCell = tableView.dequeueReusableCell(
-//                withIdentifier: ImagePickerTableViewCell.identifier,
-//                for: indexPath
-//            ) as! ImagePickerTableViewCell
-//            imageCell.configure(image: self.ViewModel.getSelectedImage())
-//            cell = imageCell
-//        case 1:
-//            let idCodeCell = tableView.dequeueReusableCell(
-//                withIdentifier: NameCategoryTableViewCell.identifier,
-//                for: indexPath
-//            ) as! NameCategoryTableViewCell
-//            idCodeCell.configure(
-//                title: self.ViewModel.getTitle(index: indexPath), placeholder: ""
-//            )
-//            idCodeCell.delegate = self
-//            
-//            cell = idCodeCell
-//            
-//
+            //            let imageCell = tableView.dequeueReusableCell(
+            //                withIdentifier: ImagePickerTableViewCell.identifier,
+            //                for: indexPath
+            //            ) as! ImagePickerTableViewCell
+            //            imageCell.configure(image: self.ViewModel.getSelectedImage())
+            //            cell = imageCell
+            //        case 1:
+            //            let idCodeCell = tableView.dequeueReusableCell(
+            //                withIdentifier: NameCategoryTableViewCell.identifier,
+            //                for: indexPath
+            //            ) as! NameCategoryTableViewCell
+            //            idCodeCell.configure(
+            //                title: self.ViewModel.getTitle(index: indexPath), placeholder: ""
+            //            )
+            //            idCodeCell.delegate = self
+            //
+            //            cell = idCodeCell
+            //
+            //
             
         default:
             cell = UITableViewCell()
@@ -292,6 +309,7 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
 extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
     func didTapAddSizeButton() {
         let addProdudctVM = AddProductItemViewModel(
+            delegate: self.viewModel,
             sizes: self.viewModel.getCategory().stringSizes
         )
         let addProductVC = AddProductItemViewController(
@@ -302,5 +320,4 @@ extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
             animated: true
         )
     }
-    
 }

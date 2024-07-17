@@ -417,10 +417,8 @@ extension LoginViewController: UITextFieldDelegate {
     
     func hideKeyboard() {
         UIView.animate(withDuration: 0.3) {
-           
             self.blurBox.frame.origin.y = self.blurBoxOriginYPosition
         }
-       
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

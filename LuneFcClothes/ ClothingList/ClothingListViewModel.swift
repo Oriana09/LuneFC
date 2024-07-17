@@ -37,6 +37,7 @@ class ClothingListViewModel {
                 title: "Pantalón Wid Leg",
                 price: 50.999,
                 size: "38",
+                style: nil,
                 category: "Pantalones"
             ),
             ClothingItem(
@@ -45,6 +46,7 @@ class ClothingListViewModel {
                 title: "Pantalón Negro",
                 price: 45.599,
                 size: "40",
+                style: nil,
                 category: "Pantalones"
             ),
             ClothingItem(
@@ -53,6 +55,7 @@ class ClothingListViewModel {
                 title: "Pantalón Recto",
                 price: 44.999,
                 size: "42",
+                style: nil,
                 category: "Pantalones"
             ),
             ClothingItem(
@@ -61,6 +64,7 @@ class ClothingListViewModel {
                 title: "Pantalón Mom",
                 price: 20.755,
                 size: "40",
+                style: nil,
                 category: "Pantalones"
             ),
             ClothingItem(
@@ -69,6 +73,7 @@ class ClothingListViewModel {
                 title: "Pantalón Wid Leg",
                 price: 50.999,
                 size: "38",
+                style: nil,
                 category: "Pantalones"
             ),
         ]

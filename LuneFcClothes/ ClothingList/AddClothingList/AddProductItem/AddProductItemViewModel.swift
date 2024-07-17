@@ -9,79 +9,44 @@ import Foundation
 import RealmSwift
 import UIKit
 
+protocol AddProductItemViewModelDelegate: AnyObject {
+    func addProduct(
+        image: UIImage?,
+        selectedSize: String,
+        selectedStyle: String,
+        styles: [String],
+        sizes: [String]
+    )
+}
+
 class AddProductItemViewModel {
     
     private let realm = try! Realm()
+    weak var delegate: AddProductItemViewModelDelegate?
     
     private var image: UIImage? = UIImage(
         named: "photo_placeholder"
     )?.withRenderingMode(.alwaysTemplate)
-    private var selectedSize: String
+    var selectedSize: String
     var selectedStyle: String
     var styles: [String]
     var sizes: [String]
     
+    
     init(
+        delegate: AddProductItemViewModelDelegate?,
         image: UIImage? = nil,
         selectedSize: String = "",
         selectedStyle: String = "",
         styles: [String] = [],
         sizes: [String]
     ) {
+        self.delegate = delegate
         self.image = image
         self.selectedSize = selectedSize
         self.selectedStyle = selectedStyle
         self.styles = styles
         self.sizes = sizes
-    }
-
-//    func saveProductItem() {
-//        let newAddProductItem = ProductItem(
-//            image: self.image?.jpegData(compressionQuality: 1),
-//            size: self.selectedSize,
-//            style: self.selectedStyle
-//        )
-//        
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                realm.add(newAddProductItem)
-//            }
-//        } catch {
-//            print("Error saving category: \(error)")
-//        }
-//    }
-    
-//    func selectCategory(named categoryName: String) {
-//            self.selectedCategoryName = categoryName
-//    }
-    
-//    func getCategorySizes() -> [String] {
-//           guard let categoryName = selectedCategoryName else { return [] }
-//           let categories = realm.objects(Category.self).filter("name == %@", categoryName)
-//           guard let category = categories.first else { return [] }
-//           return Array(category.sizes)
-//    }
-    func getSizes() -> [String] {
-        return self.sizes
-    }
-    
-    func getStyle() -> [String] {
-        return self.styles
-    }
-    
-    
-    func getTitleHeader(for section: Int) -> String {
-        switch section {
-        case 0:
-            return "Imagen"
-        case 1:
-            return "Estilo"
-        case 2:
-            return "Talle"
-        default:
-            return ""
-        }
     }
     
     var numberOfSection: Int {
@@ -101,18 +66,10 @@ class AddProductItemViewModel {
         }
     }
     
-    func getSelectedImage() -> UIImage? {
-        return self.image
-    }
-    
-    func setSelectedImage(image: UIImage) {
-        self.image = image
-    }
-    
-    func getTitleHeader(section: Int) -> String {
+    func getTitleHeader(for section: Int) -> String {
         switch section {
         case 0:
-            return "Imagén"
+            return "Imagen"
         case 1:
             return "Estilo"
         case 2:
@@ -136,25 +93,38 @@ class AddProductItemViewModel {
         }
     }
     
-
-//    func getSizes() -> String {
-//        return size
-//    }
-//    
-//    func addSizes(_ size: String) {
-//        self.size.append(size)
-//    }
-//    
-//    func getStyles() -> [String] {
-//        return style
-//    }
-//    
+    func getSelectedImage() -> UIImage? {
+        return self.image
+    }
+    
+    func setSelectedImage(image: UIImage) {
+        self.image = image
+    }
+    
+    func getSizes() -> [String] {
+        return self.sizes
+    }
+    
+    func getStyle() -> [String] {
+        return self.styles
+    }
+    
     func addStyle(_ style: String) {
         self.styles.append(style)
     }
     
     func addSize(_ size: String) {
         self.sizes.append(size)
+    }
+    
+    func saveProducto() {
+        self.delegate?.addProduct(
+            image: self.image,
+            selectedSize: self.selectedSize,
+            selectedStyle: self.selectedStyle,
+            styles: self.styles,
+            sizes: self.sizes
+        )
     }
 }
 
@@ -164,6 +134,6 @@ extension AddProductItemViewModel {
         case image = 0
         case size = 1
         case style = 2
-        
     }
 }
+

@@ -93,8 +93,10 @@ class AddProductItemViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped() {
-            navigationController?.popViewController(animated: true)
-        }
+        self.viewModel.saveProducto()
+        navigationController?.popViewController(animated: true)
+    }
+    
     func presentAddColorAlert(for type: ProductAttributeType) {
         let title: String
         let placeholder: String
@@ -137,7 +139,7 @@ class AddProductItemViewController: UIViewController {
 extension AddProductItemViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.viewModel.getTitleHeader(section: section)
+        return self.viewModel.getTitleHeader(for: section)
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
