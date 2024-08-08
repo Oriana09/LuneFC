@@ -101,7 +101,9 @@ extension NameCategoryTableViewCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        self.delegate?.onTitleChange((textField.text ?? "") + string, cell: self)
+        let text = string.isEmpty && textField.text?.count == 1  ? "" : (textField.text ?? "") + string
+        
+        self.delegate?.onTitleChange(text, cell: self)
         
         return true
     }

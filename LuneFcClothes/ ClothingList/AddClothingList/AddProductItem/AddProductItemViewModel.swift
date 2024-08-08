@@ -39,7 +39,7 @@ class AddProductItemViewModel {
         selectedSize: String = "",
         selectedStyle: String = "",
         styles: [String] = [],
-        sizes: [String]
+        sizes: [String] 
     ) {
         self.delegate = delegate
         self.image = image

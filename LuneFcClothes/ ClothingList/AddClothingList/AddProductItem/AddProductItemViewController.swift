@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum ProductAttributeType: Int {
+enum ProductAttributeType {
     case style
     case size
 }
@@ -18,9 +18,11 @@ class AddProductItemViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
             frame: .zero
+           // style: .grouped
         )
         tableView.delegate = self
         tableView.dataSource = self
+       tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -94,6 +96,7 @@ class AddProductItemViewController: UIViewController {
     
     @objc private func doneButtonTapped() {
         self.viewModel.saveProducto()
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -235,8 +238,20 @@ extension AddProductItemViewController: UIImagePickerControllerDelegate {
 }
 
 extension AddProductItemViewController: AddProductCollectionTableViewCellDelegate {
-    
-    func onAddButtonTap(for type: ProductAttributeType) {
+    func ButtonDidSeleceted(type: ProductAttributeType, _ title: String) {
+        switch type {
+        case .style:
+            self.viewModel.selectedStyle = title
+        case .size:
+            self.viewModel.selectedSize = title
+        }
+    }
+   
+
+    func OnAddButtonTap(for type: ProductAttributeType) {
         self.presentAddColorAlert(for: type)
     }
+    
+    //
+    
 }

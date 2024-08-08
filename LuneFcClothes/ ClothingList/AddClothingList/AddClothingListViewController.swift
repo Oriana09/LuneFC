@@ -17,14 +17,13 @@ class AddClothingListViewController: UIViewController {
             frame: .zero,
             style: .insetGrouped
         )
-        tableView.delegate =  self
+        //tableView.delegate =  self
         tableView.dataSource = self
-        tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
-        tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
-        tableView.register(AddSizeButtonTableViewCell.self, forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    private var saveItemsButton: UIBarButtonItem?
     
     private let viewModel: AddClothingListViewModel
     weak var delegate: AddClothingListPresenterDelegate?
@@ -49,7 +48,11 @@ class AddClothingListViewController: UIViewController {
             guard let self = self else { return }
             self.tableView.reloadData()
         }
-    }
+        
+        self.viewModel.onEnableSaveButton = { [weak self] isEnable in
+            guard let self = self else { return }
+            self.saveItemsButton?.isEnabled = isEnable
+        }     }
     
     private func SetUI() {
         self.navigationItem.title = "Nuevo Producto"
@@ -57,6 +60,13 @@ class AddClothingListViewController: UIViewController {
         self.setupConstraints()
         self.createCancelButton()
         self.saveClothingButton()
+        self.registerTableViewCells()
+    }
+    
+    private func registerTableViewCells() {
+        tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
+        tableView.register(AddSizeButtonTableViewCell.self, forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier)
+        tableView.register(NewProductTableViewCell.self, forCellReuseIdentifier: NewProductTableViewCell.identifier)
     }
     
     private func setupConstraints() {
@@ -126,16 +136,17 @@ class AddClothingListViewController: UIViewController {
     }
     
     private func saveClothingButton(){
-        
-        let addCategoryButton =  UIBarButtonItem(
+        let button = UIBarButtonItem(
             title: "Agregar",
             style: .plain,
             target: self,
             action: #selector(addClothing)
         )
+        button.isEnabled = false
+        button.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
+        self.navigationItem.rightBarButtonItem = button
         
-        addCategoryButton.tintColor = ColorManager.button_primary_blue_light_button_prmary_blue_dark
-        navigationItem.rightBarButtonItem = addCategoryButton
+        self.saveItemsButton = button
     }
     
     @objc private func addClothing() {
@@ -147,7 +158,6 @@ class AddClothingListViewController: UIViewController {
         self.delegate?.onDismiss()
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 
@@ -205,12 +215,13 @@ extension AddClothingListViewController: UITableViewDataSource {
             ) as! NameCategoryTableViewCell
             
             priceCell.configure(
-                title: self.viewModel.getTitle(index: indexPath), placeholder: "$"
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "$ 0"
             )
             priceCell.delegate = self
             cell = priceCell
         case 3:
-            if indexPath.row == self.viewModel.items.count {
+            if indexPath.row == 
+                self.viewModel.getItemGroups() {
                 let addSize = tableView.dequeueReusableCell(
                     withIdentifier: AddSizeButtonTableViewCell.identifier, for: indexPath
                 ) as! AddSizeButtonTableViewCell
@@ -218,33 +229,20 @@ extension AddClothingListViewController: UITableViewDataSource {
                 cell = addSize
             } else {
                 let cell = tableView.dequeueReusableCell(
-                    withIdentifier: AddProductTableViewCell.identifier,
+                    withIdentifier: NewProductTableViewCell.identifier,
                     for: indexPath
-                ) as! AddProductTableViewCell
-                let item = viewModel.items[indexPath.row]
-                cell.configure(with: item)
+                ) as! NewProductTableViewCell
+                let item = viewModel.item(for: indexPath)
+                cell.delegate = self
+//                let item = viewModel.items[indexPath.row]
+                cell.configure(
+                    with: item,
+                    cantOfItems: self.viewModel.cantOfItemsInGroup(
+                        at: indexPath
+                    )
+                )
                 return cell
             }
-            
-            //            let imageCell = tableView.dequeueReusableCell(
-            //                withIdentifier: ImagePickerTableViewCell.identifier,
-            //                for: indexPath
-            //            ) as! ImagePickerTableViewCell
-            //            imageCell.configure(image: self.ViewModel.getSelectedImage())
-            //            cell = imageCell
-            //        case 1:
-            //            let idCodeCell = tableView.dequeueReusableCell(
-            //                withIdentifier: NameCategoryTableViewCell.identifier,
-            //                for: indexPath
-            //            ) as! NameCategoryTableViewCell
-            //            idCodeCell.configure(
-            //                title: self.ViewModel.getTitle(index: indexPath), placeholder: ""
-            //            )
-            //            idCodeCell.delegate = self
-            //
-            //            cell = idCodeCell
-            //
-            //
             
         default:
             cell = UITableViewCell()
@@ -253,54 +251,14 @@ extension AddClothingListViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - UITableViewDelagate
-extension AddClothingListViewController: UITableViewDelegate, UINavigationControllerDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }
-    }
-}
-
-
-//MARK: - UIImagePickerControllerDelegate
-
-extension AddClothingListViewController: UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
-            return
-        }
-        
-        guard let image = info[.originalImage] as? UIImage else {
-            return
-        }
-        
-        guard let cell = self.tableView.cellForRow(at: selectedIndexPath) as? ImagePickerTableViewCell else {
-            return
-        }
-        
-        self.viewModel.setSelectedImage(image: image)
-        cell.deleteButton.isHidden = false
-        
-        self.tableView.reloadData()
-        self.dismiss(animated: true, completion: nil)
-    }
-}
-
+//MARK: - NameCategoryTableViewCellDelegate
 extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
     
     func onTitleChange(_ title: String, cell: UITableViewCell) {
         guard let index = self.tableView.indexPath(for: cell) else {
             return
         }
-        
-        self.viewModel.setTitle(title, index: index)
+                self.viewModel.setTitle(title, index: index)
     }
 }
 
@@ -319,5 +277,16 @@ extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
             addProductVC,
             animated: true
         )
+    }
+}
+//MARK: - NewProductTableViewCellDelegate
+
+extension AddClothingListViewController: NewProductTableViewCellDelegate {
+    func plusControlDidSelect(for item: ClothingItem) {
+        self.viewModel.addNewItem(item)
+    }
+    
+    func minusControlDidSelect(for item: ClothingItem) {
+        self.viewModel.removeItem(item)
     }
 }

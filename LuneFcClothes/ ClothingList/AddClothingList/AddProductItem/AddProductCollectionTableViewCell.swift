@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 protocol AddProductCollectionTableViewCellDelegate: AnyObject {
-    func onAddButtonTap(for type: ProductAttributeType)
+    func OnAddButtonTap(for type: ProductAttributeType)
+    func ButtonDidSeleceted(type: ProductAttributeType, _ title: String)
 }
 
 class AddProductCollectionTableViewCell: UITableViewCell {
@@ -20,6 +21,7 @@ class AddProductCollectionTableViewCell: UITableViewCell {
     private  var inputType: ProductAttributeType?
     private var selectedIndex: IndexPath?
     weak var delegate: AddProductCollectionTableViewCellDelegate?
+    
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -101,22 +103,35 @@ extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout,
         guard indexPath.row != self.model.count - 1 else {
             
             if let inputType = self.inputType {
-                self.delegate?.onAddButtonTap(for: inputType)
+                self.delegate?.OnAddButtonTap(for: inputType)
             }
             return
         }
         
         if let previousIndex = selectedIndex {
             let previousCell = collectionView.cellForItem(at: previousIndex) as? AddProductCollectionViewCell
-            previousCell?.configure(with: model[previousIndex.item], isSelected: false)
+            
+            previousCell?.configure(
+                with: model[previousIndex.item],
+                isSelected: false
+            )
         }
-        
+
         selectedIndex = indexPath
         
-        let selectedCell = collectionView.cellForItem(at: indexPath) as? AddProductCollectionViewCell
-        selectedCell?.configure(
+        guard let selectedCell = collectionView.cellForItem(
+            at: indexPath
+        ) as? AddProductCollectionViewCell else {
+            return
+        }
+        selectedCell.configure(
             with: model[indexPath.item],
             isSelected: true
+        )
+        
+        self.delegate?.ButtonDidSeleceted(
+            type: self.inputType ?? .size,
+            selectedCell.label.text ?? "Default Text"
         )
         
         self.collectionView.performBatchUpdates(nil, completion: nil)
