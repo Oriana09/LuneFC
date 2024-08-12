@@ -81,13 +81,35 @@ extension AddProductCollectionTableViewCell: UICollectionViewDataSource {
             withReuseIdentifier: AddProductCollectionViewCell.identifier,
             for: indexPath
         ) as! AddProductCollectionViewCell
-        let isSelected = indexPath == selectedIndex
-        cell.configure(
-            with: self.model[indexPath.item],
-            isSelected: isSelected
-        )
-        return cell
         
+        
+        if let selectedIndex = selectedIndex, indexPath == selectedIndex {
+               cell.configure(
+                   with: self.model[indexPath.item],
+                   isSelected: true
+               )
+        } else if inputType == .style, indexPath.item == self.model.count - 2 {
+               // Aquí seleccionas automáticamente el penúltimo ítem, asumiendo que el último es el botón "+"
+               selectedIndex = indexPath
+               cell.configure(
+                   with: self.model[indexPath.item],
+                   isSelected: true
+               )
+           } else {
+               cell.configure(
+                   with: self.model[indexPath.item],
+                   isSelected: false
+               )
+           }
+
+           return cell
+//        let isSelected = indexPath == selectedIndex
+//        cell.configure(
+//            with: self.model[indexPath.item],
+//           isSelected: isSelected
+//        )
+//        return cell
+//
     }
 }
 // MARK: - UICollectionViewDataSource - UICollectionViewDelegate
