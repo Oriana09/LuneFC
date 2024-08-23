@@ -132,19 +132,38 @@ extension ClothingListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
-            guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
-                completionHandler(false)
-                return
-            }
-            self?.viewModel.deleteClothinList(itemToRemove)
-            completionHandler(true)
-            
-            tableView.reloadData()
-        }
-        deleteAction.image = UIImage(systemName: "trash")
         
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+            let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
+                
+                let alertController = UIAlertController(
+                    title: "Confirmar eliminación",
+                    message: "¿Deseas eliminar este producto de la lista de inventario?",
+                    preferredStyle: .alert
+                )
+                
+                let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel) { _ in
+                    completionHandler(false) // No eliminar, ya que canceló
+                }
+                
+                let confirmAction = UIAlertAction(title: "Eliminar", style: .destructive) { _ in
+                    guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
+                        completionHandler(false)
+                        return
+                    }
+                    self?.viewModel.deleteClothinList(itemToRemove)
+                    tableView.reloadData()
+                    completionHandler(true) // Confirmar la eliminación
+                }
+                
+                alertController.addAction(cancelAction)
+                alertController.addAction(confirmAction)
+                
+                self?.present(alertController, animated: true, completion: nil)
+            }
+            
+            deleteAction.image = UIImage(systemName: "trash")
+            
+            return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 extension ClothingListViewController: NewClothingItemPresenterDelegate {

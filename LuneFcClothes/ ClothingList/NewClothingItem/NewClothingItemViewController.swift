@@ -256,18 +256,35 @@ extension NewClothingItemViewController: UITableViewDataSource {
 extension NewClothingItemViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action,  view, completionHandler) in
-            guard let itemToRemove = self?.viewModel.items[indexPath.row] else {
-                completionHandler(false)
-                return
-            }
-            self?.viewModel.removeItem(itemToRemove)
-            completionHandler(true)
+    
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
             
-            tableView.reloadData()
+            let alertController = UIAlertController(
+                title: "",
+                message: "¿Estas seguro?",
+                preferredStyle: .alert
+            )
+            
+            let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel) { _ in
+                completionHandler(false) // No eliminar, ya que canceló
+            }
+            
+            let confirmAction = UIAlertAction(title: "Eliminar", style: .destructive) { _ in
+                guard let itemToRemove = self?.viewModel.items[indexPath.row] else {
+                    completionHandler(false)
+                    return
+                }
+                self?.viewModel.removeItem(itemToRemove)
+                tableView.reloadData()
+                completionHandler(true) // Confirmar la eliminación
+            }
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(confirmAction)
+            
+            self?.present(alertController, animated: true, completion: nil)
         }
+        
         deleteAction.image = UIImage(systemName: "trash")
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
