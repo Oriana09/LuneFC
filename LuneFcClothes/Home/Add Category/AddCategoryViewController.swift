@@ -184,7 +184,7 @@ extension AddCategoryViewController: UITableViewDataSource {
             nameCell.configure(
                 title: self.viewModel.getTitle(
                     index: indexPath
-                ), placeholder: "Remeras"
+                ), placeholder: "Remeras", isNumerico: self.viewModel.setNumeric(index: indexPath)
             )
             nameCell.delegate = self
             
@@ -207,7 +207,7 @@ extension AddCategoryViewController: UITableViewDataSource {
                 ziseCell.configure(
                     title: self.viewModel.getTitle(
                         index: indexPath
-                    ), placeholder: "S"
+                    ), placeholder: "S", isNumerico: self.viewModel.setNumeric(index: indexPath)
                 )
                 ziseCell.delegate = self
                 cell = ziseCell

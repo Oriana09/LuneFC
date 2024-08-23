@@ -32,7 +32,8 @@ class ImagePickerTableViewCell: UITableViewCell {
     lazy var productImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -48,7 +49,7 @@ class ImagePickerTableViewCell: UITableViewCell {
         return button
     }()
     
-    let padding: CGFloat = 16.0
+    let padding: CGFloat = 8.0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -111,23 +112,18 @@ class ImagePickerTableViewCell: UITableViewCell {
     
     override func updateConfiguration(using state: UICellConfigurationState) {
         super.updateConfiguration(using: state)
-        
-        //        if let productImage = state.productImage {
-        //            self.productImage.image = productImage
-        //        }
-        
-        if let productImage = state.productImage {
-            self.productImage.image = productImage
-        } else {
-            self.productImage.image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
-        }
-        
+
+        let productImage = state.productImage ?? UIImage(systemName: "photo.on.rectangle.angled")?.withRenderingMode(.alwaysTemplate)
+        self.productImage.image = productImage
+
         self.deleteButton.isHidden = state.deleteButtonHidden
     }
     
     @objc private func deleteImage() {
-        if self.productImage.image != UIImage(named: "photo_placeholder") {
-            self.productImage.image = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
+        if self.productImage.image != UIImage(systemName:"photo.on.rectangle.angled") {
+            self.productImage.image = UIImage(
+                systemName:"photo.on.rectangle.angled"
+            )?.withRenderingMode(.alwaysTemplate)
             
             self.deleteButton.isHidden = true
         }

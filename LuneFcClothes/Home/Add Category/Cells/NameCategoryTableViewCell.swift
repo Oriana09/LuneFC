@@ -11,6 +11,15 @@ protocol NameCategoryTableViewCellDelegate: AnyObject {
     func onTitleChange(_ title: String, cell: UITableViewCell)
     
 }
+private extension UIConfigurationStateCustomKey {
+    static let isNumerico = UIConfigurationStateCustomKey("isNumerico")
+}
+private extension UICellConfigurationState {
+    var isNumerico: Bool? {
+        get { return self[.isNumerico] as? Bool }
+        set { self[.isNumerico] = newValue }
+    }
+}
 
 private extension UIConfigurationStateCustomKey {
     static let textFieldPlaceholder = UIConfigurationStateCustomKey("textFieldPlaceholder")
@@ -26,8 +35,6 @@ private extension UICellConfigurationState {
 class NameCategoryTableViewCell: UITableViewCell {
     
     static let identifier = "NameCategoryTableViewCell"
-    
-    
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -74,7 +81,7 @@ class NameCategoryTableViewCell: UITableViewCell {
     override var configurationState: UICellConfigurationState {
         var state = super.configurationState
         state.textFieldPlaceholder = self.textField.placeholder
-        
+        state.isNumerico = self.textField.keyboardType == .numberPad
         return state
     }
     
@@ -87,11 +94,16 @@ class NameCategoryTableViewCell: UITableViewCell {
         }
         
         self.textField.placeholder = textFieldPlaceholder
+        
+        if let isNumerico = state.isNumerico {
+            self.textField.keyboardType = isNumerico ? .numberPad : .default
+        }
     }
     
-    func configure(title: String, placeholder: String) {
+    func configure(title: String, placeholder: String, isNumerico: Bool) {
         self.textField.text = title
         self.textField.placeholder = placeholder
+        self.textField.keyboardType = isNumerico ? .numberPad : .default
     }
 }
 
@@ -107,5 +119,10 @@ extension NameCategoryTableViewCell: UITextFieldDelegate {
         
         return true
     }
-
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+           return true
+    }
+    
 }

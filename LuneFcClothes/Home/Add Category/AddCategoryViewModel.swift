@@ -117,6 +117,21 @@ class AddCategoryViewModel {
     func addNewSize() {
         self.sizes.append("")
     }
+    func setNumeric(index: IndexPath) -> Bool  {
+        
+        guard let section = SectionType(rawValue: index.section) else { return  false }
+        
+        switch section {
+        case .image:
+           let isNumerico = false
+        case .title:
+          let  isNumerico = false
+        case .size:
+            let isNumerico = false
+
+        }
+        return false
+    }
 }
     
 extension AddCategoryViewModel {

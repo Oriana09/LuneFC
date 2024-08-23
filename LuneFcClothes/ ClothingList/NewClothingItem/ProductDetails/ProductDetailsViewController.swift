@@ -1,5 +1,5 @@
 //
-//  AddProductItem.swift
+//  ProductDetailsViewController.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 21/05/2024.
@@ -13,7 +13,8 @@ enum ProductAttributeType {
     case size
 }
 
-class AddProductItemViewController: UIViewController {
+class ProductDetailsViewController: UIViewController {
+    
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
@@ -39,9 +40,10 @@ class AddProductItemViewController: UIViewController {
         return button
     }()
     
-    private let viewModel: AddProductItemViewModel
+    private let viewModel: ProductDetailsViewModel
     
-    init(viewModel: AddProductItemViewModel) {
+        
+    init(viewModel: ProductDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: .main)
     }
@@ -56,7 +58,7 @@ class AddProductItemViewController: UIViewController {
     }
     
     private func setUI() {
-        self.navigationItem.title = "Nuevo Producto"
+        self.navigationItem.title = "Detalles del Producto"
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
         self.setupConstraints()
         self.registerCell()
@@ -91,7 +93,7 @@ class AddProductItemViewController: UIViewController {
     
     private func registerCell() {
         self.tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
-        self.tableView.register(AddProductCollectionTableViewCell.self, forCellReuseIdentifier: AddProductCollectionTableViewCell.identifier)
+        self.tableView.register(ProductDetailsCollectionTableViewCell.self, forCellReuseIdentifier: ProductDetailsCollectionTableViewCell.identifier)
     }
     
     @objc private func doneButtonTapped() {
@@ -139,7 +141,7 @@ class AddProductItemViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension AddProductItemViewController: UITableViewDataSource {
+extension ProductDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.viewModel.getTitleHeader(for: section)
@@ -172,17 +174,17 @@ extension AddProductItemViewController: UITableViewDataSource {
             cell = imageCell
         case 1:
             let styleCell = tableView.dequeueReusableCell(
-                withIdentifier: AddProductCollectionTableViewCell.identifier,
+                withIdentifier: ProductDetailsCollectionTableViewCell.identifier,
                 for: indexPath
-            ) as! AddProductCollectionTableViewCell
+            ) as! ProductDetailsCollectionTableViewCell
             styleCell.configure(with: self.viewModel.getStyle(), inputType: .style)
             styleCell.delegate = self
             cell = styleCell
         case 2:
             let sizeCell = tableView.dequeueReusableCell(
-                withIdentifier: AddProductCollectionTableViewCell.identifier,
+                withIdentifier: ProductDetailsCollectionTableViewCell.identifier,
                 for: indexPath
-            ) as! AddProductCollectionTableViewCell
+            ) as! ProductDetailsCollectionTableViewCell
             sizeCell.configure(
                 with: self.viewModel.getSizes(),
                 inputType: .size
@@ -199,7 +201,7 @@ extension AddProductItemViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension AddProductItemViewController: UITableViewDelegate, UINavigationControllerDelegate {
+extension ProductDetailsViewController: UITableViewDelegate, UINavigationControllerDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -214,7 +216,7 @@ extension AddProductItemViewController: UITableViewDelegate, UINavigationControl
 
 //MARK: - UIImagePickerControllerDelegate
 
-extension AddProductItemViewController: UIImagePickerControllerDelegate {
+extension ProductDetailsViewController: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
@@ -237,7 +239,7 @@ extension AddProductItemViewController: UIImagePickerControllerDelegate {
     }
 }
 
-extension AddProductItemViewController: AddProductCollectionTableViewCellDelegate {
+extension ProductDetailsViewController: ProductDetailsCollectionTableViewCellDelegate {
     func ButtonDidSeleceted(type: ProductAttributeType, _ title: String) {
         switch type {
         case .style:

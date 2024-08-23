@@ -1,5 +1,5 @@
 //
-//  AddClothingListViewModel.swift
+//  NewClothingItemViewModel.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 08/04/2024.
@@ -9,10 +9,9 @@ import Foundation
 import RealmSwift
 import UIKit
 
-class AddClothingListViewModel {
+class NewClothingItemViewModel {
     
     private let realm = try! Realm()
-    
 
         
     private var idCode: String {
@@ -35,11 +34,11 @@ class AddClothingListViewModel {
             self.validateIfCanSaveItems()
         }
     }
-    private var image: UIImage? = UIImage(
-        named: "photo_placeholder"
-    )?.withRenderingMode(.alwaysTemplate)
+    private var image: UIImage? = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
+    
     private var size: String
     private var style: String
+    
     private var category: Category
     
     
@@ -133,7 +132,7 @@ class AddClothingListViewModel {
     
     func saveClothingItem() {
         let newAddClothingList = ClothingItem(
-            //image?
+          
             image: self.image?.jpegData(compressionQuality: 1),
             idCode: self.idCode,
             title: self.title,
@@ -142,7 +141,7 @@ class AddClothingListViewModel {
             style: self.style,
             category: self.category.name
         )
-        print("Saving item - size: \(newAddClothingList.size), style: \(newAddClothingList.style ?? "nil")")
+       
         do {
             let realm = try Realm()
             try realm.write {
@@ -154,6 +153,11 @@ class AddClothingListViewModel {
         }
     }
     
+    func deleteClothinList(_ clothingItem: ClothingItem) {
+        try! self.realm.write {
+            self.realm.delete(clothingItem)
+        }
+    }
     
     func getTitle(index: IndexPath) -> String {
         
@@ -198,6 +202,23 @@ class AddClothingListViewModel {
         }
     }
     
+    func setNumeric(index: IndexPath) -> Bool  {
+        
+        guard let section = SectionType(rawValue: index.section) else { return  false }
+        
+        switch section {
+        case .idCode:
+            return false
+        case .title:
+          return false
+        case .price:
+          return true
+        case .quantity:
+            return false
+                
+        }
+       
+    }
     func getCategory() -> Category {
         return self.category
     }
@@ -232,16 +253,14 @@ class AddClothingListViewModel {
         return itemsInGroup.count
     }
     
-
-   
     func validateIfCanSaveItems() {
-        let canSaveItems = !self.idCode.isEmpty && !self.title.isEmpty && self.price > 0.0 && !self.items.isEmpty
+        let canSaveItems = !self.idCode.isEmpty &&  !self.title.isEmpty && self.price > 0.0 &&  !self.items.isEmpty
         
         self.onEnableSaveButton?(canSaveItems)
     }
 }
 
-extension AddClothingListViewModel {
+extension NewClothingItemViewModel {
     
     private enum SectionType: Int {
         case idCode = 0
@@ -251,7 +270,7 @@ extension AddClothingListViewModel {
     }
 }
 
-extension AddClothingListViewModel: AddProductItemViewModelDelegate {
+extension NewClothingItemViewModel: ProductDetailsViewModelDelegate {
     func addProduct(
         image: UIImage?,
         selectedSize: String,

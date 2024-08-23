@@ -1,5 +1,5 @@
 //
-//  AddProductItemTableViewCell.swift
+//  ProductDetailsCollectionTableViewCell.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 21/05/2024.
@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-protocol AddProductCollectionTableViewCellDelegate: AnyObject {
+protocol ProductDetailsCollectionTableViewCellDelegate: AnyObject {
     func OnAddButtonTap(for type: ProductAttributeType)
     func ButtonDidSeleceted(type: ProductAttributeType, _ title: String)
 }
 
-class AddProductCollectionTableViewCell: UITableViewCell {
+class ProductDetailsCollectionTableViewCell: UITableViewCell {
     
     static let identifier = "AddProductCollectionTableViewCell"
     
     private var model: [String] = []
     private  var inputType: ProductAttributeType?
     private var selectedIndex: IndexPath?
-    weak var delegate: AddProductCollectionTableViewCellDelegate?
+    weak var delegate: ProductDetailsCollectionTableViewCellDelegate?
     
     
     private lazy var collectionView: UICollectionView = {
@@ -36,7 +36,7 @@ class AddProductCollectionTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(AddProductCollectionViewCell.self, forCellWithReuseIdentifier: AddProductCollectionViewCell.identifier)
+        collectionView.register(ProductoDetailsCollectionViewCell.self, forCellWithReuseIdentifier: ProductoDetailsCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -52,11 +52,12 @@ class AddProductCollectionTableViewCell: UITableViewCell {
     private func setupCollectionView() {
         self.contentView.addSubview(self.collectionView)
         
+        let padding: CGFloat = 8
         NSLayoutConstraint.activate([
-            self.collectionView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.collectionView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.collectionView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
+            self.collectionView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: padding),
+            self.collectionView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: padding),
+            self.collectionView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: padding),
+            self.collectionView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -padding)
         ])
     }
     
@@ -69,7 +70,7 @@ class AddProductCollectionTableViewCell: UITableViewCell {
 }
 
 // MARK: - UICollectionViewDataSource
-extension AddProductCollectionTableViewCell: UICollectionViewDataSource {
+extension ProductDetailsCollectionTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.model.count
@@ -78,43 +79,45 @@ extension AddProductCollectionTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AddProductCollectionViewCell.identifier,
+            withReuseIdentifier: ProductoDetailsCollectionViewCell.identifier,
             for: indexPath
-        ) as! AddProductCollectionViewCell
+        ) as! ProductoDetailsCollectionViewCell
         
         
         if let selectedIndex = selectedIndex, indexPath == selectedIndex {
-               cell.configure(
-                   with: self.model[indexPath.item],
-                   isSelected: true
-               )
+            cell.configure(
+                with: self.model[indexPath.item],
+                isSelected: true
+            )
+            
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.collectionView.delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
         } else if inputType == .style, indexPath.item == self.model.count - 2 {
-               // Aquí seleccionas automáticamente el penúltimo ítem, asumiendo que el último es el botón "+"
-               selectedIndex = indexPath
-               cell.configure(
-                   with: self.model[indexPath.item],
-                   isSelected: true
-               )
-           } else {
-               cell.configure(
-                   with: self.model[indexPath.item],
-                   isSelected: false
-               )
-           }
-
-           return cell
-//        let isSelected = indexPath == selectedIndex
-//        cell.configure(
-//            with: self.model[indexPath.item],
-//           isSelected: isSelected
-//        )
-//        return cell
-//
+           
+            selectedIndex = indexPath
+            cell.configure(
+                with: self.model[indexPath.item],
+                isSelected: true
+            )
+            
+            DispatchQueue.main.async {
+                  self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                  self.collectionView.delegate?.collectionView?(self.collectionView, didSelectItemAt: indexPath)
+              }
+        } else {
+            cell.configure(
+                with: self.model[indexPath.item],
+                isSelected: false
+            )
+        }
+        
+        return cell
+        
     }
 }
 // MARK: - UICollectionViewDataSource - UICollectionViewDelegate
 
-extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension ProductDetailsCollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 40)
@@ -131,19 +134,19 @@ extension AddProductCollectionTableViewCell: UICollectionViewDelegateFlowLayout,
         }
         
         if let previousIndex = selectedIndex {
-            let previousCell = collectionView.cellForItem(at: previousIndex) as? AddProductCollectionViewCell
+            let previousCell = collectionView.cellForItem(at: previousIndex) as? ProductoDetailsCollectionViewCell
             
             previousCell?.configure(
                 with: model[previousIndex.item],
                 isSelected: false
             )
         }
-
+        
         selectedIndex = indexPath
         
         guard let selectedCell = collectionView.cellForItem(
             at: indexPath
-        ) as? AddProductCollectionViewCell else {
+        ) as? ProductoDetailsCollectionViewCell else {
             return
         }
         selectedCell.configure(

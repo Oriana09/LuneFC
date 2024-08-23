@@ -159,10 +159,13 @@ class ClothingTableViewCell: UITableViewCell {
         self.codeLabel.text = "#\(model.idCode ?? "Sin codigo")"
         
         
-        if let data = model.image {
-            self.productImage.image = UIImage(data: data)
+         if let imageData = model.image {
+            self.productImage.image = UIImage(data: imageData)
+        } else {
+            self.productImage.image = nil
         }
-#warning("Setear placeholder")
+        
+//#warning("Setear placeholder")
         //        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
         self.sizesBoxView.selectButton(withTitle: model.size)
     }

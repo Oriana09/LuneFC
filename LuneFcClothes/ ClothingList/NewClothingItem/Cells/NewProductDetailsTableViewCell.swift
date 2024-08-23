@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol NewProductTableViewCellDelegate: AnyObject {
+protocol NewProductDetailsTableViewCellDelegate: AnyObject {
     func plusControlDidSelect(for item: ClothingItem)
     func minusControlDidSelect(for item: ClothingItem)
 }
 
-class NewProductTableViewCell: UITableViewCell {
+class NewProductDetailsTableViewCell: UITableViewCell {
     
     static let identifier = "AddProductTableViewCell"
     
@@ -24,6 +24,18 @@ class NewProductTableViewCell: UITableViewCell {
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var stackSize: UIStackView = {
+        let stack = UIStackView(
+        arrangedSubviews: [
+            self.sizeLabel,
+            self.sizeNumLabel
+        ])
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
     }()
     
     private  lazy var sizeLabel: UILabel = {
@@ -46,6 +58,18 @@ class NewProductTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var stackStyle: UIStackView = {
+        let stack = UIStackView(
+        arrangedSubviews: [
+            self.styleLabel,
+            self.styleColourLabel
+        ])
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     private  lazy var styleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
@@ -65,6 +89,19 @@ class NewProductTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private lazy var stackQuantity: UIStackView = {
+        let stack = UIStackView(
+        arrangedSubviews: [
+            self.quantityStepper,
+            self.quantityLabel
+        ])
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     private lazy var quantityStepper: UIStepper = {
            let stepper = UIStepper()
            stepper.minimumValue = 1
@@ -85,6 +122,18 @@ class NewProductTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var stackVertical: UIStackView = {
+        let stack = UIStackView(
+        arrangedSubviews: [
+            self.stackSize,
+            self.stackStyle,
+            self.stackQuantity
+        ])
+        stack.axis = .vertical
+        stack.spacing = 25
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     private var lastStep: Int = 0
     private var item: ClothingItem = ClothingItem()
     
@@ -98,53 +147,31 @@ class NewProductTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var delegate: NewProductTableViewCellDelegate?
+    weak var delegate: NewProductDetailsTableViewCellDelegate?
 
     private func setupConstraints() {
         self.contentView.addSubviews(
             self.productImage,
-            self.sizeLabel,
-            self.sizeNumLabel,
-            self.styleLabel,
-            self.styleColourLabel,
-            self.quantityStepper,
-            self.quantityLabel
+            self.stackVertical
         )
         
         NSLayoutConstraint.activate([
             
-            self.productImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            self.productImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 8),
-            self.productImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
+            self.productImage.topAnchor.constraint(
+                equalTo: self.contentView.topAnchor, constant: 8
+            ),
+            self.productImage.leadingAnchor.constraint(
+                equalTo: self.contentView.leadingAnchor, constant: 8
+            ),
+            self.productImage.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor, constant: -8
+            ),
             self.productImage.widthAnchor.constraint(equalToConstant: 150),
             self.productImage.heightAnchor.constraint(equalToConstant: 150),
-            
-            self.sizeLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            self.sizeLabel.leadingAnchor.constraint(equalTo: self.productImage.trailingAnchor, constant: 16),
-//            self.sizeLabel.trailingAnchor.constraint(equalTo: self.sizeNumLabel.leadingAnchor, constant: -16),
-
-            self.sizeNumLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            self.sizeNumLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
-            self.sizeNumLabel.leadingAnchor.constraint(equalTo: self.sizeLabel.trailingAnchor, constant: 16),
-            
-            self.styleLabel.topAnchor.constraint(equalTo: self.sizeLabel.bottomAnchor, constant: 15),
-            self.styleLabel.leadingAnchor.constraint(equalTo: self.productImage.trailingAnchor, constant: 16),
-            self.styleLabel.trailingAnchor.constraint(equalTo: self.styleColourLabel.leadingAnchor, constant: -16),
-        
-            
-            self.styleColourLabel.topAnchor.constraint(equalTo: self.sizeNumLabel.bottomAnchor, constant: 15),
-            self.styleColourLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
-            
-            //self.styleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
-
-            
-            self.quantityStepper.topAnchor.constraint(equalTo: self.styleLabel.bottomAnchor, constant: 15),
-            self.quantityStepper.leadingAnchor.constraint(equalTo: self.productImage.trailingAnchor,constant: 16),
-            self.quantityStepper.trailingAnchor.constraint(equalTo: self.quantityLabel.trailingAnchor,constant: -16),
-         
-            self.quantityLabel.topAnchor.constraint(equalTo: self.styleColourLabel.bottomAnchor, constant: 15),
-//            self.quantityLabel.leadingAnchor.constraint(equalTo: self.quantityStepper.trailingAnchor ),
-            self.quantityLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -8)
+           
+            self.stackVertical.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            self.stackVertical.leadingAnchor.constraint(equalTo: self.productImage.trailingAnchor, constant: 8),
+            self.stackVertical.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8)
             
         ])
     }

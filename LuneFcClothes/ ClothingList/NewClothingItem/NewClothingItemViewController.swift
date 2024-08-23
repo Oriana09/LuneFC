@@ -1,5 +1,5 @@
 //
-//  AddClothingListViewController.swift
+//  NewClothingItemViewController.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 08/04/2024.
@@ -7,17 +7,18 @@
 
 import UIKit
 
-protocol AddClothingListPresenterDelegate: AnyObject {
+protocol NewClothingItemPresenterDelegate: AnyObject {
     func onDismiss()
 }
-class AddClothingListViewController: UIViewController {
+
+class NewClothingItemViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
             style: .insetGrouped
         )
-        //tableView.delegate =  self
+        tableView.delegate =  self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -25,10 +26,10 @@ class AddClothingListViewController: UIViewController {
     
     private var saveItemsButton: UIBarButtonItem?
     
-    private let viewModel: AddClothingListViewModel
-    weak var delegate: AddClothingListPresenterDelegate?
+    private let viewModel: NewClothingItemViewModel
+    weak var delegate: NewClothingItemPresenterDelegate?
     
-    init(ViewModel: AddClothingListViewModel) {
+    init(ViewModel: NewClothingItemViewModel) {
         self.viewModel = ViewModel
         super.init(nibName: nil, bundle: .main)
     }
@@ -55,7 +56,7 @@ class AddClothingListViewController: UIViewController {
         }     }
     
     private func SetUI() {
-        self.navigationItem.title = "Nuevo Producto"
+        self.navigationItem.title = "Información del Producto"
         self.view.backgroundColor =  ColorManager.light_neutral_50_dark_neutral_100
         self.setupConstraints()
         self.createCancelButton()
@@ -66,7 +67,7 @@ class AddClothingListViewController: UIViewController {
     private func registerTableViewCells() {
         tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
         tableView.register(AddSizeButtonTableViewCell.self, forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier)
-        tableView.register(NewProductTableViewCell.self, forCellReuseIdentifier: NewProductTableViewCell.identifier)
+        tableView.register(NewProductDetailsTableViewCell.self, forCellReuseIdentifier: NewProductDetailsTableViewCell.identifier)
     }
     
     private func setupConstraints() {
@@ -150,7 +151,7 @@ class AddClothingListViewController: UIViewController {
     }
     
     @objc private func addClothing() {
-        //self.ViewModel.SaveClothing
+        self.viewModel.saveClothingItem()
         self.dismissAction()
     }
     
@@ -162,7 +163,7 @@ class AddClothingListViewController: UIViewController {
 
 
 //MARK: - UITableViewDataSourc
-extension AddClothingListViewController: UITableViewDataSource {
+extension NewClothingItemViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.viewModel.getTitleHeader(for: section)
@@ -191,7 +192,7 @@ extension AddClothingListViewController: UITableViewDataSource {
                 for: indexPath
             ) as! NameCategoryTableViewCell
             idCodeCell.configure(
-                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:AR24094"
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:AR24094", isNumerico: self.viewModel.setNumeric(index: indexPath)
             )
             idCodeCell.delegate = self
             cell = idCodeCell
@@ -203,7 +204,7 @@ extension AddClothingListViewController: UITableViewDataSource {
             ) as! NameCategoryTableViewCell
             
             titleCell.configure(
-                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:Pantalón Wid Leg"
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "Ej:Pantalón Wid Leg", isNumerico: self.viewModel.setNumeric(index: indexPath)
             )
             titleCell.delegate = self
             cell = titleCell
@@ -215,7 +216,7 @@ extension AddClothingListViewController: UITableViewDataSource {
             ) as! NameCategoryTableViewCell
             
             priceCell.configure(
-                title: self.viewModel.getTitle(index: indexPath), placeholder: "$ 0"
+                title: self.viewModel.getTitle(index: indexPath), placeholder: "$ 0", isNumerico: self.viewModel.setNumeric(index: indexPath)
             )
             priceCell.delegate = self
             cell = priceCell
@@ -229,9 +230,9 @@ extension AddClothingListViewController: UITableViewDataSource {
                 cell = addSize
             } else {
                 let cell = tableView.dequeueReusableCell(
-                    withIdentifier: NewProductTableViewCell.identifier,
+                    withIdentifier: NewProductDetailsTableViewCell.identifier,
                     for: indexPath
-                ) as! NewProductTableViewCell
+                ) as! NewProductDetailsTableViewCell
                 let item = viewModel.item(for: indexPath)
                 cell.delegate = self
 //                let item = viewModel.items[indexPath.row]
@@ -252,7 +253,33 @@ extension AddClothingListViewController: UITableViewDataSource {
 }
 
 //MARK: - NameCategoryTableViewCellDelegate
-extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
+extension NewClothingItemViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action,  view, completionHandler) in
+            guard let itemToRemove = self?.viewModel.items[indexPath.row] else {
+                completionHandler(false)
+                return
+            }
+            self?.viewModel.removeItem(itemToRemove)
+            completionHandler(true)
+            
+            tableView.reloadData()
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+    
+
+
+
+
+//MARK: - NameCategoryTableViewCellDelegate
+extension NewClothingItemViewController: NameCategoryTableViewCellDelegate {
     
     func onTitleChange(_ title: String, cell: UITableViewCell) {
         guard let index = self.tableView.indexPath(for: cell) else {
@@ -264,13 +291,13 @@ extension AddClothingListViewController: NameCategoryTableViewCellDelegate {
 
 //MARK: - AddSizeButtonTableViewCellDelegate
 
-extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
+extension NewClothingItemViewController: AddSizeButtonTableViewCellDelegate {
     func didTapAddSizeButton() {
-        let addProdudctVM = AddProductItemViewModel(
+        let addProdudctVM = ProductDetailsViewModel(
             delegate: self.viewModel,
             sizes: self.viewModel.getCategory().stringSizes
         )
-        let addProductVC = AddProductItemViewController(
+        let addProductVC = ProductDetailsViewController(
             viewModel: addProdudctVM)
         
         self.navigationController?.pushViewController(
@@ -281,7 +308,7 @@ extension AddClothingListViewController: AddSizeButtonTableViewCellDelegate {
 }
 //MARK: - NewProductTableViewCellDelegate
 
-extension AddClothingListViewController: NewProductTableViewCellDelegate {
+extension NewClothingItemViewController: NewProductDetailsTableViewCellDelegate {
     func plusControlDidSelect(for item: ClothingItem) {
         self.viewModel.addNewItem(item)
     }

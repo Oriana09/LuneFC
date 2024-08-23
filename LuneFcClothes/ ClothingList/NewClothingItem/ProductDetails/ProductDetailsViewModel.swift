@@ -1,5 +1,5 @@
 //
-//  AddProductItemViewModel.swift
+//  ProductDetailsViewModel.swift
 //  LuneFcClothes
 //
 //  Created by Oriana Costancio on 23/05/2024.
@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 import UIKit
 
-protocol AddProductItemViewModelDelegate: AnyObject {
+protocol ProductDetailsViewModelDelegate: AnyObject {
     func addProduct(
         image: UIImage?,
         selectedSize: String,
@@ -19,10 +19,10 @@ protocol AddProductItemViewModelDelegate: AnyObject {
     )
 }
 
-class AddProductItemViewModel {
+class ProductDetailsViewModel {
     
     private let realm = try! Realm()
-    weak var delegate: AddProductItemViewModelDelegate?
+    weak var delegate: ProductDetailsViewModelDelegate?
     
     private var image: UIImage? = UIImage(
         named: "photo_placeholder"
@@ -34,7 +34,7 @@ class AddProductItemViewModel {
     
     
     init(
-        delegate: AddProductItemViewModelDelegate?,
+        delegate: ProductDetailsViewModelDelegate?,
         image: UIImage? = nil,
         selectedSize: String = "",
         selectedStyle: String = "",
@@ -128,7 +128,7 @@ class AddProductItemViewModel {
     }
 }
 
-extension AddProductItemViewModel {
+extension ProductDetailsViewModel {
     
     private enum SectionType: Int {
         case image = 0

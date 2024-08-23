@@ -8,17 +8,16 @@
 import Foundation
 import UIKit
 
-class AddProductCollectionViewCell: UICollectionViewCell {
+class ProductoDetailsCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "AddProductCollectionViewCell"
     
-    let label: UILabel = {
+     lazy var label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .center
         label.numberOfLines = 0
-//        label.lineBreakMode = .byTruncatingTail
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +40,6 @@ class AddProductCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.borderColor = UIColor.label.cgColor
         self.contentView.layer.shadowOpacity = 0.2
         self.contentView.layer.masksToBounds = false
-     
     }
     
     private func setupConstraints() {
@@ -49,12 +47,10 @@ class AddProductCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
     
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-//            self.label.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-//            self.label.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
+            self.label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.label.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            self.label.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     

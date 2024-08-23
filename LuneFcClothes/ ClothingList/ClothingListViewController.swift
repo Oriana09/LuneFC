@@ -36,7 +36,7 @@ class ClothingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Colecciones"
+        self.navigationItem.title = "Lista de Inventario"
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
@@ -74,18 +74,22 @@ class ClothingListViewController: UIViewController {
     }
     
     @objc func addButtonAction(_ sender: UIBarButtonItem) {
-        let addClothingListVM = AddClothingListViewModel(
+        let addClothingListVM = NewClothingItemViewModel(
             category: self.viewModel.category
         )
-        let addClothingListVC = AddClothingListViewController(
+        let addClothingListVC = NewClothingItemViewController(
             ViewModel: addClothingListVM
         )
+        addClothingListVC.delegate = self
         let navigationVC = UINavigationController(
             rootViewController: addClothingListVC
         )
         self.present(navigationVC, animated: true)
     }
-    
+    private func updateCategories() {
+        self.viewModel.loadItems()
+        self.tableView.reloadData()
+    }
 }
 // MARK: - UITableViewDataSource Methods
 
@@ -128,7 +132,7 @@ extension ClothingListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Eliminar") { [weak self] (action, view, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
             guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
                 completionHandler(false)
                 return
@@ -142,6 +146,12 @@ extension ClothingListViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+}
+extension ClothingListViewController: NewClothingItemPresenterDelegate {
+    func onDismiss() {
+        self.updateCategories()
+    }
+    
 }
 
 
