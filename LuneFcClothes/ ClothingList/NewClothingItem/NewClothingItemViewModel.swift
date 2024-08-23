@@ -279,7 +279,9 @@ extension NewClothingItemViewModel: ProductDetailsViewModelDelegate {
         sizes: [String]
     ) {
         
-        let item = ClothingItem(
+        self.image = image
+        self.size = selectedSize
+        let item =  ClothingItem(
             image: image?.pngData(),
             idCode: self.idCode,
             title: self.title,
