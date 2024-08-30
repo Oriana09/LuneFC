@@ -10,6 +10,8 @@ import UIKit
 import RealmSwift
 
 class ClothingListViewController: UIViewController {
+   
+
         
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -21,8 +23,11 @@ class ClothingListViewController: UIViewController {
         
         return tableView
     }()
+  
     
    private var viewModel: ClothingListViewModel
+    private var filteredItems: [ClothingItem] = []
+   private var searchController: UISearchController!
     
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
@@ -37,11 +42,21 @@ class ClothingListViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "Lista de Inventario"
+        self.setupSearchController()
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
     }
     
+    private func setupSearchController() {
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.placeholder = "Buscar por nombre o código"
+        self.navigationItem.searchController = searchController
+          definesPresentationContext = true
+      }
+      
     private func setupConstrains() {
         self.view.addSubview(self.tableView)
         
@@ -96,6 +111,9 @@ class ClothingListViewController: UIViewController {
 extension ClothingListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+                return filteredItems.count // Mostrar la cantidad de elementos filtrados
+            }
         return self.viewModel.items?.count ?? 1
     }
     
@@ -107,7 +125,13 @@ extension ClothingListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item = items[indexPath.row]
+        let item: ClothingItem
+        if isFiltering() {
+             item = filteredItems[indexPath.row] // Usar el elemento filtrado
+         } else {
+             item = items[indexPath.row] // Usar el elemento original
+         }
+         
         cell.configure(model: item)
         
         return cell
@@ -166,6 +190,7 @@ extension ClothingListViewController: UITableViewDelegate {
             return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
+
 extension ClothingListViewController: NewClothingItemPresenterDelegate {
     func onDismiss() {
         self.updateCategories()
@@ -173,4 +198,31 @@ extension ClothingListViewController: NewClothingItemPresenterDelegate {
     
 }
 
-
+extension ClothingListViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        self.filterContentForSearchText(searchText)
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        self.filteredItems = self.viewModel.items?.filter { (item: ClothingItem) -> Bool in
+            return item.title.lowercased().contains(searchText.lowercased()) ||
+            item.idCode.lowercased().contains(searchText.lowercased())
+        } ?? []
+        
+        tableView.reloadData()
+    }
+    
+    private func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    private func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+}

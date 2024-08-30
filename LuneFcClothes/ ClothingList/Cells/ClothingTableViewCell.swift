@@ -23,7 +23,7 @@ class ClothingTableViewCell: UITableViewCell {
     
     private  lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 25)
         label.numberOfLines = 0
         label.textColor = ColorManager.light_neutral_1000_dark_neutral_1000
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -90,8 +90,8 @@ class ClothingTableViewCell: UITableViewCell {
             self.nameLabel,
             self.priceLabel,
             self.containerView,
-            self.codeLabel,
-            self.sizesBoxView
+            self.codeLabel
+//            self.sizesBoxView
         )
         
         NSLayoutConstraint.activate([
@@ -109,19 +109,23 @@ class ClothingTableViewCell: UITableViewCell {
             self.nameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             
             //priceLabel constraint
-            self.priceLabel.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 8),
+            self.priceLabel.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 15),
             self.priceLabel.leadingAnchor.constraint(equalTo: self.productImage.trailingAnchor, constant: 16),
             self.priceLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             
-            self.sizesBoxView.topAnchor.constraint(
-                equalTo: self.priceLabel.bottomAnchor,
-                constant: 8
-            ),
-            self.sizesBoxView.leadingAnchor.constraint(
-                equalTo: self.productImage.trailingAnchor,
-                constant: 16
-            ),
-
+//            self.sizesBoxView.topAnchor.constraint(
+//                equalTo: self.priceLabel.bottomAnchor,
+//                constant: 8
+//            ),
+//            self.sizesBoxView.leadingAnchor.constraint(
+//                equalTo: self.productImage.trailingAnchor,
+//                constant: 16
+//            ),
+//
+//            self.sizesBoxView.trailingAnchor.constraint(
+//                equalTo: self.contentView.trailingAnchor,
+//                constant: -16
+//            ),
             self.containerView.leadingAnchor.constraint(
                 equalTo: self.productImage.leadingAnchor
             ),
@@ -156,7 +160,7 @@ class ClothingTableViewCell: UITableViewCell {
         self.priceLabel.text = "$\(model.price)"
         self.nameLabel.text = model.title
         
-        self.codeLabel.text = "#\(model.idCode ?? "Sin codigo")"
+        self.codeLabel.text = "#\(model.idCode)"
         
         
          if let imageData = model.image {
@@ -164,9 +168,7 @@ class ClothingTableViewCell: UITableViewCell {
         } else {
             self.productImage.image = nil
         }
-        
-//#warning("Setear placeholder")
-        //        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
+
         self.sizesBoxView.selectButton(withTitle: model.size)
     }
 }
