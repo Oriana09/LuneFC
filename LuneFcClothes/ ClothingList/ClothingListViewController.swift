@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SwiftUI
 
 class ClothingListViewController: UIViewController {
    
@@ -29,8 +30,11 @@ class ClothingListViewController: UIViewController {
     private var filteredItems: [ClothingItem] = []
    private var searchController: UISearchController!
     
+ 
+    
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
+      
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -40,6 +44,14 @@ class ClothingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+//        addChild(hostingController)
+//        view.addSubview(hostingController.view)
+//        
+//        hostingController.view.frame = view.bounds
+//        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        
+//        hostingController.didMove(toParent: self)
         
         self.navigationItem.title = "Lista de Inventario"
         self.setupSearchController()
@@ -112,8 +124,8 @@ extension ClothingListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
-                return filteredItems.count // Mostrar la cantidad de elementos filtrados
-            }
+            return filteredItems.count // Mostrar la cantidad de elementos filtrados
+        }
         return self.viewModel.items?.count ?? 1
     }
     
@@ -137,17 +149,24 @@ extension ClothingListViewController: UITableViewDataSource {
         return cell
     }
     
-    
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
-    //
-    //
-    //        let navController = UINavigationController(rootViewController: productDetailVC)
-    //
-    //        present(navController, animated: true, completion: nil)
-    //    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedItem = self.viewModel.items?[indexPath.row] else {
+            return
+        }
+
+        let swiftUIView = ClothingDetailView(clothingItem: selectedItem)
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        
+        self.navigationController?.pushViewController(hostingController, animated: true)
+        
+        //
+        //            let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
+//    
+//    
+//            let navController = UINavigationController(rootViewController: productDetailVC)
+//    
+//            present(navController, animated: true, completion: nil)
+        }
 }
 
 // MARK: -  UITableViewDelegate Methods
@@ -213,7 +232,7 @@ extension ClothingListViewController: UISearchResultsUpdating {
             return item.title.lowercased().contains(searchText.lowercased()) ||
             item.idCode.lowercased().contains(searchText.lowercased())
         } ?? []
-        
+        print("Filtered items count: \(filteredItems.count)")
         tableView.reloadData()
     }
     

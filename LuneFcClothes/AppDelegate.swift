@@ -32,9 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 19,
-            migrationBlock: { migration, oldSchemaVersion in }
+            schemaVersion: 23, // Asegúrate de cambiar esta versión si ya lo has hecho antes
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 2 {
+                    // Aquí puedes manejar cualquier migración específica
+                    migration.enumerateObjects(ofType: ClothingItem.className()) { oldObject, newObject in
+                        newObject!["id"] = ObjectId.generate()
+                    }
+                }
+            }
         )
+
         
         Realm.Configuration.defaultConfiguration = config
     }

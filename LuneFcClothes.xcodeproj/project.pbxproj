@@ -30,6 +30,10 @@
 		694168622B9F91A900B64661 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168612B9F91A900B64661 /* AddCategoryViewController.swift */; };
 		694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694168632BAB725000B64661 /* AddCategoryViewModel.swift */; };
 		6958D0662C415B7300FAB598 /* NewProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6958D0652C415B7300FAB598 /* NewProductDetailsTableViewCell.swift */; };
+		695965112C82670500C327CA /*  ClothingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695965102C82670500C327CA /*  ClothingDetailView.swift */; };
+		695965172C85EDD100C327CA /* TopClothingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695965162C85EDD100C327CA /* TopClothingDetailView.swift */; };
+		696B717E2C8FC763001A0132 /* ClothingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696B717D2C8FC763001A0132 /* ClothingDetailViewModel.swift */; };
+		696B71802C906C87001A0132 /* StyleAndSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696B717F2C906C87001A0132 /* StyleAndSizeView.swift */; };
 		69C732192BBA3299001A9639 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69C732182BBA3299001A9639 /* GoogleService-Info.plist */; };
 		69C7321C2BBA354F001A9639 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 69C7321B2BBA354F001A9639 /* FirebaseAuth */; };
 		69C7321E2BBAE8F9001A9639 /* LoginUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C7321D2BBAE8F9001A9639 /* LoginUserModel.swift */; };
@@ -38,7 +42,6 @@
 		69C732252BBAEE46001A9639 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732242BBAEE46001A9639 /* LoginViewController.swift */; };
 		69C732282BBAF262001A9639 /* MyRentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732272BBAF262001A9639 /* MyRentTextField.swift */; };
 		69C7322A2BBAFC3E001A9639 /* BlurContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C732292BBAFC3E001A9639 /* BlurContainer.swift */; };
-		69DC91EE2C7E0AC600AEB978 /* ClothingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DC91ED2C7E0AC600AEB978 /* ClothingDetailViewController.swift */; };
 		69F321822BC0CF33001E9FCC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F321812BC0CF33001E9FCC /* User.swift */; };
 		69F80E472B755D780060A9B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E462B755D780060A9B1 /* AppDelegate.swift */; };
 		69F80E492B755D780060A9B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F80E482B755D780060A9B1 /* SceneDelegate.swift */; };
@@ -76,6 +79,10 @@
 		694168612B9F91A900B64661 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		694168632BAB725000B64661 /* AddCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewModel.swift; sourceTree = "<group>"; };
 		6958D0652C415B7300FAB598 /* NewProductDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		695965102C82670500C327CA /*  ClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ClothingDetailView.swift"; sourceTree = "<group>"; };
+		695965162C85EDD100C327CA /* TopClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopClothingDetailView.swift; sourceTree = "<group>"; };
+		696B717D2C8FC763001A0132 /* ClothingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailViewModel.swift; sourceTree = "<group>"; };
+		696B717F2C906C87001A0132 /* StyleAndSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndSizeView.swift; sourceTree = "<group>"; };
 		69C732182BBA3299001A9639 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69C7321D2BBAE8F9001A9639 /* LoginUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserModel.swift; sourceTree = "<group>"; };
 		69C732202BBAEBA4001A9639 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
@@ -83,7 +90,6 @@
 		69C732242BBAEE46001A9639 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69C732272BBAF262001A9639 /* MyRentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRentTextField.swift; sourceTree = "<group>"; };
 		69C732292BBAFC3E001A9639 /* BlurContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurContainer.swift; sourceTree = "<group>"; };
-		69DC91ED2C7E0AC600AEB978 /* ClothingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailViewController.swift; sourceTree = "<group>"; };
 		69F321812BC0CF33001E9FCC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		69F80E432B755D780060A9B1 /* LuneFcClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuneFcClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F80E462B755D780060A9B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -218,7 +224,6 @@
 				69F80E612B757D800060A9B1 /* ClothingListViewModel.swift */,
 				6941686A2BB5D7CB00B64661 /* Models */,
 				694168682BB5D6DC00B64661 /* Cells */,
-				69DC91EC2C7E0A5E00AEB978 /* ClothingDetail */,
 				691D085F2BC40F56002E9658 /* NewClothingItem */,
 			);
 			path = " ClothingList";
@@ -266,6 +271,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		6959650F2C82607500C327CA /* ClothingDetail */ = {
+			isa = PBXGroup;
+			children = (
+				695965102C82670500C327CA /*  ClothingDetailView.swift */,
+				695965162C85EDD100C327CA /* TopClothingDetailView.swift */,
+				696B717F2C906C87001A0132 /* StyleAndSizeView.swift */,
+				696B717D2C8FC763001A0132 /* ClothingDetailViewModel.swift */,
+			);
+			path = ClothingDetail;
+			sourceTree = "<group>";
+		};
 		69C732172BBA3128001A9639 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,14 +319,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		69DC91EC2C7E0A5E00AEB978 /* ClothingDetail */ = {
-			isa = PBXGroup;
-			children = (
-				69DC91ED2C7E0AC600AEB978 /* ClothingDetailViewController.swift */,
-			);
-			path = ClothingDetail;
-			sourceTree = "<group>";
-		};
 		69F321802BC0CEFA001E9FCC /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +346,7 @@
 		69F80E452B755D780060A9B1 /* LuneFcClothes */ = {
 			isa = PBXGroup;
 			children = (
+				6959650F2C82607500C327CA /* ClothingDetail */,
 				69F321802BC0CEFA001E9FCC /* User */,
 				69C732172BBA3128001A9639 /* Login */,
 				694168652BB5D50F00B64661 /* Home */,
@@ -466,11 +475,13 @@
 				69F80E5E2B757D380060A9B1 /* ClothingItem.swift in Sources */,
 				693FE5002B8FC59900528A9D /* ProductDetailViewController.swift in Sources */,
 				69F80E682B7EA6730060A9B1 /* ClothingListViewController.swift in Sources */,
-				69DC91EE2C7E0AC600AEB978 /* ClothingDetailViewController.swift in Sources */,
+				696B717E2C8FC763001A0132 /* ClothingDetailViewModel.swift in Sources */,
 				691D08632BC41366002E9658 /* NewClothingItemViewModel.swift in Sources */,
 				691D086C2BCADA74002E9658 /* ImagePickerTableViewCell.swift in Sources */,
 				69F321822BC0CF33001E9FCC /* User.swift in Sources */,
 				69256DF12C051D8A009D744B /* ProductoDetailsCollectionViewCell.swift in Sources */,
+				695965112C82670500C327CA /*  ClothingDetailView.swift in Sources */,
+				695965172C85EDD100C327CA /* TopClothingDetailView.swift in Sources */,
 				691583AF2BFD66A2009D5F19 /* ProductDetailsViewController.swift in Sources */,
 				69F80E622B757D800060A9B1 /* ClothingListViewModel.swift in Sources */,
 				69F80E6A2B7FEAFC0060A9B1 /* ClothingTableViewCell.swift in Sources */,
@@ -488,6 +499,7 @@
 				69C7321E2BBAE8F9001A9639 /* LoginUserModel.swift in Sources */,
 				69256DED2BFF7199009D744B /* ProductItem.swift in Sources */,
 				69F80E5C2B7567E30060A9B1 /* CategoryCollectionViewCell.swift in Sources */,
+				696B71802C906C87001A0132 /* StyleAndSizeView.swift in Sources */,
 				69256DEF2BFF7741009D744B /* ProductDetailsViewModel.swift in Sources */,
 				69F80E662B7673FA0060A9B1 /* UIIHelper.swift in Sources */,
 				694168642BAB725000B64661 /* AddCategoryViewModel.swift in Sources */,

@@ -19,6 +19,7 @@ class Category: Object {
     required override init() {
         super.init()
     }
+    
     init(
         imageData: Data?,
         name: String,
@@ -33,5 +34,8 @@ class Category: Object {
     var stringSizes: [String] {
         return Array(self.sizes)
     }
+    
+    
+     
 }
 

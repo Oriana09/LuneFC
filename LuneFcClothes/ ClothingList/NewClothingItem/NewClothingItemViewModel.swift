@@ -131,25 +131,17 @@ class NewClothingItemViewModel {
     }
     
     func saveClothingItem() {
-        let newAddClothingList = ClothingItem(
-          
-            image: self.image?.jpegData(compressionQuality: 1),
-            idCode: self.idCode,
-            title: self.title,
-            price: self.price,
-            size: self.size,
-            style: self.style,
-            category: self.category.name
-        )
-       
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(newAddClothingList)
+        
+        self.items.forEach { item in
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    realm.add(item)
+                }
+            } catch {
+                print("Error saving category: \(error)")
+                fatalError()
             }
-        } catch {
-            
-            print("Error saving category: \(error)")
         }
     }
     
