@@ -9,20 +9,23 @@ import SwiftUI
 import UIKit
 struct TopClothingDetailView: View {
     
+    var image: UIImage?
     let product: ClothingItem
-    
+    //        .resizable()
+    //        .scaledToFit()
     
     var body: some View {
-        VStack {
+        VStack() {
             ZStack(alignment: .bottomTrailing) {
-                if let data =  product.image, let uiimage = UIImage(data: data) {
-                    Image(uiImage: uiimage)
+                if let image = image {
+                    Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 250, maxHeight: 250)
                 } else {
-                    Text("No image available")
+                    
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
                 }
                 Text("Codigo:\(product.idCode)")
                     .padding(4)
@@ -30,7 +33,7 @@ struct TopClothingDetailView: View {
                     .font(.caption)
                     .foregroundColor(.white)
                     .offset(x: -5, y: -5)
-
+                
             }
         }
         .navigationTitle(product.title)
@@ -41,9 +44,11 @@ struct TopClothingDetailView: View {
 struct ImageAndCode_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            TopClothingDetailView(product: ClothingItem.example )
+            TopClothingDetailView( product: ClothingItem.example)
         }
         
         
     }
 }
+
+

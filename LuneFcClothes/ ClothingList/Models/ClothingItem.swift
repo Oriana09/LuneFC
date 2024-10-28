@@ -10,14 +10,14 @@ import UIKit
 import RealmSwift
 
 class ClothingItem: Object, Identifiable {
-    @Persisted(primaryKey: true) var id: ObjectId
+//    @Persisted(primaryKey: true) var id: ObjectId
     
     @Persisted var idCode: String = ""
     @Persisted var image: Data? = nil
     @Persisted var price: Double = 0.0
     @Persisted var title: String = ""
     @Persisted var size: String = ""
-    @Persisted var  style: String? = nil
+    @Persisted var style: String? = nil
     @Persisted var category: String = ""
 
     required override init() {

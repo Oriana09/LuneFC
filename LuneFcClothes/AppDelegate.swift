@@ -32,17 +32,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 23, // Asegúrate de cambiar esta versión si ya lo has hecho antes
+            schemaVersion: 27, // Asegúrate de cambiar esta versión si ya lo has hecho antes
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 2 {
-                    // Aquí puedes manejar cualquier migración específica
+                    // Diccionario para verificar duplicados basado en el id
+                    var uniqueItems = [String: Bool]()
+                    
+                    // Recorre todos los objetos de tipo `ClothingItem` en la migración
                     migration.enumerateObjects(ofType: ClothingItem.className()) { oldObject, newObject in
-                        newObject!["id"] = ObjectId.generate()
+                        if let id = oldObject?["id"] as? String {
+                            // Si el id ya está en el diccionario, elimina el objeto actual
+                            if uniqueItems[id] != nil {
+                                migration.delete(newObject!)
+                            } else {
+                                // Marca el id como único
+                                uniqueItems[id] = true
+                            }
+                        }
                     }
                 }
+                //            migrationBlock: { migration, oldSchemaVersion in
+                //                if oldSchemaVersion < 2 {
+                //                    // Aquí puedes manejar cualquier migración específica
+                //                    migration.enumerateObjects(ofType: ClothingItem.className()) { oldObject, newObject in
+                //                        newObject!["id"] = ObjectId.generate()
+                //                    }
+                //                }
             }
         )
-
+        
         
         Realm.Configuration.defaultConfiguration = config
     }

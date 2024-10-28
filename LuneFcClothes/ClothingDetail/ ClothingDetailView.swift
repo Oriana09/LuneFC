@@ -14,44 +14,64 @@ struct ClothingDetailView: View {
     var body: some View {
         Form {
             Section {
-                TopClothingDetailView(product: self.viewModel.clothingItem)
+                TopClothingDetailView(image: self.viewModel.selectedImage, product: self.viewModel.clothingItem)
             }
-            Section("Talles disponibles:") {
+            Section("Stock: \(viewModel.numberOfItems)")  {
+                
+                Text("Talles")
+                    .font(.headline)
+                
                 Picker("Select a size", selection: $viewModel.selectedSize) {
-                    ForEach(viewModel.uniqueSizes() , id: \.self) { size in
+                    ForEach(viewModel.uniqueSizes(), id: \.self) { size in
                         Text(size)
-                        
                     }
                 }
                 .pickerStyle(.segmented)
-                Section("Estilos disponibles:") {
-                    Picker("Select a style", selection: $viewModel.selectedStyle) {
-                        ForEach(viewModel.uniqueStyles(), id: \.self) { style in
-                            Text(style)
-                        }
+                
+                .onChange(of: viewModel.selectedSize) {
+                    self.viewModel.updateFilteredStyles()
+                    self.viewModel.updateNumberOfITems()
+                    self.viewModel.updateImageForSelectedAttributes()
+                }
+                .listRowInsets(EdgeInsets())
+                Text("Estilos")
+                    .font(.headline)
+                
+                // Picker para seleccionar el estilo
+                Picker("Select a style", selection: $viewModel.selectedStyle) {
+                    ForEach(viewModel.filteredStyles, id: \.self) { style in
+                        Text(style)
                     }
-                    .pickerStyle(.segmented)
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: viewModel.selectedStyle) {
+                    self.viewModel.updateNumberOfITems()
+                    self.viewModel.updateImageForSelectedAttributes()
                 }
             }
             .onAppear {
-                viewModel.fetchFilteredItems()
+                
+                self.viewModel.updateFilteredStyles()
+                self.viewModel.updateNumberOfITems()
+                viewModel.updateImageForSelectedAttributes() // Actualiza la imagen al aparecer
             }
-//            .onChange(of: viewModel.selectedSize) { _ in
-//                viewModel.fetchFilteredItems()
-//            }
-//            .onChange(of: viewModel.selectedStyle) { _ in
-//                viewModel.fetchFilteredItems()
-//            }
+            
         }
-    
         
     }
-    
-    init(clothingItem: ClothingItem) {
-        let viewModel = ClothingDetailViewModel(clothingItem: clothingItem)
-        _viewModel = StateObject(wrappedValue: viewModel)
+    init(
+        clothingItem: ClothingItem
+    ) {
+        let viewModel = ClothingDetailViewModel(
+            clothingItem: clothingItem
+        )
+        _viewModel = StateObject(
+            wrappedValue: viewModel
+        )
     }
 }
+
+
 
 
 struct ClothingDetailView_Previews: PreviewProvider{

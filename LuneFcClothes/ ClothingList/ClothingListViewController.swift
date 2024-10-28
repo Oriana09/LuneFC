@@ -11,9 +11,7 @@ import RealmSwift
 import SwiftUI
 
 class ClothingListViewController: UIViewController {
-   
-
-        
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
@@ -26,15 +24,12 @@ class ClothingListViewController: UIViewController {
     }()
   
     
-   private var viewModel: ClothingListViewModel
+    private var viewModel: ClothingListViewModel
     private var filteredItems: [ClothingItem] = []
-   private var searchController: UISearchController!
-    
- 
+    private var searchController: UISearchController!
     
     init(viewModel: ClothingListViewModel) {
         self.viewModel = viewModel
-      
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -44,20 +39,12 @@ class ClothingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-//        addChild(hostingController)
-//        view.addSubview(hostingController.view)
-//        
-//        hostingController.view.frame = view.bounds
-//        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        hostingController.didMove(toParent: self)
-        
         self.navigationItem.title = "Lista de Inventario"
         self.setupSearchController()
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
+        self.viewModel.loadSameProduct()
     }
     
     private func setupSearchController() {
@@ -114,7 +101,8 @@ class ClothingListViewController: UIViewController {
         self.present(navigationVC, animated: true)
     }
     private func updateCategories() {
-        self.viewModel.loadItems()
+        self.viewModel.loadSameProduct()
+//        self.viewModel.loadItems()
         self.tableView.reloadData()
     }
 }
@@ -126,7 +114,8 @@ extension ClothingListViewController: UITableViewDataSource {
         if isFiltering() {
             return filteredItems.count // Mostrar la cantidad de elementos filtrados
         }
-        return self.viewModel.items?.count ?? 1
+        return self.viewModel.clothins.count
+        //self.viewModel.items?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -137,7 +126,7 @@ extension ClothingListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item: ClothingItem
+        var item = self.viewModel.clothins[indexPath.row]
         if isFiltering() {
              item = filteredItems[indexPath.row] // Usar el elemento filtrado
          } else {
@@ -159,7 +148,7 @@ extension ClothingListViewController: UITableViewDataSource {
         
         self.navigationController?.pushViewController(hostingController, animated: true)
         
-        //
+        
         //            let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
 //    
 //    
@@ -189,7 +178,7 @@ extension ClothingListViewController: UITableViewDelegate {
                 }
                 
                 let confirmAction = UIAlertAction(title: "Eliminar", style: .destructive) { _ in
-                    guard let itemToRemove = self?.viewModel.items?[indexPath.row] else {
+                    guard let itemToRemove = self?.viewModel.clothins[indexPath.row] else {
                         completionHandler(false)
                         return
                     }
@@ -214,7 +203,6 @@ extension ClothingListViewController: NewClothingItemPresenterDelegate {
     func onDismiss() {
         self.updateCategories()
     }
-    
 }
 
 extension ClothingListViewController: UISearchResultsUpdating {
