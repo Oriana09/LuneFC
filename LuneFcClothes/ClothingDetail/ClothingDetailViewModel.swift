@@ -10,7 +10,7 @@ import RealmSwift
 
 class ClothingDetailViewModel: ObservableObject {
     
-   @ObservedResults(ClothingItem.self) var clothingItems
+//   @ObservedResults(ClothingItem.self) var clothingItems
     @Published var selectedSize: String = ""
     @Published var selectedStyle: String = ""
     @Published var selectedImage: UIImage? = nil

@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+//        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
         self.configureRealm()
         self.setDefaultsCategories()
         FirebaseApp.configure()
@@ -32,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureRealm() {
         let config = Realm.Configuration(
-            schemaVersion: 27, // Asegúrate de cambiar esta versión si ya lo has hecho antes
+            schemaVersion: 28, // Asegúrate de cambiar esta versión si ya lo has hecho antes
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 2 {
                     // Diccionario para verificar duplicados basado en el id

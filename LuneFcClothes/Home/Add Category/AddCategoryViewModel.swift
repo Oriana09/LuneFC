@@ -12,15 +12,29 @@ import UIKit
 class AddCategoryViewModel {
     
     private let realm = try! Realm()
-    
-    private var image: UIImage? = UIImage(named: "photo_placeholder")?.withRenderingMode(.alwaysTemplate)
-    
+    private var image: UIImage?
     private var title: String = ""
     
     var sizes: [String] = [""]
     
     var numberOfSection: Int {
         return 3
+    }
+    
+    func saveCategory() {
+        let newCategory = Category(
+            imageData: self.image?.jpegData(compressionQuality: 1),
+            name: self.title,
+            sizes: self.sizes
+        )
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(newCategory)
+            }
+        } catch {
+            print("Error saving category: \(error)")
+        }
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
@@ -33,25 +47,6 @@ class AddCategoryViewModel {
             return self.sizes.count + 1
         default:
             return 0
-        }
-    }
-    
-    func saveCategory() {
-        let newCategory = Category(
-            imageData: self.image?.jpegData(compressionQuality: 1),
-            name: self.title,
-            sizes: self.sizes
-        )
-        
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(newCategory)
-            }
-        } catch {
-            
-            print("Error saving category: \(error)")
-            
         }
     }
     
@@ -91,12 +86,9 @@ class AddCategoryViewModel {
     }
     
     func getTitle(index: IndexPath) -> String {
-        //        Esto permite que la función tome diferentes acciones según la sección de la vista de tabla  a la que pertenece el índice.
         switch index.section {
-            //            devuelve el título almacenado en la propiedad title
         case 1:
             return self.title
-            //            devuelve un elemento del array size en la posición especificada por index.row. Esto sugiere que la sección 2 contiene elementos que se pueden obtener del array size.
         case 2:
             return self.sizes[index.row]
         default:
@@ -117,18 +109,18 @@ class AddCategoryViewModel {
     func addNewSize() {
         self.sizes.append("")
     }
+    
     func setNumeric(index: IndexPath) -> Bool  {
-        
-        guard let section = SectionType(rawValue: index.section) else { return  false }
+        guard let section = SectionType(rawValue: index.section) else { return  false
+        }
         
         switch section {
         case .image:
-           let isNumerico = false
+            _ = false
         case .title:
-          let  isNumerico = false
+            _ = false
         case .size:
-            let isNumerico = false
-
+            _ = false
         }
         return false
     }

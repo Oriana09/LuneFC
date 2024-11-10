@@ -13,20 +13,24 @@ class CategoryViewModel {
     
     var categories: Results<Category>?
     
-    func save(_ category: Category) {
-        try! self.realm.write {
-            self.realm.add(category)
-        }
-    }
-    
     func loadCategories()  {
         self.categories = self.realm.objects(Category.self)
     }
     
     func deleteCategory(_ category: Category) {
-        try! self.realm.write {
-            self.realm.delete(category)
+        
+        do {
+            try self.realm.write {
+                self.realm.delete(category)
+            }
+        } catch {
+            print("Error deleting category: \(error)")
         }
+        
+    
+//        try! self.realm.write {
+//            self.realm.delete(category)
+//        }
     }
 }
 

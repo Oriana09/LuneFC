@@ -39,20 +39,20 @@ class ClothingTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var sizesBoxView: SizeView = {
-        let sizes = SizeView(
-            sizes: [
-                "38",
-                "40",
-                "42",
-                "44",
-                "46"
-            ]
-        )
-        
-        sizes.translatesAutoresizingMaskIntoConstraints = false
-        return sizes
-    }()
+//    private lazy var sizesBoxView: SizeView = {
+//        let sizes = SizeView(
+//            sizes: [
+//                "38",
+//                "40",
+//                "42",
+//                "44",
+//                "46"
+//            ]
+//        )
+//        
+//        sizes.translatesAutoresizingMaskIntoConstraints = false
+//        return sizes
+//    }()
     
     private lazy var containerView: BlurContainerView = {
         let container = BlurContainerView(cornerRadius: 10)
@@ -156,20 +156,10 @@ class ClothingTableViewCell: UITableViewCell {
     }
     
     func configure(model: ClothingItem) {
-        
         self.priceLabel.text = "$\(model.price)"
         self.nameLabel.text = model.title
-        
         self.codeLabel.text = "#\(model.idCode)"
-        
-        
-         if let imageData = model.image {
-            self.productImage.image = UIImage(data: imageData)
-        } else {
-            self.productImage.image = nil
-        }
-
-        self.sizesBoxView.selectButton(withTitle: model.size)
+        self.productImage.image = UIImage(data: model.image ?? Data()) ?? UIImage(named: "CategoryPlaceholder")
     }
 }
     

@@ -9,13 +9,12 @@ import Foundation
 import UIKit
 import RealmSwift
 
-#warning("setear el placheholder")
 class Category: Object {
-    
     @objc dynamic var imageData: Data? = nil
     @objc dynamic var name: String = ""
+    
     let sizes = List<String>()
-
+    
     required override init() {
         super.init()
     }
@@ -34,8 +33,5 @@ class Category: Object {
     var stringSizes: [String] {
         return Array(self.sizes)
     }
-    
-    
-     
 }
 

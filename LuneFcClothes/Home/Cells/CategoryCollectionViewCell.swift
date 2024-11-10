@@ -15,7 +15,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let container = BlurContainerView(cornerRadius: 10)
         container.layer.masksToBounds = true
         container.translatesAutoresizingMaskIntoConstraints = false
-        
         return container
     }()
     
@@ -83,23 +82,18 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             ),
             self.label.trailingAnchor.constraint(
                 equalTo: self.containerView.trailingAnchor,
-                constant: -padding
+                constant: -self.padding
             ),
             self.label.bottomAnchor.constraint(
                 equalTo: self.imageView.bottomAnchor,
-                constant: -padding
+                constant: -self.padding
             )
         ])
     }
     
     func configure(model: Category) {
         self.label.text = model.name
-        
-        if let data = model.imageData {
-            self.imageView.image = UIImage(data: data)
-        }
-#warning("Setear placeholder")
-        //        self.imageView.image = UIImage(data: model.imageData ?? model.placeholderData)
+        self.imageView.image = UIImage(data: model.imageData ?? Data()) ?? UIImage(named: "CategoryPlaceholder")
     }
 }
 

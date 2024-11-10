@@ -20,10 +20,6 @@ class AddCategoryViewController: UIViewController {
         )
         tableView.delegate =  self
         tableView.dataSource = self
-        tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
-        tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
-        tableView.register(AddSizeButtonTableViewCell.self,
-                           forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier )
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -43,6 +39,7 @@ class AddCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUI()
+        self.registerCells()
     }
     
     private func setUI() {
@@ -70,6 +67,13 @@ class AddCategoryViewController: UIViewController {
                 equalTo: self.view.trailingAnchor
             )
         ])
+    }
+    
+    private func registerCells() {
+        self.tableView.register(ImagePickerTableViewCell.self, forCellReuseIdentifier: ImagePickerTableViewCell.identifier)
+        self.tableView.register(NameCategoryTableViewCell.self, forCellReuseIdentifier: NameCategoryTableViewCell.identifier)
+        self.tableView.register(AddSizeButtonTableViewCell.self,
+                                forCellReuseIdentifier: AddSizeButtonTableViewCell.identifier )
     }
     
     private func createCancelButton(){

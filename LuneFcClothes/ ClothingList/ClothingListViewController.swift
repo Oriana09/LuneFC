@@ -17,12 +17,11 @@ class ClothingListViewController: UIViewController {
         tableView.register(ClothingTableViewCell.self, forCellReuseIdentifier: ClothingTableViewCell.identifier)
         tableView.delegate =  self
         tableView.dataSource = self
-
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
-  
     
     private var viewModel: ClothingListViewModel
     private var filteredItems: [ClothingItem] = []
@@ -44,7 +43,7 @@ class ClothingListViewController: UIViewController {
         self.setupConstrains()
         self.configuteButtom()
         self.viewModel.loadItems()
-        self.viewModel.loadSameProduct()
+        //        self.viewModel.loadSameProduct()
     }
     
     private func setupSearchController() {
@@ -53,9 +52,9 @@ class ClothingListViewController: UIViewController {
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.placeholder = "Buscar por nombre o código"
         self.navigationItem.searchController = searchController
-          definesPresentationContext = true
-      }
-      
+        definesPresentationContext = true
+    }
+    
     private func setupConstrains() {
         self.view.addSubview(self.tableView)
         
@@ -101,8 +100,8 @@ class ClothingListViewController: UIViewController {
         self.present(navigationVC, animated: true)
     }
     private func updateCategories() {
-        self.viewModel.loadSameProduct()
-//        self.viewModel.loadItems()
+        //        self.viewModel.loadSameProduct()
+        self.viewModel.loadItems()
         self.tableView.reloadData()
     }
 }
@@ -112,10 +111,9 @@ extension ClothingListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
-            return filteredItems.count // Mostrar la cantidad de elementos filtrados
+            return filteredItems.count
         }
-        return self.viewModel.clothins.count
-        //self.viewModel.items?.count ?? 1
+        return self.viewModel.items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -126,36 +124,29 @@ extension ClothingListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        var item = self.viewModel.clothins[indexPath.row]
+        let item: ClothingItem
+    
         if isFiltering() {
-             item = filteredItems[indexPath.row] // Usar el elemento filtrado
-         } else {
-             item = items[indexPath.row] // Usar el elemento original
-         }
-         
+            item = filteredItems[indexPath.row]
+        } else {
+            item = items[indexPath.row]
+        }
+        
         cell.configure(model: item)
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let selectedItem = self.viewModel.items?[indexPath.row] else {
-            return
-        }
-
-        let swiftUIView = ClothingDetailView(clothingItem: selectedItem)
-        let hostingController = UIHostingController(rootView: swiftUIView)
-        
-        self.navigationController?.pushViewController(hostingController, animated: true)
-        
-        
-        //            let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
-//    
-//    
-//            let navController = UINavigationController(rootViewController: productDetailVC)
-//    
-//            present(navController, animated: true, completion: nil)
-        }
+    //
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //
+    //        let productDetailVC = ProductDetailViewController(viewModel: ProductDatailViewModel(products: self.viewModel.items[indexPath.row]))
+    //
+    //
+    //        let navController = UINavigationController(rootViewController: productDetailVC)
+    //
+    //        present(navController, animated: true, completion: nil)
+    //        }
 }
 
 // MARK: -  UITableViewDelegate Methods
@@ -165,37 +156,37 @@ extension ClothingListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         
-            let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
-                
-                let alertController = UIAlertController(
-                    title: "Confirmar eliminación",
-                    message: "¿Deseas eliminar este producto de la lista de inventario?",
-                    preferredStyle: .alert
-                )
-                
-                let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel) { _ in
-                    completionHandler(false) // No eliminar, ya que canceló
-                }
-                
-                let confirmAction = UIAlertAction(title: "Eliminar", style: .destructive) { _ in
-                    guard let itemToRemove = self?.viewModel.clothins[indexPath.row] else {
-                        completionHandler(false)
-                        return
-                    }
-                    self?.viewModel.deleteClothinList(itemToRemove)
-                    tableView.reloadData()
-                    completionHandler(true) // Confirmar la eliminación
-                }
-                
-                alertController.addAction(cancelAction)
-                alertController.addAction(confirmAction)
-                
-                self?.present(alertController, animated: true, completion: nil)
+        let deleteAction = UIContextualAction(style: .destructive, title: "") { [weak self] (action, view, completionHandler) in
+            
+            let alertController = UIAlertController(
+                title: "Confirmar eliminación",
+                message: "¿Deseas eliminar este producto de la lista de inventario?",
+                preferredStyle: .alert
+            )
+            
+            let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel) { _ in
+                completionHandler(false) // No eliminar, ya que canceló
             }
             
-            deleteAction.image = UIImage(systemName: "trash")
+            let confirmAction = UIAlertAction(title: "Eliminar", style: .destructive) { _ in
+                guard let itemToRemove = self?.viewModel.clothes[indexPath.row] else {
+                    completionHandler(false)
+                    return
+                }
+                self?.viewModel.deleteClothinList(itemToRemove)
+                tableView.reloadData()
+                completionHandler(true) // Confirmar la eliminación
+            }
             
-            return UISwipeActionsConfiguration(actions: [deleteAction])
+            alertController.addAction(cancelAction)
+            alertController.addAction(confirmAction)
+            
+            self?.present(alertController, animated: true, completion: nil)
+        }
+        
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
@@ -216,11 +207,11 @@ extension ClothingListViewController: UISearchResultsUpdating {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
+        
         self.filteredItems = self.viewModel.items?.filter { (item: ClothingItem) -> Bool in
             return item.title.lowercased().contains(searchText.lowercased()) ||
             item.idCode.lowercased().contains(searchText.lowercased())
         } ?? []
-        print("Filtered items count: \(filteredItems.count)")
         tableView.reloadData()
     }
     
@@ -231,5 +222,4 @@ extension ClothingListViewController: UISearchResultsUpdating {
     private func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-    
 }
